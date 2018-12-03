@@ -44,11 +44,11 @@ namespace ML_Library
             return tempArray;
         }
 
-        private static double ActivateValue(double x, ActivationMethod activation, bool useDerivative)
+        private static double ActivateValue(double x, ActivationMethod activationMethod, bool useDerivative)
         {
             if (useDerivative)
             {
-                switch (activation)
+                switch (activationMethod)
                 {
                     case ActivationMethod.Sigmoid:
                         return x * (1 - x);
@@ -63,12 +63,12 @@ namespace ML_Library
                     case ActivationMethod.LreLU:
                         return x >= 0 ? 1 : 0.1;
                     default:
-                        throw new Exception(activation.ToString() + " is not a valid activation");
+                        throw new Exception(activationMethod.ToString() + " is not a valid activation");
                 }
             }
             else
             {
-                switch (activation)
+                switch (activationMethod)
                 {
                     case ActivationMethod.Sigmoid:
                         return 1 / (1 + Math.Exp(-x));
@@ -83,7 +83,7 @@ namespace ML_Library
                     case ActivationMethod.LreLU:
                         return x >= 0 ? x : 0.1 * x;
                     default:
-                        throw new Exception(activation.ToString() + " is not a valid activation");
+                        throw new Exception(activationMethod.ToString() + " is not a valid activation");
                 }
             }
         }
@@ -102,16 +102,16 @@ namespace ML_Library
             return tempMatrix;
         }
 
-        private static double ActivateValueInverse(double y, ActivationMethod activation)
+        private static double ActivateValueInverse(double y, ActivationMethod activationMethod)
         {
-            switch (activation)
+            switch (activationMethod)
             {
                 case ActivationMethod.Sigmoid:
                     return Math.Log(y / (1 - y));
                 case ActivationMethod.Arctan:
                     return Math.Tan(y);
                 default:
-                    throw new Exception(activation.ToString() + " is not a valid activation for inverse");
+                    throw new Exception(activationMethod.ToString() + " is not a valid activation for inverse");
             }
         }
     }

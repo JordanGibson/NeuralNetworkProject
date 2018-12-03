@@ -11,7 +11,7 @@ namespace XORTest
     {
         static int trainingIterations = 50000;
         static ActivationMethod activationMethod = ActivationMethod.Gudermannian;
-        static MLP network = new MLP(2);
+        static NeuralNetwork network = new NeuralNetwork(2);
 
         static void Main(string[] args)
         {

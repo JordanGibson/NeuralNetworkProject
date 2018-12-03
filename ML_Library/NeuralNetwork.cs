@@ -9,7 +9,7 @@ using System.IO;
 namespace ML_Library
 {
     [Serializable]
-    public class MLP
+    public class NeuralNetwork
     {
         [JsonProperty()]
         public List<FullyConnected> Structure { get; protected set; }
@@ -31,7 +31,7 @@ namespace ML_Library
 
 
 
-        public MLP(int inputCount)
+        public NeuralNetwork(int inputCount)
         {
             Structure = new List<FullyConnected>();
             InputCount = inputCount;
@@ -43,9 +43,9 @@ namespace ML_Library
             Structure.Add(new FullyConnected(nodeCount, activationMethod));
         }
 
-        public MLP Copy()
+        public NeuralNetwork Copy()
         {
-            MLP mlp = new MLP(InputCount);
+            NeuralNetwork mlp = new NeuralNetwork(InputCount);
             mlp.Structure = Structure;
             mlp.LearningRate = LearningRate;
             return mlp;
@@ -97,9 +97,9 @@ namespace ML_Library
             File.WriteAllText(path, output);
         }
 
-        public static MLP LoadFromFile(string path)
+        public static NeuralNetwork LoadFromFile(string path)
         {
-            return JsonConvert.DeserializeObject<MLP>(File.ReadAllText(path));
+            return JsonConvert.DeserializeObject<NeuralNetwork>(File.ReadAllText(path));
         }
     }
 }
