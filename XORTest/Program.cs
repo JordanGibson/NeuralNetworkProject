@@ -9,8 +9,8 @@ namespace XORTest
 {
     class Program
     {
-        static int trainingIterations = 50000;
-        static ActivationMethod activationMethod = ActivationMethod.Gudermannian;
+        static int trainingIterations = 5000;
+        static ActivationMethod activationMethod = ActivationMethod.LreLU;
         static NeuralNetwork network = new NeuralNetwork(2);
 
         static void Main(string[] args)
@@ -19,7 +19,9 @@ namespace XORTest
             network.AddLayer(4, activationMethod);
             network.AddLayer(2, activationMethod);
             network.AddLayer(1, activationMethod);
-            network.LearningRate = 0.3;
+
+            network.LearningRate = 0.2;
+
             List<double[]> inputs = new List<double[]>() { new double[] { 0, 0 }, new double[] { 0, 1 }, new double[] { 1, 0 }, new double[] { 1, 1 }};
             List<double[]> expectedOutputs = new List<double[]>() { new double [] { 0 }, new double[] { 1 }, new double[] { 1 }, new double[] { 0 }, };
             for(int i = 0; i < trainingIterations; i++)
