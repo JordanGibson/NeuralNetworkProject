@@ -45,10 +45,10 @@ namespace ML_Library
 
         public NeuralNetwork Copy()
         {
-            NeuralNetwork mlp = new NeuralNetwork(InputCount);
-            mlp.Structure = Structure;
-            mlp.LearningRate = LearningRate;
-            return mlp;
+            NeuralNetwork network = new NeuralNetwork(InputCount);
+            network.Structure = Structure;
+            network.LearningRate = LearningRate;
+            return network;
         }
 
         public double[] Predict(double[] inputs)

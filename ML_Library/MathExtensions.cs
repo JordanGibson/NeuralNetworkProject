@@ -8,19 +8,12 @@ namespace ML_Library
 {
     public static class MathExtension
     {
-        public static double RandomGaussian(double mean, double stdDev)
+        public static double RandomGaussian(double mean = 0, double stdDev = 1)
         {
-            double val1 = 1.0 - Utility.NextDouble();
-            double val2 = 1.0 - Utility.NextDouble();
-            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(val1)) * Math.Sin(2.0 * Math.PI * val2);
+            double a = 1.0 - Utility.NextDouble();
+            double b = 1.0 - Utility.NextDouble();
+            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(a)) * Math.Sin(2.0 * Math.PI * b);
             return mean + stdDev * randStdNormal;
-        }
-
-        public static double RandomGaussian()
-        {
-            double val1 = 1.0 - Utility.NextDouble();
-            double val2 = 1.0 - Utility.NextDouble();
-            return Math.Sqrt(-2.0 * Math.Log(val1)) * Math.Sin(2.0 * Math.PI * val2);
         }
 
         public static double[] ElementwiseSubtract(this double[] thisArray, double[] array)

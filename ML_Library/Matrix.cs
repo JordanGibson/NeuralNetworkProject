@@ -128,13 +128,13 @@ namespace ML_Library
         /// <param name="a">a.</param>
         /// <param name="subtractor">The b.</param>
         /// <returns></returns>
-        public Matrix Subtract(Matrix subtractor)
+        public Matrix Subtract(Matrix x)
         {
-            if (subtractor.Rows != Rows || subtractor.Cols != Cols)
+            if (x.Rows != Rows || x.Cols != Cols)
             {
                 throw new ArgumentException("Cannot subtract matrices with different dimensions");
             }
-            return subtractor.ScalarMultiply(-1).Add(this);
+            return x.ScalarMultiply(-1).Add(this);
         }
 
         /// <summary>
@@ -197,23 +197,23 @@ namespace ML_Library
         /// //Dot product of Matricies
         /// </summary>
         /// <param name="a">First matrix</param>
-        /// <param name="multiplicative">Second matrix</param>
+        /// <param name="x">Second matrix</param>
         /// <returns></returns>
-        public Matrix DotProduct(Matrix multiplicative)
+        public Matrix DotProduct(Matrix x)
         {
-            if (Cols != multiplicative.Rows)
+            if (Cols != x.Rows)
             {
                 throw new ArgumentException("Cols of A must Equal Rows of B");
             }
-            Matrix tempMatrix = new Matrix(Rows, multiplicative.Cols);
+            Matrix tempMatrix = new Matrix(Rows, x.Cols);
             double tempSum = 0;
             for (int i = 0; i < Rows; i++)
             {
-                for (int k = 0; k < multiplicative.Cols; k++)
+                for (int k = 0; k < x.Cols; k++)
                 {
                     for (int j = 0; j < Cols; j++)
                     {
-                        tempSum += Data[i, j] * multiplicative.Data[j, k];
+                        tempSum += Data[i, j] * x.Data[j, k];
                     }
                     tempMatrix.Data[i, k] = tempSum;
                     tempSum = 0;
