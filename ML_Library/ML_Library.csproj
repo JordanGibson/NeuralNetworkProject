@@ -46,7 +46,7 @@
     <Compile Include="Activater.cs" />
     <Compile Include="ActivationMethod.cs" />
     <Compile Include="FullyConnected.cs" />
-    <Compile Include="Layer.cs" />
+    <Compile Include="ILayer.cs" />
     <Compile Include="MathExtensions.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="NeuralNetwork.cs" />

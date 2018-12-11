@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ML_Library
+﻿namespace ML_Library
 {
+    /// <summary>Represents a given activation method</summary>
     public enum ActivationMethod
     {
         Sigmoid,

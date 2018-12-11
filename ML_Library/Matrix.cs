@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace ML_Library
 {
+    /// <summary>A class representing an abstract data type for representing collections of numbers and performing various operations on them</summary>
     [Serializable]
     public class Matrix
     {
+        /// <summary>Gets or sets the data to be stored in the matrix.</summary>
+        /// <value>The data.</value>
         public double[,] Data { get; set; }
 
-        public int Rows { get { return Data.GetLength(0); } }
-        public int Cols { get { return Data.GetLength(1); } }
+        /// <summary>Gets the number of rows in this matrix.</summary>
+        /// <value>The rows.</value>
+        public int Rows => Data.GetLength(0);
+        /// <summary>Gets the number of columns in this matrix.</summary>
+        /// <value>The cols.</value>
+        public int Cols => Data.GetLength(1);
 
         /// <summary>
         /// Create a new matrix with random values between -1 and 1
@@ -43,8 +46,10 @@ namespace ML_Library
         /// <returns></returns>
         public Matrix Copy()
         {
-            Matrix tempMatrix = new Matrix(Rows, Cols);
-            tempMatrix.Data = Data;
+            Matrix tempMatrix = new Matrix(Rows, Cols)
+            {
+                Data = Data
+            };
             return tempMatrix;
         }
 

@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ML_Library
 {
+    /// <summary>A helper class for providing functionality to access different mathematical activation methods</summary>
     public static class Activater
     {
+        /// <summary>Activates the matrix with the specified activation method.</summary>
+        /// <param name="matrix">The matrix to activate.</param>
+        /// <param name="activationMethod">The activation method.</param>
+        /// <param name="useDerivative">if set to <c>true</c> [use derivative].</param>
+        /// <returns></returns>
         public static Matrix Activate(this Matrix matrix, ActivationMethod activationMethod, bool useDerivative = false)
         {
             if (activationMethod == ActivationMethod.None)
@@ -26,6 +28,11 @@ namespace ML_Library
             return tempMatrix;
         }
 
+        /// <summary>Activates a 2D double array with the specified activation method.</summary>
+        /// <param name="array">The 2D double array to activate.</param>
+        /// <param name="activationMethod">The activation method.</param>
+        /// <param name="useDerivative">if set to <c>true</c> [use derivative].</param>
+        /// <returns></returns>
         public static double[,] Activate(this double[,] array, ActivationMethod activationMethod, bool useDerivative = false)
         {
             if (activationMethod == ActivationMethod.None)
@@ -44,6 +51,11 @@ namespace ML_Library
             return tempArray;
         }
 
+        /// <summary>Activates a given value with the specified activation method.</summary>
+        /// <param name="x">The value to activate.</param>
+        /// <param name="activationMethod">The activation method.</param>
+        /// <param name="useDerivative">if set to <c>true</c> [use derivative].</param>
+        /// <returns></returns>
         private static double ActivateValue(double x, ActivationMethod activationMethod, bool useDerivative)
         {
             if (useDerivative)
@@ -55,7 +67,7 @@ namespace ML_Library
                     case ActivationMethod.reLU:
                         return x >= 0 ? 1 : 0;
                     case ActivationMethod.Tanh:
-                        return 1 - (Math.Pow(Math.Tanh(x), 2));
+                        return 1 - Math.Pow(Math.Tanh(x), 2);
                     case ActivationMethod.Arctan:
                         return 1 / (1 + Math.Pow(x, 2));
                     case ActivationMethod.Gudermannian:
@@ -79,7 +91,7 @@ namespace ML_Library
                     case ActivationMethod.Arctan:
                         return Math.Atan(x);
                     case ActivationMethod.Gudermannian:
-                        return (2 * Math.Atan(Math.Tanh(x / 2)));
+                        return 2 * Math.Atan(Math.Tanh(x / 2));
                     case ActivationMethod.LreLU:
                         return x >= 0 ? x : 0.1 * x;
                     default:
@@ -88,6 +100,10 @@ namespace ML_Library
             }
         }
 
+        /// <summary>Activates a matrix with the specified inverse activation method.</summary>
+        /// <param name="matrix">The matrix to activate with the specified inverse activation method.</param>
+        /// <param name="activationMethod">The activation method.</param>
+        /// <returns></returns>
         public static Matrix ActivateInverse(this Matrix matrix, ActivationMethod activationMethod)
         {
             Matrix tempMatrix = new Matrix(matrix.Rows, matrix.Cols);
@@ -102,6 +118,11 @@ namespace ML_Library
             return tempMatrix;
         }
 
+        /// <summary>Activates the value with the specified inverse activation method.</summary>
+        /// <param name="y">The value to activate with the inverse activation method.</param>
+        /// <param name="activationMethod">The activation method.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private static double ActivateValueInverse(double y, ActivationMethod activationMethod)
         {
             switch (activationMethod)
