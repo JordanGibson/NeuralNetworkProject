@@ -19,9 +19,7 @@ namespace ML_Library
         /// <value>The input count.</value>
         [JsonProperty()]
         public int InputCount { get; protected set; }
-        /// <summary>Gets the current loss in the current state of the neural network.</summary>
-        /// <value>The current loss.</value>
-        public double CurrentLoss { get; private set; }
+
         /// <summary>Gets or sets the learning rate for the overall neural network.</summary>
         /// <value>The learning rate.</value>
         public double LearningRate
@@ -35,8 +33,29 @@ namespace ML_Library
                 }
             }
         }
-
-
+        
+        public Configuration Configuration
+        {
+            get
+            {
+                var activationMethods = new ActivationMethod[Structure.Count];
+                var layerCounts = new int[Structure.Count];
+                var learningRates = new double[Structure.Count];
+                for(int i = 0; i < Structure.Count; i++)
+                {
+                    activationMethods[i] = Structure[i].ActivationMethod;
+                    layerCounts[i] = Structure[i].NodeCount;
+                    learningRates[i] = Structure[i].LearningRate;
+                }
+                return new Configuration()
+                {
+                    ActivationMethods = activationMethods,
+                    LayerCounts = layerCounts,
+                    LearningRates = learningRates,
+                    InputCount = InputCount
+                };
+            }
+        }
 
         /// <summary>Initializes a new instance of the <see cref="NeuralNetwork"/> class.</summary>
         /// <param name="inputCount">The input count.</param>
@@ -95,7 +114,6 @@ namespace ML_Library
             }
 
             double[] actualOutput = Predict(inputs);
-            CurrentLoss = GetLoss(actualOutput, expectedOutputs);
             double[] errors = expectedOutputs.ElementwiseSubtract(actualOutput);
             for (int currentLayer = Structure.Count - 1; currentLayer > -1; currentLayer--)
             {
@@ -103,32 +121,41 @@ namespace ML_Library
             }
         }
 
-        /// <summary>Gets the loss based on the current state of the <see cref="NeuralNetwork"/>.</summary>
-        /// <param name="actual">The actual value predicted by the network.</param>
-        /// <param name="expected">The expected value.</param>
-        private double GetLoss(double[] actual, double[] expected)
-        {
-            double loss = 0;
-            for (int i = 0; i < actual.Length; i++)
-            {
-                loss += Math.Pow(expected[i] - actual[i], 2);
-            }
-            return loss / actual.Length;
-        }
-
         /// <summary>Saves this instance to the specified path.</summary>
         /// <param name="path">The path.</param>
-        public void Save(string path)
+        public void SaveInstance(string path)
         {
             string output = JsonConvert.SerializeObject(this);
             File.WriteAllText(path, output);
         }
+
+        public void SaveConfiguration(string path)
+        {
+            string output = JsonConvert.SerializeObject(Configuration);
+            File.WriteAllText(path, output);
+        } 
 
         /// <summary>Loads an instance of a <see cref="NeuralNetwork"/> from a Json file.</summary>
         /// <param name="path">The path to load from.</param>
         public static NeuralNetwork LoadFromFile(string path)
         {
             return JsonConvert.DeserializeObject<NeuralNetwork>(File.ReadAllText(path));
+        }
+
+        public static NeuralNetwork LoadFromConfigurationFile(string path)
+        {
+            return LoadFromConfiguration(JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(path)));
+        }
+
+        public static NeuralNetwork LoadFromConfiguration(Configuration config)
+        {
+            NeuralNetwork neuralNetwork = new NeuralNetwork(config.InputCount);
+            for(int i = 0; i < config.LayerCounts.Length; i++)
+            {
+                neuralNetwork.AddLayer(config.LayerCounts[i], config.ActivationMethods[i]);
+                neuralNetwork.Structure[i].LearningRate = config.LearningRates[i];
+            }
+            return neuralNetwork;
         }
     }
 }
