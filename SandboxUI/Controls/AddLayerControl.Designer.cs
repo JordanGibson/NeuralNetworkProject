@@ -110,6 +110,11 @@
             this.nudLearningRate.DecimalPlaces = 3;
             this.nudLearningRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.333333F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudLearningRate.ForeColor = System.Drawing.Color.White;
+            this.nudLearningRate.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.nudLearningRate.Location = new System.Drawing.Point(260, 4);
             this.nudLearningRate.Maximum = new decimal(new int[] {
             10,

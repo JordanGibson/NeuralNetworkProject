@@ -28,12 +28,6 @@ namespace SandboxUI.Forms
 
             lblWindowTitle.Text = formTitle;
         }
-        
-        public new virtual object ShowDialog()
-        {
-            base.ShowDialog();
-            return null;
-        }
 
         private void btnCloseWindow_Click(object sender, EventArgs e)
         {

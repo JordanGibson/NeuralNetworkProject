@@ -38,22 +38,15 @@ namespace ML_Library
         {
             get
             {
-                var activationMethods = new ActivationMethod[Structure.Count];
-                var layerCounts = new int[Structure.Count];
-                var learningRates = new double[Structure.Count];
+                Configuration config = new Configuration(Structure.Count);
                 for(int i = 0; i < Structure.Count; i++)
                 {
-                    activationMethods[i] = Structure[i].ActivationMethod;
-                    layerCounts[i] = Structure[i].NodeCount;
-                    learningRates[i] = Structure[i].LearningRate;
+                    config.ActivationMethods[i] = Structure[i].ActivationMethod;
+                    config.NodeCounts[i] = Structure[i].NodeCount;
+                    config.LearningRates[i] = Structure[i].LearningRate;
                 }
-                return new Configuration()
-                {
-                    ActivationMethods = activationMethods,
-                    LayerCounts = layerCounts,
-                    LearningRates = learningRates,
-                    InputCount = InputCount
-                };
+                config.InputCount = InputCount;
+                return config;
             }
         }
 
@@ -129,6 +122,8 @@ namespace ML_Library
             File.WriteAllText(path, output);
         }
 
+        /// <summary>Saves the configuration for the current instance.</summary>
+        /// <param name="path">The path to save to.</param>
         public void SaveConfiguration(string path)
         {
             string output = JsonConvert.SerializeObject(Configuration);
@@ -142,18 +137,25 @@ namespace ML_Library
             return JsonConvert.DeserializeObject<NeuralNetwork>(File.ReadAllText(path));
         }
 
+        /// <summary>Loads a new instance of <see cref="NeuralNetwork"/> from configuration file.</summary>
+        /// <param name="path"> The path to load the configuration file. </param>
+        /// <returns></returns>
         public static NeuralNetwork LoadFromConfigurationFile(string path)
         {
             return LoadFromConfiguration(JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(path)));
         }
 
+        /// <summary>Loads a new instance of <see cref="NeuralNetwork"/> from a configuration instance.</summary>
+        /// <param name="config">The configuration to load network from.</param>
+        /// <returns></returns>
         public static NeuralNetwork LoadFromConfiguration(Configuration config)
         {
             NeuralNetwork neuralNetwork = new NeuralNetwork(config.InputCount);
-            for(int i = 0; i < config.LayerCounts.Length; i++)
+            for(int i = 0; i < config.NodeCounts.Length; i++)
             {
-                neuralNetwork.AddLayer(config.LayerCounts[i], config.ActivationMethods[i]);
+                neuralNetwork.AddLayer(config.NodeCounts[i], config.ActivationMethods[i]);
                 neuralNetwork.Structure[i].LearningRate = config.LearningRates[i];
+                neuralNetwork.InputCount = config.InputCount;
             }
             return neuralNetwork;
         }

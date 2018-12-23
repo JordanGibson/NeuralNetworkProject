@@ -13,6 +13,11 @@ namespace SandboxUI.Controls
 {
     public partial class AddLayerControl : UserControl
     {
+        public ComboBox ActivationMethod { get { return cboActivationMethod; } }
+        public NumericUpDown LearningRate { get { return nudLearningRate; } }
+        public NumericUpDown NodeCount { get { return nudNodeCount; } }
+        public Label LayerNumber { get { return lblLayerNumber; } }
+
         public AddLayerControl(int firstLayerCount = 0)
         {
             InitializeComponent();

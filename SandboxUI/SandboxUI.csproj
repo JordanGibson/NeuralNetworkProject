@@ -138,6 +138,7 @@
       <DependentUpon>NewNetworkDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\CustomToolStripColorTable.cs" />
+    <Compile Include="Misc\Utility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\XORForm.cs">
