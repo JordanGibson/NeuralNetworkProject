@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace SandboxUI.Forms
 {
-    partial class BaseDialogForm
+    partial class BaseDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace SandboxUI.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseDialogForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseDialog));
             this.pnlWindowBar = new System.Windows.Forms.Panel();
             this.lblWindowTitle = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.btnCloseWindow = new System.Windows.Forms.Button();

@@ -15,14 +15,14 @@ using BunifuAnimatorNS;
 
 namespace SandboxUI.Forms
 {
-    public partial class BaseDialogForm : Form
+    public partial class BaseDialog : Form
     {
-        public BaseDialogForm()
+        public BaseDialog()
         {
             InitializeComponent();
         }
 
-        public BaseDialogForm(string formTitle)
+        public BaseDialog(string formTitle)
         {
             InitializeComponent();
 

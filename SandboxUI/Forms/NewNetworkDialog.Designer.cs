@@ -42,6 +42,10 @@
             this.ActivationMethod = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.LearningRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NodeCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblLayerNumber = new System.Windows.Forms.Label();
+            this.lblActivationMethod = new System.Windows.Forms.Label();
+            this.lblLearningRate = new System.Windows.Forms.Label();
+            this.lblNodeCount = new System.Windows.Forms.Label();
             this.pnlWindowBar.SuspendLayout();
             this.pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLayerConfiguration)).BeginInit();
@@ -51,34 +55,39 @@
             // 
             this.btnCloseWindow.FlatAppearance.BorderSize = 0;
             this.btnCloseWindow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Tomato;
-            this.btnCloseWindow.Location = new System.Drawing.Point(-236, 3);
+            this.btnCloseWindow.Location = new System.Drawing.Point(-2535, 3);
             this.btnCloseWindow.Visible = false;
             // 
             // pnlWindowBar
             // 
             this.pnlWindowBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlWindowBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlWindowBar.Size = new System.Drawing.Size(599, 51);
+            this.pnlWindowBar.Size = new System.Drawing.Size(532, 45);
             // 
             // pnlContent
             // 
+            this.pnlContent.Controls.Add(this.lblNodeCount);
+            this.pnlContent.Controls.Add(this.lblLearningRate);
+            this.pnlContent.Controls.Add(this.lblActivationMethod);
+            this.pnlContent.Controls.Add(this.lblLayerNumber);
             this.pnlContent.Controls.Add(this.dgvLayerConfiguration);
             this.pnlContent.Controls.Add(this.btnClear);
             this.pnlContent.Controls.Add(this.btnLoadConfig);
             this.pnlContent.Controls.Add(this.btnCancel);
             this.pnlContent.Controls.Add(this.btnCreateNetwork);
-            this.pnlContent.Location = new System.Drawing.Point(7, 56);
-            this.pnlContent.Margin = new System.Windows.Forms.Padding(20);
-            this.pnlContent.Size = new System.Drawing.Size(586, 401);
+            this.pnlContent.Location = new System.Drawing.Point(6, 48);
+            this.pnlContent.Margin = new System.Windows.Forms.Padding(18, 17, 18, 17);
+            this.pnlContent.Size = new System.Drawing.Size(521, 348);
             // 
             // btnCreateNetwork
             // 
             this.btnCreateNetwork.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateNetwork.BackColor = System.Drawing.Color.DarkGreen;
             this.btnCreateNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreateNetwork.Location = new System.Drawing.Point(415, 354);
+            this.btnCreateNetwork.Location = new System.Drawing.Point(369, 308);
+            this.btnCreateNetwork.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCreateNetwork.Name = "btnCreateNetwork";
-            this.btnCreateNetwork.Size = new System.Drawing.Size(162, 38);
+            this.btnCreateNetwork.Size = new System.Drawing.Size(144, 33);
             this.btnCreateNetwork.TabIndex = 3;
             this.btnCreateNetwork.Text = "Create Network";
             this.btnCreateNetwork.UseVisualStyleBackColor = false;
@@ -88,9 +97,10 @@
             // 
             this.btnCancel.BackColor = System.Drawing.Color.DarkRed;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(9, 355);
+            this.btnCancel.Location = new System.Drawing.Point(8, 308);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(89, 38);
+            this.btnCancel.Size = new System.Drawing.Size(79, 33);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -102,9 +112,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLoadConfig.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.btnLoadConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadConfig.Location = new System.Drawing.Point(213, 354);
+            this.btnLoadConfig.Location = new System.Drawing.Point(190, 308);
+            this.btnLoadConfig.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnLoadConfig.Name = "btnLoadConfig";
-            this.btnLoadConfig.Size = new System.Drawing.Size(196, 38);
+            this.btnLoadConfig.Size = new System.Drawing.Size(174, 33);
             this.btnLoadConfig.TabIndex = 5;
             this.btnLoadConfig.Text = "Load Configuration";
             this.btnLoadConfig.UseVisualStyleBackColor = false;
@@ -114,15 +125,17 @@
             // 
             this.btnClear.BackColor = System.Drawing.Color.Olive;
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClear.Location = new System.Drawing.Point(104, 354);
+            this.btnClear.Location = new System.Drawing.Point(92, 308);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(103, 38);
+            this.btnClear.Size = new System.Drawing.Size(92, 33);
             this.btnClear.TabIndex = 6;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
             // 
             // dgvLayerConfiguration
             // 
+            this.dgvLayerConfiguration.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvLayerConfiguration.BackgroundColor = System.Drawing.SystemColors.WindowFrame;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.WindowFrame;
@@ -133,18 +146,22 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvLayerConfiguration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvLayerConfiguration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLayerConfiguration.ColumnHeadersVisible = false;
             this.dgvLayerConfiguration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.LayerNumber,
             this.ActivationMethod,
             this.LearningRate,
             this.NodeCount});
+            this.dgvLayerConfiguration.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvLayerConfiguration.EnableHeadersVisualStyles = false;
             this.dgvLayerConfiguration.GridColor = System.Drawing.Color.White;
-            this.dgvLayerConfiguration.Location = new System.Drawing.Point(9, 4);
+            this.dgvLayerConfiguration.Location = new System.Drawing.Point(8, 45);
+            this.dgvLayerConfiguration.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dgvLayerConfiguration.Name = "dgvLayerConfiguration";
             this.dgvLayerConfiguration.RowHeadersVisible = false;
-            this.dgvLayerConfiguration.Size = new System.Drawing.Size(571, 345);
+            this.dgvLayerConfiguration.Size = new System.Drawing.Size(508, 258);
             this.dgvLayerConfiguration.TabIndex = 0;
+            this.dgvLayerConfiguration.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvLayerConfiguration_EditingControlShowing);
             this.dgvLayerConfiguration.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvLayerConfiguration_RowsAdded);
             // 
             // LayerNumber
@@ -171,7 +188,6 @@
             this.ActivationMethod.Name = "ActivationMethod";
             this.ActivationMethod.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ActivationMethod.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ActivationMethod.Width = 180;
             // 
             // LearningRate
             // 
@@ -182,7 +198,6 @@
             this.LearningRate.DefaultCellStyle = dataGridViewCellStyle4;
             this.LearningRate.HeaderText = "Learning Rate";
             this.LearningRate.Name = "LearningRate";
-            this.LearningRate.Width = 150;
             // 
             // NodeCount
             // 
@@ -193,19 +208,59 @@
             this.NodeCount.DefaultCellStyle = dataGridViewCellStyle5;
             this.NodeCount.HeaderText = "Node Count";
             this.NodeCount.Name = "NodeCount";
-            this.NodeCount.Width = 135;
+            // 
+            // lblLayerNumber
+            // 
+            this.lblLayerNumber.AutoSize = true;
+            this.lblLayerNumber.Location = new System.Drawing.Point(14, 12);
+            this.lblLayerNumber.Name = "lblLayerNumber";
+            this.lblLayerNumber.Size = new System.Drawing.Size(110, 21);
+            this.lblLayerNumber.TabIndex = 7;
+            this.lblLayerNumber.Text = "Layer Number";
+            // 
+            // lblActivationMethod
+            // 
+            this.lblActivationMethod.AutoSize = true;
+            this.lblActivationMethod.Location = new System.Drawing.Point(127, 12);
+            this.lblActivationMethod.Name = "lblActivationMethod";
+            this.lblActivationMethod.Size = new System.Drawing.Size(137, 21);
+            this.lblActivationMethod.TabIndex = 8;
+            this.lblActivationMethod.Text = "Activation Method";
+            this.lblActivationMethod.Click += new System.EventHandler(this.lblActivationMethod_Click);
+            // 
+            // lblLearningRate
+            // 
+            this.lblLearningRate.AutoSize = true;
+            this.lblLearningRate.Location = new System.Drawing.Point(274, 12);
+            this.lblLearningRate.Name = "lblLearningRate";
+            this.lblLearningRate.Size = new System.Drawing.Size(106, 21);
+            this.lblLearningRate.TabIndex = 9;
+            this.lblLearningRate.Text = "Learning Rate";
+            this.lblLearningRate.Click += new System.EventHandler(this.lblLearningRate_Click);
+            // 
+            // lblNodeCount
+            // 
+            this.lblNodeCount.AutoSize = true;
+            this.lblNodeCount.Location = new System.Drawing.Point(405, 12);
+            this.lblNodeCount.Name = "lblNodeCount";
+            this.lblNodeCount.Size = new System.Drawing.Size(94, 21);
+            this.lblNodeCount.TabIndex = 10;
+            this.lblNodeCount.Text = "Node Count";
+            this.lblNodeCount.Click += new System.EventHandler(this.lblNodeCount_Click);
             // 
             // NewNetworkDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 466);
+            this.ClientSize = new System.Drawing.Size(532, 405);
             this.ForeColor = System.Drawing.Color.White;
+            this.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.Name = "NewNetworkDialog";
             this.Text = "NewNetworkDialog";
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();
             this.pnlContent.ResumeLayout(false);
+            this.pnlContent.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLayerConfiguration)).EndInit();
             this.ResumeLayout(false);
 
@@ -221,5 +276,9 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn ActivationMethod;
         private System.Windows.Forms.DataGridViewTextBoxColumn LearningRate;
         private System.Windows.Forms.DataGridViewTextBoxColumn NodeCount;
+        private System.Windows.Forms.Label lblNodeCount;
+        private System.Windows.Forms.Label lblLearningRate;
+        private System.Windows.Forms.Label lblActivationMethod;
+        private System.Windows.Forms.Label lblLayerNumber;
     }
 }
