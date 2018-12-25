@@ -14,19 +14,18 @@ namespace SandboxUI.Forms
     public partial class NewNetworkDialog : BaseDialog
     {
         private NeuralNetwork Network;
-        private Configuration DefaultConfig { get; set; }
+        private int InputCount { get { return Network.InputCount; } }
+        private int OutputCount { get; set; }
 
-        public NewNetworkDialog(int inputCount) : base("New Network Configuration")
+        public NewNetworkDialog(int inputCount, int outputCount) : base("New Network Configuration")
         {
             InitializeComponent();
 
             ((DataGridViewComboBoxColumn)dgvLayerConfiguration.Columns[1]).DataSource = Enum.GetNames(typeof(ActivationMethod));
             Network = new NeuralNetwork(inputCount);
+            OutputCount = outputCount;
 
-            SetDefaultConfig();
-            LoadDefaultConfig();
-
-            SwitchCellState(dgvLayerConfiguration.Rows[0].Cells[3], false);
+            UpdateViewFromConfig();
         }
 
         public new NeuralNetwork ShowDialog()
@@ -51,31 +50,15 @@ namespace SandboxUI.Forms
         private Configuration GetConfigFromDgv()
         {
             Configuration config = new Configuration(dgvLayerConfiguration.Rows.Count - 1);
-            config.InputCount = int.Parse(dgvLayerConfiguration.Rows[0].Cells[3].Value.ToString());
+            config.InputCount = Network.InputCount;
 
-            for(int i = 1; i < dgvLayerConfiguration.Rows.Count - 1; i++)
+            for(int i = 0; i < dgvLayerConfiguration.Rows.Count - 1; i++)
             {
-                config.ActivationMethods[i] = (ActivationMethod)((DataGridViewComboBoxCell)dgvLayerConfiguration.Rows[i].Cells[1]).Value;
-                config.NodeCounts[i] = int.Parse(dgvLayerConfiguration.Rows[i].Cells[3].ToString());
-                config.LearningRates[i] = double.Parse(dgvLayerConfiguration.Rows[i].Cells[2].ToString());
+                config.ActivationMethods[i] = (ActivationMethod)Enum.Parse(typeof(ActivationMethod), ((DataGridViewComboBoxCell)dgvLayerConfiguration.Rows[i].Cells[1]).Value.ToString());
+                config.NodeCounts[i] = int.Parse(dgvLayerConfiguration.Rows[i].Cells[3].Value.ToString());
+                config.LearningRates[i] = double.Parse(dgvLayerConfiguration.Rows[i].Cells[2].Value.ToString());
             }
             return config;
-        }
-
-        private void SetDefaultConfig()
-        {
-            Configuration config = new Configuration(1);
-            config.InputCount = Network.InputCount;
-            config.LearningRates = new double[] { 0.3 };
-            config.NodeCounts = new int[] { 2 };
-            config.ActivationMethods = new ActivationMethod[] { ML_Library.ActivationMethod.Arctan };
-            DefaultConfig = config;
-        }
-
-        private void LoadDefaultConfig()
-        {
-            Network = NeuralNetwork.LoadFromConfiguration(DefaultConfig);
-            UpdateViewFromConfig();
         }
 
         /// <summary>Updates the view of the current <see cref="NewNetworkDialog"/> add layer control panel
@@ -113,6 +96,8 @@ namespace SandboxUI.Forms
         
         private void FillColumnWithValue(string value, int columnIndex)
         {
+            dgvLayerConfiguration.ClearSelection();
+            pnlContent.Focus();
             for (int i = 0; i < dgvLayerConfiguration.Rows.Count - 1; i++)
             {
                 dgvLayerConfiguration.Rows[i].Cells[columnIndex].Value = value;
@@ -122,7 +107,7 @@ namespace SandboxUI.Forms
         private void lblActivationMethod_Click(object sender, EventArgs e)
         {
             GetComboBoxValueDialog cboDialog = new GetComboBoxValueDialog(typeof(ActivationMethod));
-            string result = cboDialog.ShowDialog("Select activation method to fill").ToString();
+            string result = cboDialog.ShowDialog("Fill Activation Method").ToString();
             if (result.ToString() == "")
                 return;
             FillColumnWithValue(result, 1);
@@ -131,19 +116,10 @@ namespace SandboxUI.Forms
         private void lblLearningRate_Click(object sender, EventArgs e)
         {
             GetNUDValueDialog nudDialog = new GetNUDValueDialog(3);
-            double result = nudDialog.ShowDialog("Enter learning rate to fill");
+            double result = nudDialog.ShowDialog("Fill Learning Rate");
             if (result == -1)
                 return;
             FillColumnWithValue(result.ToString(), 2);
-        }
-
-        private void lblNodeCount_Click(object sender, EventArgs e)
-        {
-            GetNUDValueDialog nudDialog = new GetNUDValueDialog(0);
-            double result = nudDialog.ShowDialog("Enter node count to fill");
-            if (result == -1)
-                return;
-            FillColumnWithValue(result.ToString(), 3);
         }
 
         private void dgvLayerConfiguration_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -157,7 +133,7 @@ namespace SandboxUI.Forms
             {
                 e.Control.KeyPress += new KeyPressEventHandler(ValidateInputWithDecimal);
             }
-            else if(dgvLayerConfiguration.CurrentCell.ColumnIndex == 3)
+            if(dgvLayerConfiguration.CurrentCell.ColumnIndex == 3)
             {
                 e.Control.KeyPress += new KeyPressEventHandler(ValidateInputNoDecimal);
             }

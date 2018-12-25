@@ -40,11 +40,17 @@
             // 
             this.btnCloseWindow.FlatAppearance.BorderSize = 0;
             this.btnCloseWindow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Tomato;
-            this.btnCloseWindow.Location = new System.Drawing.Point(221, 0);
+            this.btnCloseWindow.Location = new System.Drawing.Point(249, 0);
+            this.btnCloseWindow.Visible = false;
             // 
             // pnlWindowBar
             // 
-            this.pnlWindowBar.Size = new System.Drawing.Size(276, 40);
+            this.pnlWindowBar.Size = new System.Drawing.Size(310, 20);
+            // 
+            // lblWindowTitle
+            // 
+            this.lblWindowTitle.Size = new System.Drawing.Size(0, 23);
+            this.lblWindowTitle.Text = "";
             // 
             // pnlContent
             // 
@@ -52,15 +58,16 @@
             this.pnlContent.Controls.Add(this.btnCancel);
             this.pnlContent.Controls.Add(this.btnConfirm);
             this.pnlContent.Controls.Add(this.lblMessage);
-            this.pnlContent.Size = new System.Drawing.Size(251, 114);
+            this.pnlContent.Location = new System.Drawing.Point(13, 30);
+            this.pnlContent.Size = new System.Drawing.Size(282, 130);
             // 
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.ForeColor = System.Drawing.Color.White;
-            this.lblMessage.Location = new System.Drawing.Point(15, 13);
+            this.lblMessage.Location = new System.Drawing.Point(17, 15);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(52, 21);
+            this.lblMessage.Size = new System.Drawing.Size(55, 23);
             this.lblMessage.TabIndex = 0;
             this.lblMessage.Text = "label1";
             // 
@@ -69,9 +76,9 @@
             this.btnConfirm.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.btnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfirm.ForeColor = System.Drawing.Color.White;
-            this.btnConfirm.Location = new System.Drawing.Point(151, 73);
+            this.btnConfirm.Location = new System.Drawing.Point(170, 84);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(84, 30);
+            this.btnConfirm.Size = new System.Drawing.Size(94, 34);
             this.btnConfirm.TabIndex = 2;
             this.btnConfirm.Text = "Confirm";
             this.btnConfirm.UseVisualStyleBackColor = true;
@@ -82,9 +89,9 @@
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(61, 72);
+            this.btnCancel.Location = new System.Drawing.Point(69, 84);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(84, 30);
+            this.btnCancel.Size = new System.Drawing.Size(94, 34);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -96,17 +103,18 @@
             this.cboValue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboValue.ForeColor = System.Drawing.Color.White;
             this.cboValue.FormattingEnabled = true;
-            this.cboValue.Location = new System.Drawing.Point(19, 38);
+            this.cboValue.Location = new System.Drawing.Point(21, 44);
             this.cboValue.Name = "cboValue";
-            this.cboValue.Size = new System.Drawing.Size(216, 28);
+            this.cboValue.Size = new System.Drawing.Size(242, 31);
             this.cboValue.TabIndex = 4;
             // 
-            // GetValueComboBoxDialog
+            // GetComboBoxValueDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 173);
-            this.Name = "GetValueComboBoxDialog";
+            this.ClientSize = new System.Drawing.Size(310, 172);
+            this.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.Name = "GetComboBoxValueDialog";
             this.Text = "FillValueForm";
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();

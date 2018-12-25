@@ -46,8 +46,8 @@ namespace SandboxUI.Forms
             this.pnlWindowBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlWindowBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.pnlWindowBar.Controls.Add(this.lblWindowTitle);
             this.pnlWindowBar.Controls.Add(this.btnCloseWindow);
+            this.pnlWindowBar.Controls.Add(this.lblWindowTitle);
             this.pnlWindowBar.Location = new System.Drawing.Point(0, 0);
             this.pnlWindowBar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pnlWindowBar.Name = "pnlWindowBar";
@@ -99,7 +99,7 @@ namespace SandboxUI.Forms
             this.pnlContent.Size = new System.Drawing.Size(852, 616);
             this.pnlContent.TabIndex = 1;
             // 
-            // BaseDialogForm
+            // BaseDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -110,7 +110,7 @@ namespace SandboxUI.Forms
             this.Font = new System.Drawing.Font("Segoe UI", 11.33333F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.Name = "BaseDialogForm";
+            this.Name = "BaseDialog";
             this.Text = "BaseWindow";
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();
