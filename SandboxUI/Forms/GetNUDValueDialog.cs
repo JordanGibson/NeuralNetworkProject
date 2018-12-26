@@ -12,18 +12,23 @@ namespace SandboxUI.Forms
 {
     public partial class GetNUDValueDialog : BaseDialog
     {
+        public NumericUpDown NudValue { get { return nudValue; } }
         bool cancel = false;
 
-        public GetNUDValueDialog(int decimalPlaces)
+        public GetNUDValueDialog(int decimalPlaces, int minimum = 0, int maximum = 10000)
         {
             InitializeComponent();
+            nudValue.DecimalPlaces = decimalPlaces;
+            nudValue.Minimum = minimum;
+            nudValue.Maximum = maximum;
+            nudValue.Increment = (decimal)(1 * Math.Pow(10, -decimalPlaces));
         }
 
-        public double ShowDialog(string message, Type dataSource = null)
+        public double ShowDialog(string message)
         {
             lblMessage.Text = message;
             ShowDialog();
-            return cancel ? -1 : (double)nudValue.Value;
+            return cancel ? throw new ApplicationException("User cancel was unhandled") : (double)nudValue.Value;
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)

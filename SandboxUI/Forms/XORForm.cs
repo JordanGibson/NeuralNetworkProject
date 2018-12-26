@@ -21,8 +21,7 @@ namespace SandboxUI.Forms
 
         private void btnNewNetwork_Click(object sender, EventArgs e)
         {
-            NewNetworkDialog newNetworkDialog = new NewNetworkDialog(2, 1);
-            Network = newNetworkDialog.ShowDialog();
+            
         }
     }
 }

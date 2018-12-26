@@ -14,6 +14,7 @@ namespace SandboxUI.Forms
     public partial class NewNetworkDialog : BaseDialog
     {
         private NeuralNetwork Network;
+        private int MaxDepth { get; set; } = 20;
         private int InputCount { get { return Network.InputCount; } }
         private int OutputCount { get; set; }
 
@@ -107,16 +108,17 @@ namespace SandboxUI.Forms
         private void lblActivationMethod_Click(object sender, EventArgs e)
         {
             GetComboBoxValueDialog cboDialog = new GetComboBoxValueDialog(typeof(ActivationMethod));
-            string result = cboDialog.ShowDialog("Fill Activation Method").ToString();
-            if (result.ToString() == "")
+            object result = cboDialog.ShowDialog("Fill Activation Method");
+            if (result == null)
                 return;
-            FillColumnWithValue(result, 1);
+            FillColumnWithValue(result.ToString(), 1);
         }
 
         private void lblLearningRate_Click(object sender, EventArgs e)
         {
             GetNUDValueDialog nudDialog = new GetNUDValueDialog(3);
-            double result = nudDialog.ShowDialog("Fill Learning Rate");
+            double result = -1;
+            try { result = nudDialog.ShowDialog("Fill Learning Rate"); } catch (ApplicationException) { }
             if (result == -1)
                 return;
             FillColumnWithValue(result.ToString(), 2);
@@ -124,16 +126,19 @@ namespace SandboxUI.Forms
 
         private void dgvLayerConfiguration_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            dgvLayerConfiguration.Rows[dgvLayerConfiguration.RowCount - 1].Cells[0].Value = dgvLayerConfiguration.RowCount - 1;
+            int layerCount = dgvLayerConfiguration.RowCount - 1;
+            dgvLayerConfiguration.Rows[e.RowIndex].Cells[0].Value = layerCount;
         }
         
         private void dgvLayerConfiguration_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if(dgvLayerConfiguration.CurrentCell.ColumnIndex == 2)
+            e.Control.KeyPress -= new KeyPressEventHandler(ValidateInputWithDecimal);
+            e.Control.KeyPress -= new KeyPressEventHandler(ValidateInputNoDecimal);
+            if (dgvLayerConfiguration.CurrentCell.ColumnIndex == 2)
             {
                 e.Control.KeyPress += new KeyPressEventHandler(ValidateInputWithDecimal);
             }
-            if(dgvLayerConfiguration.CurrentCell.ColumnIndex == 3)
+            if (dgvLayerConfiguration.CurrentCell.ColumnIndex == 3)
             {
                 e.Control.KeyPress += new KeyPressEventHandler(ValidateInputNoDecimal);
             }
@@ -156,6 +161,58 @@ namespace SandboxUI.Forms
             {
                 e.Handled = true;
             }
+        }
+
+        private void dgvLayerConfiguration_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.Cell == null || e.StateChanged != DataGridViewElementStates.Selected)
+                return;
+            
+            if(e.Cell.ColumnIndex == 0)
+            {
+                e.Cell.Selected = false;
+                dgvLayerConfiguration.Rows[e.Cell.RowIndex].Cells[e.Cell.ColumnIndex + 1].Selected = true;
+            }
+        }
+
+        private void RenumberLayers()
+        {
+            for(int i = 0; i < dgvLayerConfiguration.Rows.Count; i++)
+            {
+                var row = dgvLayerConfiguration.Rows[i];
+                row.Cells[0].Value = i;
+            }
+        }
+
+        private void lblLayerNumber_Click(object sender, EventArgs e)
+        {
+            int rowCount = dgvLayerConfiguration.Rows.Count;
+            GetNUDValueDialog nudDialog = new GetNUDValueDialog(0, 1 - rowCount, MaxDepth - rowCount);
+            int rowsToAdd = 0;
+            try { rowsToAdd = (int)nudDialog.ShowDialog("Add / Remove Layers"); } catch(ApplicationException) { }
+            if (rowsToAdd + rowCount > MaxDepth)
+            {
+                MessageBox.Show("You cannot have more than 20 layers in a network!");
+                rowsToAdd = MaxDepth - rowCount;
+            }
+            if(rowsToAdd + rowCount < 0)
+            {
+                MessageBox.Show(string.Format("You cannot have {0} layers in a network", rowCount + rowsToAdd));
+                rowsToAdd = -rowCount;
+            }
+            for (int i = 0; i < Math.Abs(rowsToAdd); i++)
+            {
+                if (rowsToAdd < 0)
+                    dgvLayerConfiguration.Rows.RemoveAt(rowCount - i - 2);
+                if (rowsToAdd > 0)
+                    dgvLayerConfiguration.Rows.Insert(dgvLayerConfiguration.RowCount - 1, new DataGridViewRow());
+            }
+            RenumberLayers();
+        }
+
+        private void dgvLayerConfiguration_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
         }
     }
 }

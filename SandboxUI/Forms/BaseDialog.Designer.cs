@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Bunifu.Framework.UI;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SandboxUI.Forms
@@ -34,10 +35,11 @@ namespace SandboxUI.Forms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseDialog));
             this.pnlWindowBar = new System.Windows.Forms.Panel();
-            this.lblWindowTitle = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.btnCloseWindow = new System.Windows.Forms.Button();
+            this.lblWindowTitle = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.bdcWindowDragger = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.bdcLabelDragger = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlWindowBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,17 +56,6 @@ namespace SandboxUI.Forms
             this.pnlWindowBar.Size = new System.Drawing.Size(877, 40);
             this.pnlWindowBar.TabIndex = 0;
             // 
-            // lblWindowTitle
-            // 
-            this.lblWindowTitle.AutoSize = true;
-            this.lblWindowTitle.ForeColor = System.Drawing.Color.White;
-            this.lblWindowTitle.Location = new System.Drawing.Point(11, 11);
-            this.lblWindowTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblWindowTitle.Name = "lblWindowTitle";
-            this.lblWindowTitle.Size = new System.Drawing.Size(167, 23);
-            this.lblWindowTitle.TabIndex = 3;
-            this.lblWindowTitle.Text = "bunifuCustomLabel1";
-            // 
             // btnCloseWindow
             // 
             this.btnCloseWindow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -80,6 +71,17 @@ namespace SandboxUI.Forms
             this.btnCloseWindow.TabIndex = 0;
             this.btnCloseWindow.UseVisualStyleBackColor = true;
             this.btnCloseWindow.Click += new System.EventHandler(this.btnCloseWindow_Click);
+            // 
+            // lblWindowTitle
+            // 
+            this.lblWindowTitle.AutoSize = true;
+            this.lblWindowTitle.ForeColor = System.Drawing.Color.White;
+            this.lblWindowTitle.Location = new System.Drawing.Point(11, 11);
+            this.lblWindowTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblWindowTitle.Name = "lblWindowTitle";
+            this.lblWindowTitle.Size = new System.Drawing.Size(155, 21);
+            this.lblWindowTitle.TabIndex = 3;
+            this.lblWindowTitle.Text = "bunifuCustomLabel1";
             // 
             // bdcWindowDragger
             // 
@@ -99,9 +101,16 @@ namespace SandboxUI.Forms
             this.pnlContent.Size = new System.Drawing.Size(852, 616);
             this.pnlContent.TabIndex = 1;
             // 
+            // bdcLabelDragger
+            // 
+            this.bdcLabelDragger.Fixed = true;
+            this.bdcLabelDragger.Horizontal = true;
+            this.bdcLabelDragger.TargetControl = this.lblWindowTitle;
+            this.bdcLabelDragger.Vertical = true;
+            // 
             // BaseDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(877, 675);
@@ -175,8 +184,9 @@ namespace SandboxUI.Forms
         #endregion
         protected System.Windows.Forms.Button btnCloseWindow;
         protected System.Windows.Forms.Panel pnlWindowBar;
-        protected Bunifu.Framework.UI.BunifuDragControl bdcWindowDragger;
-        protected Bunifu.Framework.UI.BunifuCustomLabel lblWindowTitle;
+        protected BunifuDragControl bdcWindowDragger;
+        protected BunifuCustomLabel lblWindowTitle;
         protected Panel pnlContent;
+        private BunifuDragControl bdcLabelDragger;
     }
 }

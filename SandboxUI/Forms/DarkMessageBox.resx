@@ -117,41 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnMinimizeWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB
-        +gAAAfoBF4pEbwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAhSURBVFhH7c4x
-        AQAADMOg+je9ycgDChgAkLtYHwAAWtsDeJj/ARNJ8qsAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnMaximizeWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB
-        +gAAAfoBF4pEbwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABcSURBVFhH7c5B
-        CsBADELR3P/S7ebvbWZSCOLbBYxYESs9P6FeIz+Oeo389weBugw4H8DZxrvRAE6JuOGALt6NBnBKxDPA
-        cEAX7wYDblGXAf0B06jXyI+jPmKTqhdvtSwNljahdgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnCloseWindow.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB
-        +gAAAfoBF4pEbwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFSSURBVFhH7ZZL
-        TsMwFEW7AGBEK0E7gC12HyyOjxCfAbCSco50XRlUhThtSgc50lUtv891nMTNbGLipNlsNhcZDmZwDwrv
-        0Ce6zVQz1qIve2WqHxSco1ckL+gqod5Qc51a8fcsoX5QsECPVoM7cZPQn5DrlVsj9pgn1AaFzYswJ7li
-        7SKhYdggjaRzEcaSI/ubF2yUhrJzEc4lJoczL9gQPdkdPtB2EY7ReOYFG6OyiHe0QscxL2CgqebyHIlz
-        y6SNC0b1Tojjca+8BrM5etA5OB72rreCUf1G1LfgKPd/id50g3t0ierd8Pge5zmwMarNt1vuGJVFmHPY
-        RdDQJ7+Y77zfziUm5q4S2g8a+Z578Ejnw2YsOfLjsBqEDVA5ZDrNC+YkV4YvgsL6L7WXecHc1Ig92j5q
-        KDiJD5I1arry31iLPB/WmWqDwv/7KJ2YOA6z2Td5kI9h2VwXEQAAAABJRU5ErkJggg==
-</value>
-  </data>
   <metadata name="bdcWindowDragger.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </metadata>
-  <metadata name="ellipseStyler.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>197, 17</value>
-  </metadata>
-  <metadata name="bdcLabelDragger.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>313, 17</value>
   </metadata>
 </root>

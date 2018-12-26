@@ -22,18 +22,12 @@ namespace ML_Library
 
         /// <summary>Gets or sets the learning rate for the overall neural network.</summary>
         /// <value>The learning rate.</value>
-        public double LearningRate
-        {
-            get => Structure[0].LearningRate;
-            set
-            {
-                foreach (FullyConnected layer in Structure)
-                {
-                    layer.LearningRate = value;
-                }
-            }
-        }
+        public double[] LearningRates { get { return Structure.Select(l => l.LearningRate).ToArray(); }  }
         
+        public ActivationMethod[] ActivationMethods { get { return Structure.Select(l => l.ActivationMethod).ToArray(); } }
+
+        public double CurrentError { get; private set; } = double.PositiveInfinity;
+
         public Configuration Configuration
         {
             get
@@ -56,7 +50,19 @@ namespace ML_Library
         {
             Structure = new List<FullyConnected>();
             InputCount = inputCount;
-            LearningRate = 0.1;
+        }
+
+        public void SetLearningRate(double learningRate)
+        {
+            foreach(var layer in Structure)
+            {
+                layer.LearningRate = learningRate;
+            }
+        }
+
+        public void SetLearningRate(double learningRate, int layer)
+        {
+            Structure[layer].LearningRate = learningRate;
         }
 
         /// <summary>Adds a layer to the current structure.</summary>
@@ -72,8 +78,7 @@ namespace ML_Library
         {
             NeuralNetwork network = new NeuralNetwork(InputCount)
             {
-                Structure = Structure,
-                LearningRate = LearningRate
+                Structure = Structure
             };
             return network;
         }
