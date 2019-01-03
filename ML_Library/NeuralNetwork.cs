@@ -20,6 +20,8 @@ namespace ML_Library
         [JsonProperty()]
         public int InputCount { get; protected set; }
 
+        public bool HasLayers { get { return Structure.Count != 0; } }
+
         /// <summary>Gets or sets the learning rate for the overall neural network.</summary>
         /// <value>The learning rate.</value>
         public double[] LearningRates { get { return Structure.Select(l => l.LearningRate).ToArray(); }  }
@@ -110,7 +112,6 @@ namespace ML_Library
             {
                 throw new ArgumentException("The given arguements do not correspond to the network configuration.");
             }
-
             double[] actualOutput = Predict(inputs);
             double[] errors = expectedOutputs.ElementwiseSubtract(actualOutput);
             for (int currentLayer = Structure.Count - 1; currentLayer > -1; currentLayer--)

@@ -30,5 +30,36 @@ namespace ML_Library
             }
             return tempArr;
         }
+
+        public static double GetActivationMethodMaxValue(ActivationMethod activationMethod)
+        {
+            switch (activationMethod)
+            {
+                case ActivationMethod.Sigmoid:
+                case ActivationMethod.Tanh:
+                    return 1;
+                case ActivationMethod.Arctan:
+                case ActivationMethod.Gudermannian:
+                    return Math.PI / 2;
+                default:
+                    throw new Exception("Invalid Activation Method!");
+            }
+        }
+
+        public static double GetActivationMethodMinValue(ActivationMethod activationMethod)
+        {
+            switch (activationMethod)
+            {
+                case ActivationMethod.Sigmoid:
+                    return 0;
+                case ActivationMethod.Tanh:
+                    return -1;
+                case ActivationMethod.Arctan:
+                case ActivationMethod.Gudermannian:
+                    return -Math.PI / 2;
+                default:
+                    throw new Exception("Invalid Activation Method!");
+            }
+        }
     }
 }

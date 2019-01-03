@@ -64,16 +64,12 @@ namespace ML_Library
                 {
                     case ActivationMethod.Sigmoid:
                         return x * (1 - x);
-                    case ActivationMethod.reLU:
-                        return x >= 0 ? 1 : 0;
                     case ActivationMethod.Tanh:
                         return 1 - Math.Pow(Math.Tanh(x), 2);
                     case ActivationMethod.Arctan:
                         return 1 / (1 + Math.Pow(x, 2));
                     case ActivationMethod.Gudermannian:
                         return 1 / Math.Cosh(x);
-                    case ActivationMethod.LreLU:
-                        return x >= 0 ? 1 : 0.1;
                     default:
                         throw new Exception(activationMethod.ToString() + " is not a valid activation");
                 }
@@ -84,16 +80,12 @@ namespace ML_Library
                 {
                     case ActivationMethod.Sigmoid:
                         return 1 / (1 + Math.Exp(-x));
-                    case ActivationMethod.reLU:
-                        return x > 0 ? x : 0;
                     case ActivationMethod.Tanh:
                         return Math.Tanh(x);
                     case ActivationMethod.Arctan:
                         return Math.Atan(x);
                     case ActivationMethod.Gudermannian:
                         return 2 * Math.Atan(Math.Tanh(x / 2));
-                    case ActivationMethod.LreLU:
-                        return x >= 0 ? x : 0.1 * x;
                     default:
                         throw new Exception(activationMethod.ToString() + " is not a valid activation");
                 }

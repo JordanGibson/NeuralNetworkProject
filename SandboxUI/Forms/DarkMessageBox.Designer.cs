@@ -99,7 +99,7 @@
 
         #endregion
 
-        private System.Windows.Forms.RichTextBox txtMessage;
-        private System.Windows.Forms.Button btnOk;
+        public System.Windows.Forms.RichTextBox txtMessage;
+        public System.Windows.Forms.Button btnOk;
     }
 }

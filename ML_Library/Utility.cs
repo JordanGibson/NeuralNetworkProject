@@ -29,7 +29,23 @@ namespace ML_Library
         /// <param name="resultEnd">The upper bound of the final values' range</param>
         public static double Map(double value, double valueStart, double valueEnd, double resultStart, double resultEnd)
         {
-            return 0;
+            return (resultEnd - resultStart) * (value - valueStart) / (valueEnd - valueStart) + resultStart;
+        }
+
+        /// <summary>Map values from an initial given range to a new given range</summary>
+        /// <param name="values">Values to map to new range</param>
+        /// <param name="valueStart">The lower bound of the initial values' range</param>
+        /// <param name="valueEnd">The upper bound of the initial values' range</param>
+        /// <param name="resultStart">The lower bound of the final values' range</param>
+        /// <param name="resultEnd">The upper bound of the final values' range</param>
+        public static double[] Map(double[] values, double valueStart, double valueEnd, double resultStart, double resultEnd)
+        {
+            double[] newValues = new double[values.Length];
+            for(int i = 0; i < values.Length; i++)
+            {
+                newValues[i] = (resultEnd - resultStart) * (values[i] - valueStart) / (valueEnd - valueStart) + resultStart;
+            }
+            return newValues;
         }
 
         /// <summary>Ensures a value does not go beyond a given range</summary>

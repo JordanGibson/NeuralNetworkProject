@@ -4,11 +4,9 @@
     public enum ActivationMethod
     {
         Sigmoid,
-        reLU,
         Tanh,
         Arctan,
         Gudermannian,
-        LreLU,
         None
     }
 }

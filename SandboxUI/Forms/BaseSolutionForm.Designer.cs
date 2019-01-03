@@ -33,6 +33,10 @@ namespace SandboxUI.Forms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseSolutionForm));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnlWindowBar = new System.Windows.Forms.Panel();
             this.lblWindowTitle = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.btnMinimizeWindow = new System.Windows.Forms.Button();
@@ -42,6 +46,17 @@ namespace SandboxUI.Forms
             this.ellipseStyler = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bdcLabelDragger = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.pnlNetworkTraining = new System.Windows.Forms.Panel();
+            this.nudTrainX = new System.Windows.Forms.NumericUpDown();
+            this.btnTrainX = new System.Windows.Forms.Button();
+            this.btnTrain2000 = new System.Windows.Forms.Button();
+            this.btnTrain500 = new System.Windows.Forms.Button();
+            this.lblPreviouslyTrainedCount = new System.Windows.Forms.Label();
+            this.lblTrainedCount = new System.Windows.Forms.Label();
+            this.lblNetworkState = new System.Windows.Forms.Label();
+            this.chtLossOvertime = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.pbxVisualRepresentation = new System.Windows.Forms.PictureBox();
+            this.chtCurrentStateLoss = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlNetworkConfiguration = new System.Windows.Forms.Panel();
             this.btnClearNetwork = new System.Windows.Forms.Button();
             this.btnEditNetwork = new System.Windows.Forms.Button();
@@ -53,6 +68,11 @@ namespace SandboxUI.Forms
             this.lblNetworkConfig = new System.Windows.Forms.Label();
             this.pnlWindowBar.SuspendLayout();
             this.pnlContent.SuspendLayout();
+            this.pnlNetworkTraining.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTrainX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chtLossOvertime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxVisualRepresentation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chtCurrentStateLoss)).BeginInit();
             this.pnlNetworkConfiguration.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +87,7 @@ namespace SandboxUI.Forms
             this.pnlWindowBar.Location = new System.Drawing.Point(0, 0);
             this.pnlWindowBar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pnlWindowBar.Name = "pnlWindowBar";
-            this.pnlWindowBar.Size = new System.Drawing.Size(843, 40);
+            this.pnlWindowBar.Size = new System.Drawing.Size(937, 40);
             this.pnlWindowBar.TabIndex = 0;
             this.pnlWindowBar.DoubleClick += new System.EventHandler(this.pnlWindowBar_DoubleClick);
             // 
@@ -91,7 +111,7 @@ namespace SandboxUI.Forms
             this.btnMinimizeWindow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimizeWindow.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimizeWindow.Image")));
             this.btnMinimizeWindow.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnMinimizeWindow.Location = new System.Drawing.Point(678, 0);
+            this.btnMinimizeWindow.Location = new System.Drawing.Point(772, 0);
             this.btnMinimizeWindow.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnMinimizeWindow.Name = "btnMinimizeWindow";
             this.btnMinimizeWindow.Size = new System.Drawing.Size(55, 40);
@@ -107,7 +127,7 @@ namespace SandboxUI.Forms
             this.btnMaximizeWindow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
             this.btnMaximizeWindow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMaximizeWindow.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizeWindow.Image")));
-            this.btnMaximizeWindow.Location = new System.Drawing.Point(733, 0);
+            this.btnMaximizeWindow.Location = new System.Drawing.Point(827, 0);
             this.btnMaximizeWindow.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnMaximizeWindow.Name = "btnMaximizeWindow";
             this.btnMaximizeWindow.Size = new System.Drawing.Size(55, 40);
@@ -123,7 +143,7 @@ namespace SandboxUI.Forms
             this.btnCloseWindow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Tomato;
             this.btnCloseWindow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseWindow.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseWindow.Image")));
-            this.btnCloseWindow.Location = new System.Drawing.Point(788, 0);
+            this.btnCloseWindow.Location = new System.Drawing.Point(882, 0);
             this.btnCloseWindow.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCloseWindow.Name = "btnCloseWindow";
             this.btnCloseWindow.Size = new System.Drawing.Size(55, 40);
@@ -156,11 +176,239 @@ namespace SandboxUI.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContent.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.pnlContent.Controls.Add(this.pnlNetworkTraining);
+            this.pnlContent.Controls.Add(this.chtLossOvertime);
+            this.pnlContent.Controls.Add(this.pbxVisualRepresentation);
+            this.pnlContent.Controls.Add(this.chtCurrentStateLoss);
             this.pnlContent.Controls.Add(this.pnlNetworkConfiguration);
             this.pnlContent.Location = new System.Drawing.Point(13, 47);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(818, 390);
+            this.pnlContent.Size = new System.Drawing.Size(912, 563);
             this.pnlContent.TabIndex = 1;
+            // 
+            // pnlNetworkTraining
+            // 
+            this.pnlNetworkTraining.Controls.Add(this.nudTrainX);
+            this.pnlNetworkTraining.Controls.Add(this.btnTrainX);
+            this.pnlNetworkTraining.Controls.Add(this.btnTrain2000);
+            this.pnlNetworkTraining.Controls.Add(this.btnTrain500);
+            this.pnlNetworkTraining.Controls.Add(this.lblPreviouslyTrainedCount);
+            this.pnlNetworkTraining.Controls.Add(this.lblTrainedCount);
+            this.pnlNetworkTraining.Controls.Add(this.lblNetworkState);
+            this.pnlNetworkTraining.Enabled = false;
+            this.pnlNetworkTraining.Location = new System.Drawing.Point(299, 3);
+            this.pnlNetworkTraining.Name = "pnlNetworkTraining";
+            this.pnlNetworkTraining.Size = new System.Drawing.Size(290, 261);
+            this.pnlNetworkTraining.TabIndex = 8;
+            // 
+            // nudTrainX
+            // 
+            this.nudTrainX.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.nudTrainX.ForeColor = System.Drawing.Color.White;
+            this.nudTrainX.Location = new System.Drawing.Point(8, 177);
+            this.nudTrainX.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.nudTrainX.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudTrainX.Name = "nudTrainX";
+            this.nudTrainX.Size = new System.Drawing.Size(272, 28);
+            this.nudTrainX.TabIndex = 8;
+            this.nudTrainX.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudTrainX.ValueChanged += new System.EventHandler(this.nudTrainX_ValueChanged);
+            this.nudTrainX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudTrainX_KeyPress);
+            // 
+            // btnTrainX
+            // 
+            this.btnTrainX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTrainX.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnTrainX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnTrainX.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTrainX.Location = new System.Drawing.Point(8, 213);
+            this.btnTrainX.Name = "btnTrainX";
+            this.btnTrainX.Size = new System.Drawing.Size(272, 37);
+            this.btnTrainX.TabIndex = 7;
+            this.btnTrainX.Text = "Train 10 Iterations";
+            this.btnTrainX.UseVisualStyleBackColor = true;
+            this.btnTrainX.Click += new System.EventHandler(this.btnTrainX_Click);
+            // 
+            // btnTrain2000
+            // 
+            this.btnTrain2000.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTrain2000.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnTrain2000.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(125)))));
+            this.btnTrain2000.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTrain2000.Location = new System.Drawing.Point(8, 134);
+            this.btnTrain2000.Name = "btnTrain2000";
+            this.btnTrain2000.Size = new System.Drawing.Size(272, 37);
+            this.btnTrain2000.TabIndex = 6;
+            this.btnTrain2000.Text = "Train 2000 Iterations";
+            this.btnTrain2000.UseVisualStyleBackColor = true;
+            this.btnTrain2000.Click += new System.EventHandler(this.btnTrain2000_Click);
+            // 
+            // btnTrain500
+            // 
+            this.btnTrain500.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTrain500.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnTrain500.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(125)))), ((int)(((byte)(64)))));
+            this.btnTrain500.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTrain500.Location = new System.Drawing.Point(8, 91);
+            this.btnTrain500.Name = "btnTrain500";
+            this.btnTrain500.Size = new System.Drawing.Size(272, 37);
+            this.btnTrain500.TabIndex = 5;
+            this.btnTrain500.Text = "Train 500 Iterations";
+            this.btnTrain500.UseVisualStyleBackColor = true;
+            this.btnTrain500.Click += new System.EventHandler(this.btnTrain500_Click);
+            // 
+            // lblPreviouslyTrainedCount
+            // 
+            this.lblPreviouslyTrainedCount.AutoSize = true;
+            this.lblPreviouslyTrainedCount.Location = new System.Drawing.Point(7, 56);
+            this.lblPreviouslyTrainedCount.Name = "lblPreviouslyTrainedCount";
+            this.lblPreviouslyTrainedCount.Size = new System.Drawing.Size(146, 21);
+            this.lblPreviouslyTrainedCount.TabIndex = 3;
+            this.lblPreviouslyTrainedCount.Text = "Last Trained Count: ";
+            // 
+            // lblTrainedCount
+            // 
+            this.lblTrainedCount.AutoSize = true;
+            this.lblTrainedCount.Location = new System.Drawing.Point(7, 29);
+            this.lblTrainedCount.Name = "lblTrainedCount";
+            this.lblTrainedCount.Size = new System.Drawing.Size(142, 21);
+            this.lblTrainedCount.TabIndex = 1;
+            this.lblTrainedCount.Text = "Trained Count: N/A";
+            // 
+            // lblNetworkState
+            // 
+            this.lblNetworkState.AutoSize = true;
+            this.lblNetworkState.Location = new System.Drawing.Point(4, 3);
+            this.lblNetworkState.Name = "lblNetworkState";
+            this.lblNetworkState.Size = new System.Drawing.Size(108, 21);
+            this.lblNetworkState.TabIndex = 0;
+            this.lblNetworkState.Text = "Network State";
+            // 
+            // chtLossOvertime
+            // 
+            this.chtLossOvertime.BackColor = System.Drawing.SystemColors.WindowFrame;
+            chartArea1.AxisX.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            chartArea1.BorderColor = System.Drawing.Color.White;
+            chartArea1.Name = "ChartArea1";
+            this.chtLossOvertime.ChartAreas.Add(chartArea1);
+            this.chtLossOvertime.Location = new System.Drawing.Point(299, 270);
+            this.chtLossOvertime.Name = "chtLossOvertime";
+            series1.BorderColor = System.Drawing.Color.Black;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            series1.Name = "Series1";
+            this.chtLossOvertime.Series.Add(series1);
+            this.chtLossOvertime.Size = new System.Drawing.Size(609, 258);
+            this.chtLossOvertime.TabIndex = 5;
+            // 
+            // pbxVisualRepresentation
+            // 
+            this.pbxVisualRepresentation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pbxVisualRepresentation.Location = new System.Drawing.Point(3, 270);
+            this.pbxVisualRepresentation.Name = "pbxVisualRepresentation";
+            this.pbxVisualRepresentation.Size = new System.Drawing.Size(290, 290);
+            this.pbxVisualRepresentation.TabIndex = 4;
+            this.pbxVisualRepresentation.TabStop = false;
+            // 
+            // chtCurrentStateLoss
+            // 
+            this.chtCurrentStateLoss.BackColor = System.Drawing.SystemColors.WindowFrame;
+            chartArea2.AxisX.InterlacedColor = System.Drawing.Color.White;
+            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisX.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX.Title = "Training Iterations";
+            chartArea2.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.InterlacedColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisX2.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY.InterlacedColor = System.Drawing.Color.White;
+            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY.Title = "Loss";
+            chartArea2.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.InterlacedColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea2.AxisY2.TitleForeColor = System.Drawing.Color.White;
+            chartArea2.BackColor = System.Drawing.SystemColors.WindowFrame;
+            chartArea2.BorderColor = System.Drawing.Color.White;
+            chartArea2.Name = "ChartArea1";
+            this.chtCurrentStateLoss.ChartAreas.Add(chartArea2);
+            this.chtCurrentStateLoss.Location = new System.Drawing.Point(579, 6);
+            this.chtCurrentStateLoss.Name = "chtCurrentStateLoss";
+            series2.BorderColor = System.Drawing.Color.Black;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            series2.Name = "Series1";
+            this.chtCurrentStateLoss.Series.Add(series2);
+            this.chtCurrentStateLoss.Size = new System.Drawing.Size(330, 258);
+            this.chtCurrentStateLoss.TabIndex = 3;
             // 
             // pnlNetworkConfiguration
             // 
@@ -181,6 +429,7 @@ namespace SandboxUI.Forms
             // 
             this.btnClearNetwork.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearNetwork.Enabled = false;
             this.btnClearNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnClearNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnClearNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -196,6 +445,7 @@ namespace SandboxUI.Forms
             // 
             this.btnEditNetwork.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditNetwork.Enabled = false;
             this.btnEditNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnEditNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(125)))));
             this.btnEditNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -280,7 +530,7 @@ namespace SandboxUI.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(843, 449);
+            this.ClientSize = new System.Drawing.Size(937, 622);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlWindowBar);
             this.Font = new System.Drawing.Font("Segoe UI", 11.33333F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -292,6 +542,12 @@ namespace SandboxUI.Forms
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();
             this.pnlContent.ResumeLayout(false);
+            this.pnlNetworkTraining.ResumeLayout(false);
+            this.pnlNetworkTraining.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTrainX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chtLossOvertime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxVisualRepresentation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chtCurrentStateLoss)).EndInit();
             this.pnlNetworkConfiguration.ResumeLayout(false);
             this.pnlNetworkConfiguration.PerformLayout();
             this.ResumeLayout(false);
@@ -317,5 +573,16 @@ namespace SandboxUI.Forms
         public Label lblLearningRate;
         public Label lblNetworkStructure;
         public Label lblNetworkConfig;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chtCurrentStateLoss;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chtLossOvertime;
+        public Panel pnlNetworkTraining;
+        public Button btnTrainX;
+        public Button btnTrain2000;
+        public Button btnTrain500;
+        public Label lblPreviouslyTrainedCount;
+        public Label lblTrainedCount;
+        public Label lblNetworkState;
+        public PictureBox pbxVisualRepresentation;
+        private NumericUpDown nudTrainX;
     }
 }

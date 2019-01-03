@@ -78,6 +78,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>True</Private>
     </Reference>
@@ -133,6 +136,12 @@
     <Compile Include="Forms\DarkMessageBox.Designer.cs">
       <DependentUpon>DarkMessageBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DarkMessageBoxYesNo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DarkMessageBoxYesNo.Designer.cs">
+      <DependentUpon>DarkMessageBoxYesNo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\GetComboBoxValueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,14 +154,27 @@
     <Compile Include="Forms\GetNUDValueDialog.Designer.cs">
       <DependentUpon>GetNUDValueDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditNetworkDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditNetworkDialog.Designer.cs">
+      <DependentUpon>EditNetworkDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseNetworkConfigurationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseNetworkConfigurationDialog.Designer.cs">
+      <DependentUpon>BaseNetworkConfigurationDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\NewNetworkDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\NewNetworkDialog.Designer.cs">
       <DependentUpon>NewNetworkDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Misc\CustomToolStripColorTable.cs" />
     <Compile Include="Misc\Utility.cs" />
+    <Compile Include="ProjectHelper\Project.cs" />
+    <Compile Include="ProjectHelper\ProjectSettings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\XORForm.cs">
@@ -171,11 +193,20 @@
     <EmbeddedResource Include="Forms\DarkMessageBox.resx">
       <DependentUpon>DarkMessageBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DarkMessageBoxYesNo.resx">
+      <DependentUpon>DarkMessageBoxYesNo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\GetComboBoxValueDialog.resx">
       <DependentUpon>GetComboBoxValueDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GetNUDValueDialog.resx">
       <DependentUpon>GetNUDValueDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditNetworkDialog.resx">
+      <DependentUpon>EditNetworkDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseNetworkConfigurationDialog.resx">
+      <DependentUpon>BaseNetworkConfigurationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\NewNetworkDialog.resx">
       <DependentUpon>NewNetworkDialog.cs</DependentUpon>
@@ -194,6 +225,7 @@
       <DependentUpon>XORForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
