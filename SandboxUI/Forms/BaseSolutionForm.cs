@@ -107,7 +107,7 @@ namespace SandboxUI.Forms
             }));
         }
 
-        private void btnNewNetwork_Click(object sender, EventArgs e)
+        public virtual void btnNewNetwork_Click(object sender, EventArgs e)
         {
             NewNetworkDialog newNetworkDialog = new NewNetworkDialog(projectSettings);
             Network = newNetworkDialog.ShowDialog();

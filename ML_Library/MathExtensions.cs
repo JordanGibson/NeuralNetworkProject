@@ -41,6 +41,8 @@ namespace ML_Library
                 case ActivationMethod.Arctan:
                 case ActivationMethod.Gudermannian:
                     return Math.PI / 2;
+                case ActivationMethod.ReLU:
+                    return double.PositiveInfinity;
                 default:
                     throw new Exception("Invalid Activation Method!");
             }
@@ -51,6 +53,7 @@ namespace ML_Library
             switch (activationMethod)
             {
                 case ActivationMethod.Sigmoid:
+                case ActivationMethod.ReLU:
                     return 0;
                 case ActivationMethod.Tanh:
                     return -1;
