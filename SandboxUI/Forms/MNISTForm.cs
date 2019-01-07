@@ -17,8 +17,10 @@ namespace SandboxUI.Forms
     public partial class MNISTForm : BaseSolutionForm
     {
         private CancellationTokenSource cancellationTokenSource;
-        private string trainImgPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-images.idx3-ubyte";
-        private string trainLblPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-labels.idx1-ubyte";
+        private string trainImgPath = @"C:\Users\jorda\Source\Repos\JordanGibson\NeuralNetworkProject3\SandboxUI\Resources\train-images.idx3-ubyte";
+        private string trainLblPath = @"C:\Users\jorda\Source\Repos\JordanGibson\NeuralNetworkProject3\SandboxUI\Resources\train-labels.idx1-ubyte";
+        private string testImgPath = @"C:\Users\jorda\Downloads\t10k-images.idx3-ubyte";
+        private string testLblPath = @"C:\Users\jorda\Downloads\t10k-labels.idx1-ubyte";
 
         public MNISTForm() : base(ProjectHelper.Project.MNIST)
         {
@@ -48,6 +50,8 @@ namespace SandboxUI.Forms
                 if (e % 5 == 0)
                     ticks = (long)((double)stopwatch.Elapsed.Ticks / e * (iterations - e));
                 UpdateTrainingProgress(e, iterations, ticks);
+                if (e % 5000 == 0)
+                    Network.SaveInstance(@"C:\Users\jorda\Documents\trained" + (e + 10000) + "k.mlp");
                 TrainedCount++; };
 
             Network.Train(Inputs, ExpectedOutputs, progress, cancellationToken);
@@ -71,7 +75,7 @@ namespace SandboxUI.Forms
             {
                 for (int y = 0; y < 28; y++)
                 {
-                    var pixel = (int)image[x + (y * 28)];
+                    var pixel = (int)Utility.Clamp(image[x + (y * 28)] * 255, 0, 255);
                     var color = Color.FromArgb(pixel, pixel, pixel);
                     bmp.SetPixel(x, y, color);
                 }
@@ -99,6 +103,42 @@ namespace SandboxUI.Forms
         {
             Inputs = await Misc.MNISTLoader.GetImagesAsync(trainImgPath, 0, 100);
             ExpectedOutputs = await Misc.MNISTLoader.GetLabelsAsync(trainLblPath, 0, 100);
+        }
+
+        private async void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            string filePath = Misc.Utility.GetSaveFilePath("Text Document", "txt");
+            if (filePath == "")
+                return;
+
+            ToggleNetworkTraining(true);
+
+            Inputs = await Misc.MNISTLoader.GetImagesAsync(testImgPath, 0, 10000);
+            ExpectedOutputs = await Misc.MNISTLoader.GetLabelsAsync(testLblPath, 0, 10000);
+
+            IProgress<double> progress = new Progress<double>(new Action<double>((i) => UpdateTrainingProgress((int)i, 10000, 0)));
+
+            int correct = 0, incorrect = 0;
+
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < Inputs.Length; i++)
+                {
+                    List<double> prediction = Network.Predict(Inputs[i]).ToList();
+                    if (prediction.IndexOf(prediction.Max()) == ExpectedOutputs[i].ToList().IndexOf(1))
+                    {
+                        correct++;
+                    }
+                    else
+                    {
+                        incorrect++;
+                    }
+                    progress.Report(i);
+                }
+            });
+
+            File.WriteAllText(filePath, string.Format("Correct: {1} {0} {0} Incorrect: {2} {0} {0} Success Rate: {3}%", Environment.NewLine, correct, incorrect, (double)correct / 100));
+            ToggleNetworkTraining(false);
         }
     }
 }

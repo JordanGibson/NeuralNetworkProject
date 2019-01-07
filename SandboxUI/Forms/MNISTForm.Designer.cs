@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnNextImage = new System.Windows.Forms.Button();
+            this.btnGenerateReport = new System.Windows.Forms.Button();
             this.pnlWindowBar.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.pnlNetworkConfiguration.SuspendLayout();
@@ -82,6 +83,7 @@
             // 
             // pnlNetworkTraining
             // 
+            this.pnlNetworkTraining.Controls.Add(this.btnGenerateReport);
             this.pnlNetworkTraining.Controls.Add(this.btnNextImage);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.lblNetworkState, 0);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.lblTrainedCount, 0);
@@ -90,13 +92,15 @@
             this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrain2000, 0);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrainX, 0);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.btnNextImage, 0);
+            this.pnlNetworkTraining.Controls.SetChildIndex(this.btnGenerateReport, 0);
             // 
             // btnTrainX
             // 
             this.btnTrainX.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnTrainX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnTrainX.Location = new System.Drawing.Point(135, 213);
-            this.btnTrainX.Size = new System.Drawing.Size(145, 37);
+            this.btnTrainX.Location = new System.Drawing.Point(7, 211);
+            this.btnTrainX.Size = new System.Drawing.Size(105, 37);
+            this.btnTrainX.Text = "Train";
             // 
             // btnTrain2000
             // 
@@ -148,13 +152,28 @@
             this.btnNextImage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnNextImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnNextImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextImage.Location = new System.Drawing.Point(8, 213);
+            this.btnNextImage.Location = new System.Drawing.Point(118, 211);
             this.btnNextImage.Name = "btnNextImage";
-            this.btnNextImage.Size = new System.Drawing.Size(121, 37);
+            this.btnNextImage.Size = new System.Drawing.Size(81, 37);
             this.btnNextImage.TabIndex = 9;
-            this.btnNextImage.Text = "Next Image";
+            this.btnNextImage.Text = "Next";
             this.btnNextImage.UseVisualStyleBackColor = true;
             this.btnNextImage.Click += new System.EventHandler(this.btnNextImage_Click);
+            // 
+            // btnGenerateReport
+            // 
+            this.btnGenerateReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGenerateReport.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnGenerateReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnGenerateReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerateReport.Location = new System.Drawing.Point(205, 211);
+            this.btnGenerateReport.Name = "btnGenerateReport";
+            this.btnGenerateReport.Size = new System.Drawing.Size(75, 37);
+            this.btnGenerateReport.TabIndex = 10;
+            this.btnGenerateReport.Text = "Report";
+            this.btnGenerateReport.UseVisualStyleBackColor = true;
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // MNISTForm
             // 
@@ -180,5 +199,6 @@
 
         #endregion
         public System.Windows.Forms.Button btnNextImage;
+        public System.Windows.Forms.Button btnGenerateReport;
     }
 }
