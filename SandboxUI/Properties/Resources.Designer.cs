@@ -59,5 +59,23 @@ namespace SandboxUI.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-images.idx3-ubyte.
+        /// </summary>
+        internal static string train_images {
+            get {
+                return ResourceManager.GetString("train_images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-labels.idx1-ubyte.
+        /// </summary>
+        internal static string train_labels {
+            get {
+                return ResourceManager.GetString("train_labels", resourceCulture);
+            }
+        }
     }
 }

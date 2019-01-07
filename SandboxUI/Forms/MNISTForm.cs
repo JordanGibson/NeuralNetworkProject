@@ -32,8 +32,8 @@ namespace SandboxUI.Forms
 
         private async void Train(int iterations, CancellationToken cancellationToken)
         {
-            Inputs = await Misc.MNISTLoader.GetImagesAsync(@"C:\users\jordan\desktop\train-images.idx3-ubyte", TrainedCount % 50000, iterations);
-            ExpectedOutputs = await Misc.MNISTLoader.GetLabelsAsync(@"C:\users\jordan\desktop\train-labels.idx1-ubyte", TrainedCount % 50000, iterations);
+            Inputs = await Misc.MNISTLoader.GetImagesAsync(@".\Data\train-images.idx3-ubyte", TrainedCount % 50000, iterations);
+            ExpectedOutputs = await Misc.MNISTLoader.GetLabelsAsync(@".\Data\train-labels.idx1-ubyte", TrainedCount % 50000, iterations);
 
             ToggleNetworkTraining(true);
             Invoke(new Action(() => pgbTrainingProgress.Maximum = iterations));
@@ -94,8 +94,8 @@ namespace SandboxUI.Forms
 
         private async void MNISTForm_Load(object sender, EventArgs e)
         {
-            Inputs = await Misc.MNISTLoader.GetImagesAsync(@"C:\users\jordan\desktop\train-images.idx3-ubyte", 0, 10);
-            ExpectedOutputs = await Misc.MNISTLoader.GetLabelsAsync(@"C:\users\jordan\desktop\train-labels.idx1-ubyte", 0, 10);
+            Inputs = await Misc.MNISTLoader.GetImagesAsync(Properties.Resources.train_images, 0, 10);
+            ExpectedOutputs = await Misc.MNISTLoader.GetLabelsAsync(Properties.Resources.train_labels, 0, 10);
         }
     }
 }
