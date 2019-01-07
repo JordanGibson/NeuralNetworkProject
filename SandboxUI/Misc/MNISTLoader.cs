@@ -22,7 +22,7 @@ namespace SandboxUI.Misc
                         byte[] bResult = new byte[784];
                         br.BaseStream.Seek(((start + i) * 784) + 16, SeekOrigin.Begin);
                         br.Read(bResult, 0, 784);
-                        result[i] = bResult.Select(o => 255 - Convert.ToDouble(o)).ToArray();
+                        result[i] = bResult.Select(o => Convert.ToDouble(o) / 255).ToArray();
                     }
                 }
             });
