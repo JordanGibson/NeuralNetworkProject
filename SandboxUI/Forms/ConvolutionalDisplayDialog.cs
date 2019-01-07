@@ -45,9 +45,12 @@ namespace SandboxUI.Forms
                         button.Text = "Convolutional " + convCount;
                         break;
                 }
-                button.Tag = i;
-                button.Click += Button_Click;
-                flpButtonHeaders.Controls.Add(button);
+                if (button.Text != "")
+                {
+                    button.Tag = i;
+                    button.Click += Button_Click;
+                    flpButtonHeaders.Controls.Add(button);
+                }
             }
         }
 

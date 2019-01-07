@@ -27,6 +27,8 @@ namespace SandboxUI.Forms
         protected double[][] ExpectedOutputs;
         protected int TrainedCount;
 
+        public bool isTrainingDataLoaded { get { return Inputs != null && ExpectedOutputs != null; } }
+
 
         public BaseSolutionForm()
         {
@@ -81,10 +83,40 @@ namespace SandboxUI.Forms
             btnEditNetwork.Enabled = isNetworkLoaded;
             btnClearNetwork.Enabled = isNetworkLoaded;
             pnlNetworkTraining.Enabled = isNetworkLoaded;
+            btnSaveNetwork.Enabled = isNetworkLoaded;
             btnNewNetwork.Enabled = !isNetworkLoaded;
+            btnLoadNetwork.Enabled = !isNetworkLoaded;
 
             if (isNetworkLoaded)
             {
+                if(Network.Structure.All(o => o.ActivationMethod == Network.Structure[0].ActivationMethod))
+                {
+                    lblActivationMethod.Text = "Activation Method: " + Network.Structure[0].ActivationMethod.ToString();
+                    lblActivationMethod.MouseEnter -= clickableLabels_MouseEnter;
+                    lblActivationMethod.MouseLeave -= clickableLabels_MouseLeave;
+                    lblActivationMethod.Click -= lblActivationMethod_Click;
+                }
+                else
+                {
+                    lblActivationMethod.Text = "Show Activation Methods";
+                    lblActivationMethod.MouseEnter += clickableLabels_MouseEnter;
+                    lblActivationMethod.MouseLeave += clickableLabels_MouseLeave;
+                    lblActivationMethod.Click += lblActivationMethod_Click;
+                }
+                if (Network.Structure.All(o => o.LearningRate == Network.Structure[0].LearningRate))
+                {
+                    lblLearningRate.Text = "Learning Rate: "+ Network.Structure[0].LearningRate.ToString();
+                    lblLearningRate.MouseEnter -= clickableLabels_MouseEnter;
+                    lblLearningRate.MouseLeave -= clickableLabels_MouseLeave;
+                    lblLearningRate.Click -= lblLearningRate_Click;
+                }
+                else
+                {
+                    lblLearningRate.Text = "Show Learning Rates";
+                    lblLearningRate.MouseEnter += clickableLabels_MouseEnter;
+                    lblLearningRate.MouseLeave += clickableLabels_MouseLeave;
+                    lblLearningRate.Click += lblLearningRate_Click;
+                }
                 lblNetworkStructure.Text = "Structure: " + Network.InputCount + "-" + string.Join("-", Network.Structure.Select(l => l.NodeCount));
                 if (Network.CurrentError == double.PositiveInfinity)
                     lblCurrentError.Text = "Current Error: N/A";
@@ -93,21 +125,30 @@ namespace SandboxUI.Forms
             }
             else
             {
+                lblLearningRate.Text = "Show Learning Rates";
+                lblActivationMethod.Text = "Show Activation Methods";
                 lblNetworkStructure.Text = "Structure: N/A";
                 lblCurrentError.Text = "Current Error: N/A";
                 pbxVisualRepresentation.Image = null;
             }
+            AdditionalUIStatusUpdate();
         }
 
-        protected void ToggleUIEnabled(bool enabled)
+        protected virtual void AdditionalUIStatusUpdate()
+        {
+
+        }
+
+        protected void ToggleNetworkTraining(bool enabled)
         {
             pnlNetworkConfiguration.BeginInvoke(new Action(() => {
-                pnlNetworkConfiguration.Enabled = enabled;
-                pnlNetworkTraining.Enabled = enabled;
+                pnlNetworkConfiguration.Enabled = !enabled;
+                pnlNetworkTraining.Enabled = !enabled;
+                pnlTrainingStatus.Visible = enabled;
             }));
         }
 
-        public virtual void btnNewNetwork_Click(object sender, EventArgs e)
+        private void btnNewNetwork_Click(object sender, EventArgs e)
         {
             NewNetworkDialog newNetworkDialog = new NewNetworkDialog(projectSettings);
             Network = newNetworkDialog.ShowDialog();
@@ -189,6 +230,31 @@ namespace SandboxUI.Forms
         private void nudTrainX_KeyPress(object sender, KeyPressEventArgs e)
         {
             btnTrainX.Text = string.Format("Train {0} Iterations", nudTrainX.Value);
+        }
+
+        private void btnLoadNetwork_Click(object sender, EventArgs e)
+        {
+            string filePath = Misc.Utility.GetOpenFilePath("Multi-Layer Perceptron", "mlp");
+            if (filePath == "")
+                return;
+            NeuralNetwork network = NeuralNetwork.LoadFromFile(filePath);
+            if(network.InputCount != projectSettings.InputCount || network.Configuration.NodeCounts.Last() != projectSettings.OutputCount)
+            {
+                DarkMessageBox messageBox = new DarkMessageBox();
+                messageBox.ShowDialog("The network loaded is incompatable with the project type " + projectSettings.Name + ". " +
+                    "\nProject Configuration:\nInput Count: " + projectSettings.InputCount + "  Output Count: " + projectSettings.OutputCount +
+                    "\nLoaded Configuration:\nInput Count: " + network.InputCount + "  Output Count: " + network.Configuration.NodeCounts.Last(), "Load Failed - Configuration Mismatch");
+            }
+            Network = NeuralNetwork.LoadFromFile(filePath);
+            UpdateUIStatus();
+        }
+
+        private void btnSaveNetwork_Click(object sender, EventArgs e)
+        {
+            string filePath = Misc.Utility.GetSaveFilePath("Multi-Layer Perceptron", "mlp");
+            if (filePath == "")
+                return;
+            Network.SaveInstance(filePath);
         }
     }
 }

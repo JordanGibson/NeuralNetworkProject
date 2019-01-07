@@ -64,5 +64,15 @@ namespace ML_Library
                     throw new Exception("Invalid Activation Method!");
             }
         }
+
+        public static double[] Zeros(int items)
+        {
+            double[] result = new double[items];
+            for (int i = 0; i < items; i++)
+            {
+                result[i] = 0;
+            }
+            return result;
+        }
     }
 }

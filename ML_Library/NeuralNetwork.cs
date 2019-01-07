@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace ML_Library
 {
@@ -29,6 +30,8 @@ namespace ML_Library
         public ActivationMethod[] ActivationMethods { get { return Structure.Select(l => l.ActivationMethod).ToArray(); } }
 
         public double CurrentError { get; private set; } = double.PositiveInfinity;
+
+        public bool IsTraining { get; private set; }
 
         public Configuration Configuration
         {
@@ -100,6 +103,24 @@ namespace ML_Library
                 outputs = layer.ForwardPass(outputs);
             }
             return outputs;
+        }
+
+        public void Train(double[][] inputs, double[][] expectedOutputs, IProgress<int> progress, CancellationToken cancellationToken)
+        {
+            IsTraining = true;
+            if(inputs.Length != expectedOutputs.Length)
+            {
+                throw new ArgumentException("The given arguements do not correspond to each other as input length and output length differ.");
+            }
+            for (int j = 0; j < inputs.GetLength(0); j++)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                Train(inputs[j], expectedOutputs[j]);
+                progress.Report(j);
+            }
+            IsTraining = false;
         }
 
         /// <summary>Performs an iteration of backpropagation using the specified inputs and expected outputs.</summary>

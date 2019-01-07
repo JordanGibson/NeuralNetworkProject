@@ -246,6 +246,19 @@ namespace ML_Library
             return tempMatrix;
         }
 
+        public static Matrix Zeros(int rows, int cols)
+        {
+            Matrix tempMatrix = new Matrix(rows, cols);
+            for (int x = 0; x < tempMatrix.Rows; x++)
+            {
+                for (int y = 0; y < tempMatrix.Cols; y++)
+                {
+                    tempMatrix.Data[x, y] = 0;
+                }
+            }
+            return tempMatrix;
+        }
+
         public double Sum()
         {
             double result = 0;

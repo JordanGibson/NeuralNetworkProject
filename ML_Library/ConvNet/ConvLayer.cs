@@ -69,5 +69,10 @@ namespace ML_Library.ConvNet
         {
             throw new NotImplementedException();
         }
+
+        public override void InitialiseLayer(BaseLayer previousLayer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -11,15 +11,11 @@ namespace SandboxUI.ProjectHelper
         public int InputCount { get; set; }
         public int OutputCount { get; set; }
         public string Name { get; set; }
-        public double OutputStartRange { get; set; }
-        public double OutputEndRange { get; set; }
 
-        public ProjectSettings(int inputCount, int outputCount, double outputStartRange, double outputEndRange, string name)
+        public ProjectSettings(int inputCount, int outputCount, string name)
         {
             InputCount = inputCount;
             OutputCount = outputCount;
-            OutputStartRange = outputStartRange;
-            OutputEndRange = outputEndRange;
             Name = name;
         }
 
@@ -28,11 +24,11 @@ namespace SandboxUI.ProjectHelper
             switch (project)
             {
                 case Project.XOR:
-                    return new ProjectSettings(2, 1, 0, 1, "XOR");
+                    return new ProjectSettings(2, 1, "XOR");
                 case Project.MNIST:
-                    return new ProjectSettings(728, 10, 0, 1, "MNIST");
+                    return new ProjectSettings(784, 10, "MNIST");
                 case Project.CIFAR:
-                    return new ProjectSettings(1024, 10, 0, 1, "CIFAR");
+                    return new ProjectSettings(1024, 10, "CIFAR");
                 default:
                     throw new Exception("Unacceptable project settings.");
             }

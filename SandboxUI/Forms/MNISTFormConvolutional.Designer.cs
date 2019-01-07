@@ -1,6 +1,6 @@
 ﻿namespace SandboxUI.Forms
 {
-    partial class MNISTForm : BaseSolutionForm
+    partial class MNISTFormConvolutional : BaseSolutionForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnShowConvDisplay = new System.Windows.Forms.Button();
             this.btnNextImage = new System.Windows.Forms.Button();
             this.pnlWindowBar.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.pnlNetworkConfiguration.SuspendLayout();
             this.pnlNetworkTraining.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxVisualRepresentation)).BeginInit();
-            this.pnlTrainingStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCloseWindow
@@ -65,15 +65,30 @@
             this.pnlContent.Location = new System.Drawing.Point(12, 55);
             this.pnlContent.Size = new System.Drawing.Size(936, 563);
             // 
+            // pnlNetworkConfiguration
+            // 
+            this.pnlNetworkConfiguration.Controls.Add(this.btnShowConvDisplay);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.lblNetworkConfig, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.lblNetworkStructure, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.lblLearningRate, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.lblActivationMethod, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.lblCurrentError, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.btnNewNetwork, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.btnEditNetwork, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.btnClearNetwork, 0);
+            this.pnlNetworkConfiguration.Controls.SetChildIndex(this.btnShowConvDisplay, 0);
+            // 
             // btnClearNetwork
             // 
             this.btnClearNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnClearNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnClearNetwork.Size = new System.Drawing.Size(135, 37);
             // 
             // btnEditNetwork
             // 
             this.btnEditNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnEditNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(125)))));
+            this.btnEditNetwork.Size = new System.Drawing.Size(135, 37);
             // 
             // btnNewNetwork
             // 
@@ -95,7 +110,6 @@
             // 
             this.btnTrainX.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnTrainX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnTrainX.Location = new System.Drawing.Point(135, 213);
             this.btnTrainX.Size = new System.Drawing.Size(145, 37);
             // 
             // btnTrain2000
@@ -108,38 +122,21 @@
             this.btnTrain500.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnTrain500.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(125)))), ((int)(((byte)(64)))));
             // 
-            // btnSaveNetwork
+            // btnShowConvDisplay
             // 
-            this.btnSaveNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnSaveNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(125)))), ((int)(((byte)(64)))));
-            // 
-            // btnLoadNetwork
-            // 
-            this.btnLoadNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnLoadNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(125)))), ((int)(((byte)(64)))));
-            // 
-            // btnCancelTraining
-            // 
-            this.btnCancelTraining.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnCancelTraining.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCancelTraining.Location = new System.Drawing.Point(869, 8);
-            this.btnCancelTraining.Size = new System.Drawing.Size(0, 25);
-            this.btnCancelTraining.Click += new System.EventHandler(this.btnCancelTraining_Click);
-            // 
-            // pnlTrainingStatus
-            // 
-            this.pnlTrainingStatus.Visible = true;
-            // 
-            // lblTrainingStatus
-            // 
-            this.lblTrainingStatus.Visible = true;
-            // 
-            // pgbTrainingProgress
-            // 
-            this.pgbTrainingProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnShowConvDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgbTrainingProgress.Location = new System.Drawing.Point(494, 10);
-            this.pgbTrainingProgress.Size = new System.Drawing.Size(80, 23);
+            this.btnShowConvDisplay.Enabled = false;
+            this.btnShowConvDisplay.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnShowConvDisplay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnShowConvDisplay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowConvDisplay.Location = new System.Drawing.Point(148, 171);
+            this.btnShowConvDisplay.Name = "btnShowConvDisplay";
+            this.btnShowConvDisplay.Size = new System.Drawing.Size(131, 79);
+            this.btnShowConvDisplay.TabIndex = 8;
+            this.btnShowConvDisplay.Text = "Show Convolutional Display";
+            this.btnShowConvDisplay.UseVisualStyleBackColor = true;
+            this.btnShowConvDisplay.Click += new System.EventHandler(this.btnShowConvDisplay_Click);
             // 
             // btnNextImage
             // 
@@ -148,7 +145,7 @@
             this.btnNextImage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnNextImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnNextImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextImage.Location = new System.Drawing.Point(8, 213);
+            this.btnNextImage.Location = new System.Drawing.Point(159, 213);
             this.btnNextImage.Name = "btnNextImage";
             this.btnNextImage.Size = new System.Drawing.Size(121, 37);
             this.btnNextImage.TabIndex = 9;
@@ -172,13 +169,13 @@
             this.pnlNetworkTraining.ResumeLayout(false);
             this.pnlNetworkTraining.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxVisualRepresentation)).EndInit();
-            this.pnlTrainingStatus.ResumeLayout(false);
-            this.pnlTrainingStatus.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        public System.Windows.Forms.Button btnShowConvDisplay;
         public System.Windows.Forms.Button btnNextImage;
     }
 }

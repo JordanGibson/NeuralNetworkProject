@@ -39,15 +39,15 @@ namespace SandboxUI.Forms
 
         protected override void Train(int iterations)
         {
-            ToggleUIEnabled(false);
+            ToggleNetworkTraining(false);
             for (int i = 0; i < iterations; i++)
             {
-                int index = Project == Project.XOR ? Utility.Next(0, Inputs.Length) : TrainedCount % Inputs.Length;
+                int index = Utility.Next(0, Inputs.Length);
                 Network.Train(Inputs[index], ExpectedOutputs[index]);
                 TrainedCount++;
             }
             UpdateVisualRepresentation();
-            ToggleUIEnabled(true);
+            ToggleNetworkTraining(true);
         }
     }
 }

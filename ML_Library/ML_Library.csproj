@@ -57,7 +57,6 @@
     <Compile Include="ConvNet\Matrix3D.cs" />
     <Compile Include="ConvNet\PoolingLayer.cs" />
     <Compile Include="FullyConnected.cs" />
-    <Compile Include="ILayer.cs" />
     <Compile Include="MathExtensions.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="NeuralNetwork.cs" />

@@ -5,7 +5,7 @@ namespace ML_Library
 {
     /// <summary>Represents a layer of fully connected nodes in a neural network.</summary>
     [Serializable]
-    public class FullyConnected : ILayer
+    public class FullyConnected
     {
         [JsonProperty()]
         public ActivationMethod ActivationMethod { get; set; }
@@ -88,9 +88,7 @@ namespace ML_Library
                 InitializeLayer(Inputs.Length);
             }
 
-            Outputs = Weights.DotProduct(Matrix.FromArray(Inputs))
-                .Add(Biases)
-                .Activate(ActivationMethod).ToArray();
+            Outputs = Weights.DotProduct(Matrix.FromArray(Inputs)).Add(Biases).Activate(ActivationMethod).ToArray();
 
             return Outputs;
         }
@@ -104,9 +102,7 @@ namespace ML_Library
             double[] nextErrors = Weights.Transpose().DotProduct(errors).ToArray();
 
             Matrix gradients = Matrix.FromArray(Outputs);
-            gradients = gradients.Activate(ActivationMethod, true);
-            gradients = gradients.CrossMultiply(errors);
-            gradients = gradients.ScalarMultiply(LearningRate);
+            gradients = gradients.Activate(ActivationMethod, true).CrossMultiply(errors).ScalarMultiply(LearningRate);
 
             Biases = Biases.Add(gradients);
 

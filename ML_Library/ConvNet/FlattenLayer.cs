@@ -33,5 +33,10 @@ namespace ML_Library.ConvNet
             }
             return matrix;
         }
+
+        public override void InitialiseLayer(BaseLayer previousLayer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

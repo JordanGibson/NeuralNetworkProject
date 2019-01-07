@@ -46,6 +46,10 @@ namespace SandboxUI.Forms
             this.ellipseStyler = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bdcLabelDragger = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.pnlTrainingStatus = new System.Windows.Forms.Panel();
+            this.btnCancelTraining = new System.Windows.Forms.Button();
+            this.lblTrainingStatus = new System.Windows.Forms.Label();
+            this.pgbTrainingProgress = new System.Windows.Forms.ProgressBar();
             this.pnlNetworkTraining = new System.Windows.Forms.Panel();
             this.nudTrainX = new System.Windows.Forms.NumericUpDown();
             this.btnTrainX = new System.Windows.Forms.Button();
@@ -58,6 +62,8 @@ namespace SandboxUI.Forms
             this.pbxVisualRepresentation = new System.Windows.Forms.PictureBox();
             this.chtCurrentStateLoss = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlNetworkConfiguration = new System.Windows.Forms.Panel();
+            this.btnSaveNetwork = new System.Windows.Forms.Button();
+            this.btnLoadNetwork = new System.Windows.Forms.Button();
             this.btnClearNetwork = new System.Windows.Forms.Button();
             this.btnEditNetwork = new System.Windows.Forms.Button();
             this.btnNewNetwork = new System.Windows.Forms.Button();
@@ -68,6 +74,7 @@ namespace SandboxUI.Forms
             this.lblNetworkConfig = new System.Windows.Forms.Label();
             this.pnlWindowBar.SuspendLayout();
             this.pnlContent.SuspendLayout();
+            this.pnlTrainingStatus.SuspendLayout();
             this.pnlNetworkTraining.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTrainX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtLossOvertime)).BeginInit();
@@ -176,6 +183,7 @@ namespace SandboxUI.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContent.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.pnlContent.Controls.Add(this.pnlTrainingStatus);
             this.pnlContent.Controls.Add(this.pnlNetworkTraining);
             this.pnlContent.Controls.Add(this.chtLossOvertime);
             this.pnlContent.Controls.Add(this.pbxVisualRepresentation);
@@ -185,6 +193,51 @@ namespace SandboxUI.Forms
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(912, 563);
             this.pnlContent.TabIndex = 1;
+            // 
+            // pnlTrainingStatus
+            // 
+            this.pnlTrainingStatus.Controls.Add(this.btnCancelTraining);
+            this.pnlTrainingStatus.Controls.Add(this.lblTrainingStatus);
+            this.pnlTrainingStatus.Controls.Add(this.pgbTrainingProgress);
+            this.pnlTrainingStatus.Location = new System.Drawing.Point(299, 520);
+            this.pnlTrainingStatus.Name = "pnlTrainingStatus";
+            this.pnlTrainingStatus.Size = new System.Drawing.Size(608, 40);
+            this.pnlTrainingStatus.TabIndex = 9;
+            this.pnlTrainingStatus.Visible = false;
+            // 
+            // btnCancelTraining
+            // 
+            this.btnCancelTraining.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelTraining.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnCancelTraining.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnCancelTraining.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelTraining.Font = new System.Drawing.Font("PMingLiU-ExtB", 11.33333F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelTraining.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnCancelTraining.Location = new System.Drawing.Point(579, 7);
+            this.btnCancelTraining.Name = "btnCancelTraining";
+            this.btnCancelTraining.Size = new System.Drawing.Size(26, 26);
+            this.btnCancelTraining.TabIndex = 13;
+            this.btnCancelTraining.Text = "X";
+            this.btnCancelTraining.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCancelTraining.UseVisualStyleBackColor = true;
+            // 
+            // lblTrainingStatus
+            // 
+            this.lblTrainingStatus.AutoSize = true;
+            this.lblTrainingStatus.Location = new System.Drawing.Point(3, 8);
+            this.lblTrainingStatus.Name = "lblTrainingStatus";
+            this.lblTrainingStatus.Size = new System.Drawing.Size(52, 21);
+            this.lblTrainingStatus.TabIndex = 12;
+            this.lblTrainingStatus.Text = "label1";
+            this.lblTrainingStatus.Visible = false;
+            // 
+            // pgbTrainingProgress
+            // 
+            this.pgbTrainingProgress.Location = new System.Drawing.Point(218, 8);
+            this.pgbTrainingProgress.Name = "pgbTrainingProgress";
+            this.pgbTrainingProgress.Size = new System.Drawing.Size(355, 23);
+            this.pgbTrainingProgress.TabIndex = 11;
             // 
             // pnlNetworkTraining
             // 
@@ -412,6 +465,8 @@ namespace SandboxUI.Forms
             // 
             // pnlNetworkConfiguration
             // 
+            this.pnlNetworkConfiguration.Controls.Add(this.btnSaveNetwork);
+            this.pnlNetworkConfiguration.Controls.Add(this.btnLoadNetwork);
             this.pnlNetworkConfiguration.Controls.Add(this.btnClearNetwork);
             this.pnlNetworkConfiguration.Controls.Add(this.btnEditNetwork);
             this.pnlNetworkConfiguration.Controls.Add(this.btnNewNetwork);
@@ -425,6 +480,37 @@ namespace SandboxUI.Forms
             this.pnlNetworkConfiguration.Size = new System.Drawing.Size(290, 261);
             this.pnlNetworkConfiguration.TabIndex = 2;
             // 
+            // btnSaveNetwork
+            // 
+            this.btnSaveNetwork.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveNetwork.Enabled = false;
+            this.btnSaveNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnSaveNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(125)))), ((int)(((byte)(64)))));
+            this.btnSaveNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveNetwork.Location = new System.Drawing.Point(155, 171);
+            this.btnSaveNetwork.Name = "btnSaveNetwork";
+            this.btnSaveNetwork.Size = new System.Drawing.Size(132, 37);
+            this.btnSaveNetwork.TabIndex = 9;
+            this.btnSaveNetwork.Text = "Save Network";
+            this.btnSaveNetwork.UseVisualStyleBackColor = true;
+            this.btnSaveNetwork.Click += new System.EventHandler(this.btnSaveNetwork_Click);
+            // 
+            // btnLoadNetwork
+            // 
+            this.btnLoadNetwork.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLoadNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnLoadNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(125)))), ((int)(((byte)(64)))));
+            this.btnLoadNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadNetwork.Location = new System.Drawing.Point(155, 130);
+            this.btnLoadNetwork.Name = "btnLoadNetwork";
+            this.btnLoadNetwork.Size = new System.Drawing.Size(132, 37);
+            this.btnLoadNetwork.TabIndex = 8;
+            this.btnLoadNetwork.Text = "Load Network";
+            this.btnLoadNetwork.UseVisualStyleBackColor = true;
+            this.btnLoadNetwork.Click += new System.EventHandler(this.btnLoadNetwork_Click);
+            // 
             // btnClearNetwork
             // 
             this.btnClearNetwork.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -435,7 +521,7 @@ namespace SandboxUI.Forms
             this.btnClearNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearNetwork.Location = new System.Drawing.Point(7, 213);
             this.btnClearNetwork.Name = "btnClearNetwork";
-            this.btnClearNetwork.Size = new System.Drawing.Size(272, 37);
+            this.btnClearNetwork.Size = new System.Drawing.Size(280, 37);
             this.btnClearNetwork.TabIndex = 7;
             this.btnClearNetwork.Text = "Clear Network";
             this.btnClearNetwork.UseVisualStyleBackColor = true;
@@ -451,7 +537,7 @@ namespace SandboxUI.Forms
             this.btnEditNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditNetwork.Location = new System.Drawing.Point(7, 171);
             this.btnEditNetwork.Name = "btnEditNetwork";
-            this.btnEditNetwork.Size = new System.Drawing.Size(272, 37);
+            this.btnEditNetwork.Size = new System.Drawing.Size(143, 37);
             this.btnEditNetwork.TabIndex = 6;
             this.btnEditNetwork.Text = "Edit Network";
             this.btnEditNetwork.UseVisualStyleBackColor = true;
@@ -466,7 +552,7 @@ namespace SandboxUI.Forms
             this.btnNewNetwork.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewNetwork.Location = new System.Drawing.Point(7, 130);
             this.btnNewNetwork.Name = "btnNewNetwork";
-            this.btnNewNetwork.Size = new System.Drawing.Size(272, 37);
+            this.btnNewNetwork.Size = new System.Drawing.Size(143, 37);
             this.btnNewNetwork.TabIndex = 5;
             this.btnNewNetwork.Text = "New Network";
             this.btnNewNetwork.UseVisualStyleBackColor = true;
@@ -542,6 +628,8 @@ namespace SandboxUI.Forms
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();
             this.pnlContent.ResumeLayout(false);
+            this.pnlTrainingStatus.ResumeLayout(false);
+            this.pnlTrainingStatus.PerformLayout();
             this.pnlNetworkTraining.ResumeLayout(false);
             this.pnlNetworkTraining.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTrainX)).EndInit();
@@ -584,5 +672,11 @@ namespace SandboxUI.Forms
         public Label lblNetworkState;
         public PictureBox pbxVisualRepresentation;
         private NumericUpDown nudTrainX;
+        public Button btnSaveNetwork;
+        public Button btnLoadNetwork;
+        public Button btnCancelTraining;
+        public Panel pnlTrainingStatus;
+        public Label lblTrainingStatus;
+        public ProgressBar pgbTrainingProgress;
     }
 }

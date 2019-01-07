@@ -16,12 +16,14 @@ namespace ML_Library.ConvNet
             {
                 ConvolutionalNetwork network = new ConvolutionalNetwork();
                 network.AddConvolutionalLayer(32, 3);
-                network.AddActivationLayer(ActivationMethod.ReLU);
                 network.AddPoolingLayer(2);
-                network.AddConvolutionalLayer(64, 3);
                 network.AddActivationLayer(ActivationMethod.ReLU);
+                network.AddConvolutionalLayer(32, 3);
                 network.AddPoolingLayer(2);
-                network.AddFlattenLayer();
+                network.AddActivationLayer(ActivationMethod.ReLU);
+                network.AddConvolutionalLayer(32, 3);
+                network.AddPoolingLayer(2);
+                network.AddActivationLayer(ActivationMethod.ReLU);
                 return network;
                 }
             }
@@ -46,9 +48,17 @@ namespace ML_Library.ConvNet
             Structure.Add(new FlattenLayer());
         }
 
-        public void AddFullyConnectedLayer()
+        public void AddFullyConnectedLayer(int nodeCount)
         {
-            Structure.Add(new FullyConnected());
+            Structure.Add(new FullyConnected(nodeCount));
+        }
+
+        public void InitialiseNetwork()
+        {
+            for(int i = 0; i < Structure.Count; i++)
+            {
+
+            }
         }
 
         public Matrix3D ForwardPropagate(Matrix3D inputs)

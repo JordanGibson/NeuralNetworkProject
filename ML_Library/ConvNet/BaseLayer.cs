@@ -14,5 +14,6 @@ namespace ML_Library.ConvNet
 
         public abstract Matrix3D ForwardPropagate(Matrix3D inputSpace);
         public abstract Matrix3D Backpropagate(Matrix3D errors);
+        public abstract void InitialiseLayer(BaseLayer previousLayer);
     }
 }
