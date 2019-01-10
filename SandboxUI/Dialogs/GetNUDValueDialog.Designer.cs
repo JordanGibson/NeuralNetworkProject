@@ -1,4 +1,4 @@
-﻿namespace SandboxUI.Forms
+﻿namespace SandboxUI.Dialogs
 {
     partial class GetNUDValueDialog
     {

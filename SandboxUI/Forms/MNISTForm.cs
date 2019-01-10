@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ML_Library;
 using SandboxUI.Misc;
+using SandboxUI.Dialogs;
+
 
 namespace SandboxUI.Forms
 {
