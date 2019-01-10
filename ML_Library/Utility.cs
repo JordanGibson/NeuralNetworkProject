@@ -5,20 +5,23 @@ namespace ML_Library
     /// <summary>A helper class for performing miscellaneous tasks</summary>
     public static class Utility
     {
-        private static readonly Random random = new Random();
+        private static Random rand { get; } = new Random();
+        private static readonly object randomSyncLock = new object();
 
         /// <summary>Get's the next random number in the given range</summary>
         /// <param name="lower">The lower bound</param>
         /// <param name="upper">The upper bound</param>
         public static int Next(int lower, int upper)
         {
-            return random.Next(lower, upper);
+            lock(randomSyncLock)
+                return rand.Next(lower, upper);
         }
 
         /// <summary>Get's the next random decimal value between 0 and 1</summary>
         public static double NextDouble()
         {
-            return random.NextDouble();
+            lock(randomSyncLock)
+                return rand.NextDouble();
         }
 
         /// <summary>Maps a value from an initial given range to a new given range</summary>

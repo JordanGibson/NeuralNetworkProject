@@ -56,7 +56,7 @@ namespace ML_Library
         /// <param name="activationMethod">The activation method.</param>
         /// <param name="useDerivative">if set to <c>true</c> [use derivative].</param>
         /// <returns></returns>
-        private static double ActivateValue(double x, ActivationMethod activationMethod, bool useDerivative)
+        public static double ActivateValue(double x, ActivationMethod activationMethod, bool useDerivative = false)
         {
             if (useDerivative)
             {
@@ -64,6 +64,8 @@ namespace ML_Library
                 {
                     case ActivationMethod.Sigmoid:
                         return x * (1 - x);
+                    case ActivationMethod.ReLU:
+                        return x <= 0 ? 0 : 1;
                     case ActivationMethod.Tanh:
                         return 1 - Math.Pow(Math.Tanh(x), 2);
                     case ActivationMethod.Arctan:
@@ -80,6 +82,8 @@ namespace ML_Library
                 {
                     case ActivationMethod.Sigmoid:
                         return 1 / (1 + Math.Exp(-x));
+                    case ActivationMethod.ReLU:
+                        return Math.Max(0, x);
                     case ActivationMethod.Tanh:
                         return Math.Tanh(x);
                     case ActivationMethod.Arctan:

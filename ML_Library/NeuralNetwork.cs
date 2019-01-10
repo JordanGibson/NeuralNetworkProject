@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace ML_Library
 {
@@ -29,6 +30,12 @@ namespace ML_Library
         public ActivationMethod[] ActivationMethods { get { return Structure.Select(l => l.ActivationMethod).ToArray(); } }
 
         public double CurrentError { get; private set; } = double.PositiveInfinity;
+
+        public bool IsTraining { get; private set; }
+
+        public List<LossPoint> LossIterations { get; private set; }
+
+        public int TrainedCount { get; set; }
 
         public Configuration Configuration
         {
@@ -85,6 +92,22 @@ namespace ML_Library
             return network;
         }
 
+        public double CalculateLoss(double[][] inputs, double[][] expectedOutputs)
+        {
+            double accumulator = 0;
+            for (int i = 0; i < inputs.GetLength(0); i++)
+            {
+                double[] prediction = Predict(inputs[i]);
+                for(int j = 0; j < inputs.GetLength(1); j++)
+                {
+                    accumulator += Math.Pow(expectedOutputs[i][j] - prediction[j], 2);
+                }
+            }
+            CurrentError = accumulator / 2;
+            LossIterations.Add(new LossPoint(CurrentError, TrainedCount));
+            return CurrentError;
+        }
+
         /// <summary>Performs a forward pass with supplied inputs.</summary>
         /// <param name="inputs">The inputs supplied to the forward pass.</param>
         /// <exception cref="ArgumentException">The given arguements do not correspond to the network configuration.</exception>
@@ -102,12 +125,33 @@ namespace ML_Library
             return outputs;
         }
 
+        public void Train(double[][] inputs, double[][] expectedOutputs, IProgress<int> progress = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            IsTraining = true;
+            if(inputs.Length != expectedOutputs.Length)
+            {
+                throw new ArgumentException("The given arguements do not correspond to each other as input length and output length differ.");
+            }
+            for (int j = 0; j < inputs.GetLength(0); j++)
+            {
+                if(cancellationToken != null)
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
+                
+                Train(inputs[j], expectedOutputs[j]);
+                if(progress != null)
+                    progress.Report(j);
+            }
+            IsTraining = false;
+        }
+
         /// <summary>Performs an iteration of backpropagation using the specified inputs and expected outputs.</summary>
         /// <param name="inputs">The inputs.</param>
         /// <param name="expectedOutputs">The expected outputs.</param>
         /// <exception cref="ArgumentException">The given arguements do not correspond to the network configuration.</exception>
         public void Train(double[] inputs, double[] expectedOutputs)
         {
+            IsTraining = true;
             if (inputs.Length != InputCount || expectedOutputs.Length != Structure.Last().NodeCount)
             {
                 throw new ArgumentException("The given arguements do not correspond to the network configuration.");
@@ -118,6 +162,8 @@ namespace ML_Library
             {
                 errors = Structure[currentLayer].Backpropagate(errors);
             }
+            TrainedCount++;
+            IsTraining = false;
         }
 
         /// <summary>Saves this instance to the specified path.</summary>

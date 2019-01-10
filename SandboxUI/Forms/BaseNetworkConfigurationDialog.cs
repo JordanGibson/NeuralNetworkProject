@@ -26,24 +26,12 @@ namespace SandboxUI.Forms
             InitializeComponent();
         }
 
-        public BaseNetworkConfigurationDialog(string formTitle, NeuralNetwork network, ProjectSettings projectSettings) : base(formTitle)
+        public BaseNetworkConfigurationDialog(string formTitle, ProjectSettings projectSettings, NeuralNetwork network = null) : base(formTitle)
         {
             InitializeComponent();
 
             ((DataGridViewComboBoxColumn)dgvLayerConfiguration.Columns[1]).DataSource = Enum.GetNames(typeof(ActivationMethod));
-            Network = network;
-            this.projectSettings = projectSettings;
-            OutputCount = network.Structure.Last().NodeCount;
-
-            UpdateViewFromConfig();
-        }
-
-        public BaseNetworkConfigurationDialog(string formTitle, ProjectSettings projectSettings) : base(formTitle)
-        {
-            InitializeComponent();
-
-            ((DataGridViewComboBoxColumn)dgvLayerConfiguration.Columns[1]).DataSource = Enum.GetNames(typeof(ActivationMethod));
-            Network = new NeuralNetwork(projectSettings.InputCount);
+            Network = Network == null ? new NeuralNetwork(projectSettings.InputCount) : network;
             this.projectSettings = projectSettings;
             OutputCount = projectSettings.OutputCount;
 
@@ -59,16 +47,28 @@ namespace SandboxUI.Forms
         private void btnLoadConfig_Click(object sender, EventArgs e)
         {
             Configuration newConfiguration = GetConfigFromDgv();
-            if (previousConfiguration.Equals(newConfiguration) && !Configuration.IsBlank(previousConfiguration))
-            {
-                DarkMessageBoxYesNo darkMessageBox = new DarkMessageBoxYesNo();
-                DialogResult dialogResult = darkMessageBox.ShowDialog("Are you sure you want to load a new network configuration?", "Confirm");
-                if (dialogResult == DialogResult.No)
-                    return;
-                previousConfiguration = newConfiguration;
-            }
+            //if (previousConfiguration.Equals(newConfiguration) && !Configuration.IsBlank(previousConfiguration))
+            //{
+            //    DarkMessageBoxYesNo darkMessageBox = new DarkMessageBoxYesNo();
+            //    DialogResult dialogResult = darkMessageBox.ShowDialog("Are you sure you want to load a new network configuration?", "Confirm");
+            //    if (dialogResult == DialogResult.No)
+            //        return;
+            //    previousConfiguration = newConfiguration;
+            //}
             string path = Misc.Utility.GetOpenFilePath("Network Configuration File", "ncf");
-            Network = NeuralNetwork.LoadFromConfigurationFile(path);
+            if (path == "")
+                return;
+            NeuralNetwork network = NeuralNetwork.LoadFromConfigurationFile(path);
+
+            if (network.InputCount != projectSettings.InputCount || network.Configuration.NodeCounts.Last() != projectSettings.OutputCount)
+            {
+                DarkMessageBox messageBox = new DarkMessageBox();
+                messageBox.ShowDialog("The network loaded is incompatable with the project type " + projectSettings.Name + ". " +
+                    "\nProject Configuration:\nInput Count: " + projectSettings.InputCount + "  Output Count: " + projectSettings.OutputCount +
+                    "\nLoaded Configuration:\nInput Count: " + network.InputCount + "  Output Count: " + network.Configuration.NodeCounts.Last(), "Load Failed - Configuration Mismatch");
+                return;
+            }
+            Network = network;
             UpdateViewFromConfig();
         }
 
@@ -102,7 +102,22 @@ namespace SandboxUI.Forms
 
         private void btnCreateNetwork_Click(object sender, EventArgs e)
         {
-            Network = NeuralNetwork.LoadFromConfiguration(GetConfigFromDgv());
+            Configuration config = GetConfigFromDgv();
+            if(config.NodeCounts.Last() != projectSettings.OutputCount)
+            {
+                DarkMessageBoxYesNo darkMessageBox = new DarkMessageBoxYesNo();
+                var dr = darkMessageBox.ShowDialog("This network does not have the correct output count for the project type " + projectSettings.Name + ". The correct output count is " + projectSettings.OutputCount + ". Would you like to add another layer to the end of the network with the configuration:\nActivation Method: " + config.ActivationMethods.Last() + " Learning Rate: " + config.LearningRates.Last() + " Node Count: " + projectSettings.OutputCount, "Incorrect Output Count");
+                if (dr == DialogResult.Yes)
+                {
+                    var lastRow = dgvLayerConfiguration.Rows[dgvLayerConfiguration.RowCount - 2];
+                    dgvLayerConfiguration.Rows.Add(dgvLayerConfiguration.RowCount, lastRow.Cells[1].Value, lastRow.Cells[2].Value, projectSettings.OutputCount);
+                    RenumberLayers();
+                }
+                else
+                    return;
+            }
+            config = GetConfigFromDgv();
+            Network = NeuralNetwork.LoadFromConfiguration(config);
             Close();
         }
         

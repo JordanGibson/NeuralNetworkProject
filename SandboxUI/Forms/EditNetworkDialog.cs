@@ -20,7 +20,7 @@ namespace SandboxUI.Forms
         private int InputCount { get { return Network.InputCount; } }
         private int OutputCount { get; set; }
 
-        public EditNetworkDialog(NeuralNetwork network, ProjectSettings projectSettings) : base("New Network Configuration", network, projectSettings)
+        public EditNetworkDialog(NeuralNetwork network, ProjectSettings projectSettings) : base("New Network Configuration", projectSettings, network)
         {
             InitializeComponent();
             ((DataGridViewComboBoxColumn)dgvLayerConfiguration.Columns[1]).DataSource = Enum.GetNames(typeof(ActivationMethod));

@@ -35,11 +35,11 @@
             // 
             // txtMessage
             // 
-            this.txtMessage.Size = new System.Drawing.Size(306, 133);
+            this.txtMessage.Size = new System.Drawing.Size(486, 137);
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(173, 183);
+            this.btnOk.Location = new System.Drawing.Point(353, 187);
             this.btnOk.Text = "Yes";
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
@@ -47,15 +47,15 @@
             // 
             this.btnCloseWindow.FlatAppearance.BorderSize = 0;
             this.btnCloseWindow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Tomato;
-            this.btnCloseWindow.Location = new System.Drawing.Point(349, 0);
+            this.btnCloseWindow.Location = new System.Drawing.Point(529, 0);
             // 
             // pnlWindowBar
             // 
-            this.pnlWindowBar.Size = new System.Drawing.Size(338, 40);
+            this.pnlWindowBar.Size = new System.Drawing.Size(518, 40);
             // 
             // pnlContent
             // 
-            this.pnlContent.Size = new System.Drawing.Size(313, 130);
+            this.pnlContent.Size = new System.Drawing.Size(493, 134);
             // 
             // btnNo
             // 
@@ -63,7 +63,7 @@
             this.btnNo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNo.ForeColor = System.Drawing.Color.White;
-            this.btnNo.Location = new System.Drawing.Point(14, 183);
+            this.btnNo.Location = new System.Drawing.Point(194, 187);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(153, 30);
             this.btnNo.TabIndex = 3;
@@ -76,7 +76,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(338, 221);
+            this.ClientSize = new System.Drawing.Size(518, 225);
             this.Controls.Add(this.btnNo);
             this.Name = "DarkMessageBoxYesNo";
             this.Text = "DarkMessageBoxYesNo";

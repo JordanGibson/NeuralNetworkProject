@@ -245,5 +245,92 @@ namespace ML_Library
             }
             return tempMatrix;
         }
+
+        public static Matrix Zeros(int rows, int cols)
+        {
+            Matrix tempMatrix = new Matrix(rows, cols);
+            for (int x = 0; x < tempMatrix.Rows; x++)
+            {
+                for (int y = 0; y < tempMatrix.Cols; y++)
+                {
+                    tempMatrix.Data[x, y] = 0;
+                }
+            }
+            return tempMatrix;
+        }
+
+        public double Sum()
+        {
+            double result = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Cols; j++)
+                {
+                    result += Data[i, j];
+                }
+            }
+            return result;
+        }
+
+        public Matrix SubMatrix(int xCoord, int yCoord, int size)
+        {
+            Matrix subMatrix = new Matrix(size, size);
+            for (int x = xCoord; x < size + xCoord; x++)
+            {
+                for (int y = yCoord; y < size + yCoord; y++)
+                {
+                    subMatrix.Data[x - xCoord, y - yCoord] = Data[x, y];
+                }
+            }
+            return subMatrix;
+        }
+
+        public double Max()
+        {
+            double max = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Cols; j++)
+                {
+                    if (Data[i, j] > max)
+                        max = Data[i, j];
+                }
+            }
+            return max;
+        }
+
+        public Matrix Pad(int padCount, double padValue)
+        {
+            Matrix newMatrix = new Matrix(Rows + 2 * padCount, Cols + 2 * padCount);
+            for(int x = 0; x < newMatrix.Rows; x++)
+            {
+                for (int y = 0; y < newMatrix.Cols; y++)
+                {
+                    if(x < padCount || y < padCount || x > Rows + padCount - 1 || y > Cols + padCount - 1)
+                    {
+                        newMatrix[x, y] = padValue;
+                    }
+                    else
+                    {
+                        newMatrix[x, y] = Data[x - padCount, y - padCount];
+                    }
+                }
+            }
+            return newMatrix;
+        }
+
+        public void WriteMatrix()
+        {
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Cols; y++)
+                {
+                    Console.Write(Data[x, y]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public double this[int x, int y] { get { return Data[x, y]; } set { Data[x, y] = value; } }
     }
 }
