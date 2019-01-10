@@ -118,6 +118,59 @@ namespace ML_Library.ConvNet
             }
         }
 
+        public Matrix3D Activate(ActivationMethod activationMethod)
+        {
+            Matrix3D tempMatrix = new Matrix3D(Rows, Cols, 1);
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Cols; j++)
+                {
+                    tempMatrix.Matrices[0].Data[i, j] = Activater.ActivateValue(Matrices[0].Data[i, j], activationMethod);
+                }
+            }
+            return tempMatrix;
+        }
+
+        public Matrix3D Add(Matrix3D x)
+        {
+            if (x.Rows != Rows || x.Cols != Cols)
+            {
+                throw new ArgumentException("Cannot add matrices with different dimensions");
+            }
+            Matrix3D tempMatrix = new Matrix3D(Rows, Cols, 1);
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Cols; j++)
+                {
+                    tempMatrix.Matrices[0].Data[i, j] = Matrices[0].Data[i, j] + x.Matrices[0].Data[i, j];
+                }
+            }
+            return tempMatrix;
+        }
+
+        public Matrix3D DotProduct(Matrix3D x)
+        {
+            if (Cols != x.Rows)
+            {
+                throw new ArgumentException("Cols of A must Equal Rows of B");
+            }
+            Matrix3D tempMatrix = new Matrix3D(Rows, x.Cols, 1);
+            double tempSum = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int k = 0; k < x.Cols; k++)
+                {
+                    for (int j = 0; j < Cols; j++)
+                    {
+                        tempSum += Matrices[0].Data[i, j] * x.Matrices[0].Data[j, k];
+                    }
+                    tempMatrix.Matrices[0].Data[i, k] = tempSum;
+                    tempSum = 0;
+                }
+            }
+            return tempMatrix;
+        }
+
         public double this[int filter, int x, int y] { get {  return Matrices[filter].Data[x, y]; } set { Matrices[filter].Data[x, y] = value; } }
         public Matrix this[int i] { get { return Matrices[i]; } set { Matrices[i] = value; } }
         public IEnumerator<Matrix> GetEnumerator() { return (IEnumerator<Matrix>)Matrices.GetEnumerator(); }

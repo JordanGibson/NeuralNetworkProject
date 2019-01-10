@@ -56,7 +56,7 @@ namespace ML_Library
         /// <param name="activationMethod">The activation method.</param>
         /// <param name="useDerivative">if set to <c>true</c> [use derivative].</param>
         /// <returns></returns>
-        private static double ActivateValue(double x, ActivationMethod activationMethod, bool useDerivative)
+        public static double ActivateValue(double x, ActivationMethod activationMethod, bool useDerivative = false)
         {
             if (useDerivative)
             {

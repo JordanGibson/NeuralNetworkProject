@@ -12,6 +12,7 @@ namespace ML_Library.ConvNet
 
         public override Matrix3D InputSpace { get; set; }
         public override Matrix3D OutputSpace { get; set; }
+        public ActivationMethod ActivationMethod { get; set; }
 
         private Matrix3D Weights { get; set; }
         private Matrix3D Biases { get; set; }
@@ -29,14 +30,14 @@ namespace ML_Library.ConvNet
         public override Matrix3D ForwardPropagate(Matrix3D inputSpace)
         {
             InputSpace = inputSpace;
-            OutputSpace = new Matrix3D(inputSpace.Rows, inputSpace.Cols, 1);
+            OutputSpace = Weights.DotProduct(InputSpace).Add(Biases).Activate(ActivationMethod);
             return OutputSpace;
 
         }
 
         public override void InitialiseLayer(BaseLayer previousLayer)
         {
-            throw new NotImplementedException();
+            Biases = new Matrix3D(InputSpace.Rows, 1, 1, true);
         }
     }
 }

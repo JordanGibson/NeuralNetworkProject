@@ -13,9 +13,9 @@ namespace SandboxUI.Misc
         public static async Task<double[][]> GetImagesAsync(string imagesPath, int start, int count)
         {
             double[][] result = new double[count][];
-            await Task.Run(() =>
+            using (BinaryReader br = new BinaryReader(new FileStream(imagesPath, FileMode.Open)))
             {
-                using (BinaryReader br = new BinaryReader(new FileStream(imagesPath, FileMode.Open)))
+                await Task.Run(() =>
                 {
                     for (int i = 0; i < count; i++)
                     {
@@ -24,9 +24,14 @@ namespace SandboxUI.Misc
                         br.Read(bResult, 0, 784);
                         result[i] = bResult.Select(o => Convert.ToDouble(o) / 255).ToArray();
                     }
-                }
-            });
+                });
+            }
             return result;
+        }
+
+        public static double GetActualOutputs(double[] outputs)
+        {
+            return Array.IndexOf(outputs, outputs.Max());
         }
 
         public static async Task<double[][]> GetLabelsAsync(string imagesPath, int start, int count)

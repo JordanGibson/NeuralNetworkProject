@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ML_Library;
@@ -17,9 +18,15 @@ namespace SandboxUI.Forms
         public XORForm() : base(Project.XOR)
         {
             InitializeComponent();
+        }
 
-            Inputs = new double[][] { new double[] { 0, 0 }, new double[] { 0, 1 }, new double[] { 1, 0 }, new double[] { 1, 1 } };
-            ExpectedOutputs = new double[][] { new double[] { 0 }, new double[] { 1 }, new double[] { 1 }, new double[] { 0 } };
+        protected override async void Train(int iterations, CancellationToken cancellationToken)
+        {
+            var trainingData = await Misc.XORLoader.GetTrainingDataAsync(iterations);
+            Inputs = trainingData.Item1;
+            ExpectedOutputs = trainingData.Item2;
+
+            base.Train(iterations, cancellationToken);
         }
 
         protected override void UpdateVisualRepresentation()
@@ -37,17 +44,12 @@ namespace SandboxUI.Forms
             pbxVisualRepresentation.Image = bmp;
         }
 
-        protected override void Train(int iterations)
+        protected override async Task<string> GenerateReport()
         {
-            ToggleNetworkTraining(false);
-            for (int i = 0; i < iterations; i++)
-            {
-                int index = Utility.Next(0, Inputs.Length);
-                Network.Train(Inputs[index], ExpectedOutputs[index]);
-                TrainedCount++;
-            }
-            UpdateVisualRepresentation();
-            ToggleNetworkTraining(true);
+            var trainingData = await Misc.XORLoader.GetTrainingDataAsync(1000);
+            Inputs = trainingData.Item1;
+            ExpectedOutputs = trainingData.Item2;
+            return await base.GenerateReport();
         }
     }
 }

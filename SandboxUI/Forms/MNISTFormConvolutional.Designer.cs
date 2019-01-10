@@ -100,7 +100,7 @@
             this.pnlNetworkTraining.Controls.Add(this.btnNextImage);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.lblNetworkState, 0);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.lblTrainedCount, 0);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.lblPreviouslyTrainedCount, 0);
+            this.pnlNetworkTraining.Controls.SetChildIndex(this.lblLastTrainedCount, 0);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrain500, 0);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrain2000, 0);
             this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrainX, 0);

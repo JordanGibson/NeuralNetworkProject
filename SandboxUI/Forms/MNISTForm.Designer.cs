@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnNextImage = new System.Windows.Forms.Button();
             this.pnlWindowBar.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.pnlNetworkConfiguration.SuspendLayout();
@@ -80,23 +79,12 @@
             this.btnNewNetwork.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnNewNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(125)))), ((int)(((byte)(64)))));
             // 
-            // pnlNetworkTraining
-            // 
-            this.pnlNetworkTraining.Controls.Add(this.btnNextImage);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.lblNetworkState, 0);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.lblTrainedCount, 0);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.lblPreviouslyTrainedCount, 0);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrain500, 0);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrain2000, 0);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.btnTrainX, 0);
-            this.pnlNetworkTraining.Controls.SetChildIndex(this.btnNextImage, 0);
-            // 
             // btnTrainX
             // 
             this.btnTrainX.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnTrainX.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnTrainX.Location = new System.Drawing.Point(135, 213);
-            this.btnTrainX.Size = new System.Drawing.Size(145, 37);
+            this.btnTrainX.Location = new System.Drawing.Point(11, 213);
+            this.btnTrainX.Size = new System.Drawing.Size(116, 37);
             // 
             // btnTrain2000
             // 
@@ -122,12 +110,13 @@
             // 
             this.btnCancelTraining.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnCancelTraining.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnCancelTraining.Location = new System.Drawing.Point(869, 8);
-            this.btnCancelTraining.Size = new System.Drawing.Size(0, 25);
-            this.btnCancelTraining.Click += new System.EventHandler(this.btnCancelTraining_Click);
+            this.btnCancelTraining.Location = new System.Drawing.Point(876, 8);
+            this.btnCancelTraining.Size = new System.Drawing.Size(25, 25);
             // 
             // pnlTrainingStatus
             // 
+            this.pnlTrainingStatus.Location = new System.Drawing.Point(3, 520);
+            this.pnlTrainingStatus.Size = new System.Drawing.Size(904, 40);
             this.pnlTrainingStatus.Visible = true;
             // 
             // lblTrainingStatus
@@ -138,23 +127,13 @@
             // 
             this.pgbTrainingProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgbTrainingProgress.Location = new System.Drawing.Point(494, 10);
-            this.pgbTrainingProgress.Size = new System.Drawing.Size(80, 23);
+            this.pgbTrainingProgress.Location = new System.Drawing.Point(431, 10);
+            this.pgbTrainingProgress.Size = new System.Drawing.Size(439, 23);
             // 
-            // btnNextImage
+            // btnGenerateReport
             // 
-            this.btnNextImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNextImage.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnNextImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnNextImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNextImage.Location = new System.Drawing.Point(8, 213);
-            this.btnNextImage.Name = "btnNextImage";
-            this.btnNextImage.Size = new System.Drawing.Size(121, 37);
-            this.btnNextImage.TabIndex = 9;
-            this.btnNextImage.Text = "Next Image";
-            this.btnNextImage.UseVisualStyleBackColor = true;
-            this.btnNextImage.Click += new System.EventHandler(this.btnNextImage_Click);
+            this.btnGenerateReport.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnGenerateReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             // 
             // MNISTForm
             // 
@@ -163,7 +142,6 @@
             this.ClientSize = new System.Drawing.Size(960, 630);
             this.Name = "MNISTForm";
             this.Text = "MNISTForm";
-            this.Load += new System.EventHandler(this.MNISTForm_Load);
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();
             this.pnlContent.ResumeLayout(false);
@@ -179,6 +157,5 @@
         }
 
         #endregion
-        public System.Windows.Forms.Button btnNextImage;
     }
 }
