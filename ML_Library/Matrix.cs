@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace ML_Library
 {
+    /// <summary>A class representing an abstract data type for representing collections of numbers and performing various operations on them</summary>
     [Serializable]
     public class Matrix
     {
+        /// <summary>Gets or sets the data to be stored in the matrix.</summary>
+        /// <value>The data.</value>
         public double[,] Data { get; set; }
 
-        public int Rows { get { return Data.GetLength(0); } }
-        public int Cols { get { return Data.GetLength(1); } }
+        /// <summary>Gets the number of rows in this matrix.</summary>
+        /// <value>The rows.</value>
+        public int Rows => Data.GetLength(0);
+        /// <summary>Gets the number of columns in this matrix.</summary>
+        /// <value>The cols.</value>
+        public int Cols => Data.GetLength(1);
 
         /// <summary>
         /// Create a new matrix with random values between -1 and 1
@@ -43,8 +46,10 @@ namespace ML_Library
         /// <returns></returns>
         public Matrix Copy()
         {
-            Matrix tempMatrix = new Matrix(Rows, Cols);
-            tempMatrix.Data = Data;
+            Matrix tempMatrix = new Matrix(Rows, Cols)
+            {
+                Data = Data
+            };
             return tempMatrix;
         }
 
@@ -240,5 +245,92 @@ namespace ML_Library
             }
             return tempMatrix;
         }
+
+        public static Matrix Zeros(int rows, int cols)
+        {
+            Matrix tempMatrix = new Matrix(rows, cols);
+            for (int x = 0; x < tempMatrix.Rows; x++)
+            {
+                for (int y = 0; y < tempMatrix.Cols; y++)
+                {
+                    tempMatrix.Data[x, y] = 0;
+                }
+            }
+            return tempMatrix;
+        }
+
+        public double Sum()
+        {
+            double result = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Cols; j++)
+                {
+                    result += Data[i, j];
+                }
+            }
+            return result;
+        }
+
+        public Matrix SubMatrix(int xCoord, int yCoord, int size)
+        {
+            Matrix subMatrix = new Matrix(size, size);
+            for (int x = xCoord; x < size + xCoord; x++)
+            {
+                for (int y = yCoord; y < size + yCoord; y++)
+                {
+                    subMatrix.Data[x - xCoord, y - yCoord] = Data[x, y];
+                }
+            }
+            return subMatrix;
+        }
+
+        public double Max()
+        {
+            double max = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Cols; j++)
+                {
+                    if (Data[i, j] > max)
+                        max = Data[i, j];
+                }
+            }
+            return max;
+        }
+
+        public Matrix Pad(int padCount, double padValue)
+        {
+            Matrix newMatrix = new Matrix(Rows + 2 * padCount, Cols + 2 * padCount);
+            for(int x = 0; x < newMatrix.Rows; x++)
+            {
+                for (int y = 0; y < newMatrix.Cols; y++)
+                {
+                    if(x < padCount || y < padCount || x > Rows + padCount - 1 || y > Cols + padCount - 1)
+                    {
+                        newMatrix[x, y] = padValue;
+                    }
+                    else
+                    {
+                        newMatrix[x, y] = Data[x - padCount, y - padCount];
+                    }
+                }
+            }
+            return newMatrix;
+        }
+
+        public void WriteMatrix()
+        {
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Cols; y++)
+                {
+                    Console.Write(Data[x, y]);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public double this[int x, int y] { get { return Data[x, y]; } set { Data[x, y] = value; } }
     }
 }

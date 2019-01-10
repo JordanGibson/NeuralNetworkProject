@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace ML_Library
 {
+    /// <summary>Represents a layer of fully connected nodes in a neural network.</summary>
     [Serializable]
-    public class FullyConnected : Layer
+    public class FullyConnected
     {
         [JsonProperty()]
         public ActivationMethod ActivationMethod { get; set; }
@@ -28,8 +25,11 @@ namespace ML_Library
 
         private double[] Inputs { get; set; }
 
-        private bool IsInitialized { get { return (Weights != null && Biases != null); } }
+        private bool IsInitialized => Weights != null && Biases != null;
 
+        /// <summary>Initializes a new instance of the <see cref="FullyConnected"/> class.</summary>
+        /// <param name="nodesInLayer">The number of nodes in the layer.</param>
+        /// <param name="activationMethod">The activation method to use on this layer.</param>
         public FullyConnected(int nodesInLayer, ActivationMethod activationMethod)
         {
             NodeCount = nodesInLayer;
@@ -88,26 +88,25 @@ namespace ML_Library
                 InitializeLayer(Inputs.Length);
             }
 
-            Outputs = Weights.DotProduct(Matrix.FromArray(Inputs))
-                .Add(Biases)
-                .Activate(ActivationMethod).ToArray();
+            Outputs = Weights.DotProduct(Matrix.FromArray(Inputs)).Add(Biases).Activate(ActivationMethod).ToArray();
 
             return Outputs;
         }
 
+        /// <summary>  Performs one iteraiton of backpropagation using the specified errors array through this layer of the network.</summary>
+        /// <param name="errorsArr">The errors array.</param>
+        /// <returns></returns>
         public double[] Backpropagate(double[] errorsArr)
         {
             Matrix errors = Matrix.FromArray(errorsArr);
             double[] nextErrors = Weights.Transpose().DotProduct(errors).ToArray();
 
-            var gradients = Matrix.FromArray(Outputs);
-            gradients = gradients.Activate(ActivationMethod, true);
-            gradients = gradients.CrossMultiply(errors);
-            gradients = gradients.ScalarMultiply(LearningRate);
+            Matrix gradients = Matrix.FromArray(Outputs);
+            gradients = gradients.Activate(ActivationMethod, true).CrossMultiply(errors).ScalarMultiply(LearningRate);
 
             Biases = Biases.Add(gradients);
 
-            var weightDeltas = gradients.DotProduct(Matrix.FromArray(Inputs).Transpose());
+            Matrix weightDeltas = gradients.DotProduct(Matrix.FromArray(Inputs).Transpose());
             Weights = Weights.Add(weightDeltas);
             return nextErrors;
         }
