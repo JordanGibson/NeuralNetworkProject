@@ -23,7 +23,7 @@ namespace XORTest
             for (int i = 0; i < trainingIterations; i++)
             {
                 int index = Utility.Next(0, 4);
-                network.Train(inputs[index], expectedOutputs[index]);
+                network.Train(inputs, expectedOutputs);
            }
             Console.WriteLine(network.Predict(inputs[0])[0] + "   " + network.Predict(inputs[1])[0] + "   " + network.Predict(inputs[2])[0] + "   " + network.Predict(inputs[3])[0]);
             Console.ReadLine();

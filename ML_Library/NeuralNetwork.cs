@@ -59,6 +59,7 @@ namespace ML_Library
         {
             Structure = new List<FullyConnected>();
             InputCount = inputCount;
+            LossIterations = new List<LossPoint>();
         }
 
         public void SetLearningRate(double learningRate)
@@ -98,12 +99,9 @@ namespace ML_Library
             for (int i = 0; i < inputs.GetLength(0); i++)
             {
                 double[] prediction = Predict(inputs[i]);
-                for(int j = 0; j < inputs.GetLength(1); j++)
-                {
-                    accumulator += Math.Pow(expectedOutputs[i][j] - prediction[j], 2);
-                }
+                accumulator += expectedOutputs[i].ElementwiseSubtract(prediction).Select(o => Math.Pow(o, 2)).Sum();
             }
-            CurrentError = accumulator / 2;
+            CurrentError = accumulator / inputs.Length;
             LossIterations.Add(new LossPoint(CurrentError, TrainedCount));
             return CurrentError;
         }
@@ -137,8 +135,12 @@ namespace ML_Library
                 if(cancellationToken != null)
                     if (cancellationToken.IsCancellationRequested)
                         break;
+
+                if (j % 10 == 0)
+                    CalculateLoss(inputs.Take(10).ToArray(), expectedOutputs.Take(10).ToArray());
                 
                 Train(inputs[j], expectedOutputs[j]);
+
                 if(progress != null)
                     progress.Report(j);
             }
@@ -149,9 +151,8 @@ namespace ML_Library
         /// <param name="inputs">The inputs.</param>
         /// <param name="expectedOutputs">The expected outputs.</param>
         /// <exception cref="ArgumentException">The given arguements do not correspond to the network configuration.</exception>
-        public void Train(double[] inputs, double[] expectedOutputs)
+        private void Train(double[] inputs, double[] expectedOutputs)
         {
-            IsTraining = true;
             if (inputs.Length != InputCount || expectedOutputs.Length != Structure.Last().NodeCount)
             {
                 throw new ArgumentException("The given arguements do not correspond to the network configuration.");
@@ -163,7 +164,6 @@ namespace ML_Library
                 errors = Structure[currentLayer].Backpropagate(errors);
             }
             TrainedCount++;
-            IsTraining = false;
         }
 
         /// <summary>Saves this instance to the specified path.</summary>

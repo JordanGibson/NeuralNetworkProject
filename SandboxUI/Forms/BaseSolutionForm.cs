@@ -13,7 +13,9 @@ using System.Threading;
 using System.Diagnostics;
 using System.IO;
 using SandboxUI.Dialogs;
-
+using NHotkey.WindowsForms;
+using NHotkey;
+using System.Runtime.InteropServices;
 
 namespace SandboxUI.Forms
 {
@@ -24,7 +26,7 @@ namespace SandboxUI.Forms
         protected NeuralNetwork Network;
         protected Project Project;
         protected ProjectSettings projectSettings;
-
+        
         protected double[][] Inputs;
         protected double[][] ExpectedOutputs;
         protected int TrainedCount;
@@ -48,11 +50,31 @@ namespace SandboxUI.Forms
             cancellationTokenSource = new CancellationTokenSource();
             projectSettings = ProjectSettings.GetSettings(project);
             lblWindowTitle.Text = projectSettings.Name;
+            HotkeyManager.Current.AddOrReplace("Magnifier", Keys.Control, Form_ControlKeyPressed);
         }
 
-        public virtual double GetCurrentError()
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        private async void Form_ControlKeyPressed(object sender, HotkeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (Process.GetProcessesByName("magnify").Length != 0)
+            {
+                Process.GetProcessesByName("magnify").First().Kill();
+            }
+            else
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo()
+                {
+                    FileName = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\Magnify.exe",
+                    UseShellExecute = true,
+                    Arguments = "/lens",
+                    Verb = "runas"
+                };
+                p.Start();
+            }
+            e.Handled = true;
         }
 
         private void btnCloseWindow_Click(object sender, EventArgs e)
@@ -250,7 +272,14 @@ namespace SandboxUI.Forms
 
         protected virtual void UpdateVisualRepresentation()
         {
-            
+            Invoke(new Action(() =>
+            {
+                chtCurrentStateLoss.Series[0].Points.Clear();
+                foreach (var point in Network.LossIterations)
+                {
+                    chtCurrentStateLoss.Series[0].Points.Add(point.Loss, point.TrainingIterations);
+                }
+            }));
         }
 
         private async void btnTrain2000_Click(object sender, EventArgs e)
@@ -286,14 +315,17 @@ namespace SandboxUI.Forms
             if (Inputs == null)
                 throw new Exception("Inputs and expeceted outputs must be defined before calling generate report");
             int correct = 0, incorrect = 0;
-            for(int i = 0; i < Inputs.Length; i++)
+            await Task.Run(() =>
             {
-                double[] prediction = Network.Predict(Inputs[i]);
-                if (ResultValidator.OutputsCorrect(Project, prediction, ExpectedOutputs[i]))
-                    correct++;
-                else
-                    incorrect++;
-            }
+                for (int i = 0; i < Inputs.Length; i++)
+                {
+                    double[] prediction = Network.Predict(Inputs[i]);
+                    if (ResultValidator.OutputsCorrect(Project, prediction, ExpectedOutputs[i]))
+                        correct++;
+                    else
+                        incorrect++;
+                }
+            });
             string report = string.Format("Correct: {0}\nIncorrect: {1}\nSuccess Rate:{2}%\nNetwork Architecture: {3}\nLearning Rates: {4}\nActivation Methods: {5}", correct, incorrect, (double)correct/incorrect, NetworkArchitectureToString, NetworkLearningRatesToString, NetworkActivationMethodsToString);
             return report;
         }
@@ -321,6 +353,12 @@ namespace SandboxUI.Forms
             {
                 cancellationTokenSource.Cancel();
             }
+        }
+
+        private void BaseSolutionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Process.GetProcessesByName("magnify").Length != 0)
+                Process.GetProcessesByName("magnify").First().Kill();
         }
     }
 }

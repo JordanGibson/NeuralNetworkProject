@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ML_Library;
 using SandboxUI.ProjectHelper;
-using SandboxUI.Dialogs;
 
 
-namespace SandboxUI.Forms
+namespace SandboxUI.Dialogs
 {
     public partial class NewNetworkDialog : BaseNetworkConfigurationDialog
     {

@@ -44,6 +44,7 @@ namespace SandboxUI.Forms
                 }
             }
             pbxVisualRepresentation.Image = bmp;
+            base.UpdateVisualRepresentation();
         }
 
         protected override async Task<string> GenerateReport()
