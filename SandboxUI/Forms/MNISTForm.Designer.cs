@@ -117,11 +117,6 @@
             // 
             this.pnlTrainingStatus.Location = new System.Drawing.Point(3, 520);
             this.pnlTrainingStatus.Size = new System.Drawing.Size(904, 40);
-            this.pnlTrainingStatus.Visible = true;
-            // 
-            // lblTrainingStatus
-            // 
-            this.lblTrainingStatus.Visible = true;
             // 
             // pgbTrainingProgress
             // 

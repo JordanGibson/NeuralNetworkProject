@@ -134,7 +134,7 @@ namespace ML_Library
                 throw new ArgumentException("The given arguements do not correspond to the network configuration.");
             }
             double[] actualOutput = Predict(inputs);
-            double[] errors = expectedOutputs.ElementwiseSubtract(actualOutput).ToArray();
+            double[] errors = actualOutput.ElementwiseSubtract(expectedOutputs);
             for (int currentLayer = Structure.Count - 1; currentLayer > -1; currentLayer--)
             {
                 errors = Structure[currentLayer].Backpropagate(errors);
