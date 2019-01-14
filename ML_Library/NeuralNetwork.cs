@@ -123,42 +123,18 @@ namespace ML_Library
             return outputs;
         }
 
-        public void Train(double[][] inputs, double[][] expectedOutputs, IProgress<int> progress = null, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            IsTraining = true;
-            if(inputs.Length != expectedOutputs.Length)
-            {
-                throw new ArgumentException("The given arguements do not correspond to each other as input length and output length differ.");
-            }
-            for (int j = 0; j < inputs.GetLength(0); j++)
-            {
-                if(cancellationToken != null)
-                    if (cancellationToken.IsCancellationRequested)
-                        break;
-
-                if (j % 10 == 0)
-                    CalculateLoss(inputs.Take(10).ToArray(), expectedOutputs.Take(10).ToArray());
-                
-                Train(inputs[j], expectedOutputs[j]);
-
-                if(progress != null)
-                    progress.Report(j);
-            }
-            IsTraining = false;
-        }
-
         /// <summary>Performs an iteration of backpropagation using the specified inputs and expected outputs.</summary>
         /// <param name="inputs">The inputs.</param>
         /// <param name="expectedOutputs">The expected outputs.</param>
         /// <exception cref="ArgumentException">The given arguements do not correspond to the network configuration.</exception>
-        private void Train(double[] inputs, double[] expectedOutputs)
+        public void Train(double[] inputs, double[] expectedOutputs)
         {
             if (inputs.Length != InputCount || expectedOutputs.Length != Structure.Last().NodeCount)
             {
                 throw new ArgumentException("The given arguements do not correspond to the network configuration.");
             }
             double[] actualOutput = Predict(inputs);
-            double[] errors = expectedOutputs.ElementwiseSubtract(actualOutput);
+            double[] errors = expectedOutputs.ElementwiseSubtract(actualOutput).ToArray();
             for (int currentLayer = Structure.Count - 1; currentLayer > -1; currentLayer--)
             {
                 errors = Structure[currentLayer].Backpropagate(errors);
@@ -210,6 +186,32 @@ namespace ML_Library
                 neuralNetwork.InputCount = config.InputCount;
             }
             return neuralNetwork;
+        }
+
+
+
+        public void Train(double[][] inputs, double[][] expectedOutputs, IProgress<int> progress = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            IsTraining = true;
+            if (inputs.Length != expectedOutputs.Length)
+            {
+                throw new ArgumentException("The given arguements do not correspond to each other as input length and output length differ.");
+            }
+            for (int j = 0; j < inputs.GetLength(0); j++)
+            {
+                if (cancellationToken != null)
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
+
+                if (j % 10 == 0)
+                    CalculateLoss(inputs.Take(10).ToArray(), expectedOutputs.Take(10).ToArray());
+
+                Train(inputs[j], expectedOutputs[j]);
+
+                if (progress != null)
+                    progress.Report(j);
+            }
+            IsTraining = false;
         }
     }
 }
