@@ -202,11 +202,11 @@ namespace ML_Library
                 if (cancellationToken != null)
                     if (cancellationToken.IsCancellationRequested)
                         break;
-
-                if (j % 10 == 0)
-                    CalculateLoss(inputs.Take(10).ToArray(), expectedOutputs.Take(10).ToArray());
-
+               
                 Train(inputs[j], expectedOutputs[j]);
+                
+                if (j % 100 == 0)
+                    LossIterations.Add(new LossPoint(CalculateLoss(inputs.Take(10).ToArray(), expectedOutputs.Take(10).ToArray()), TrainedCount));
 
                 if (progress != null)
                     progress.Report(j);

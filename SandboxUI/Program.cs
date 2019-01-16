@@ -16,7 +16,7 @@ namespace SandboxUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.MNISTForm());
+            Application.Run(new Forms.XORForm());
         }
     }
 }

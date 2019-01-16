@@ -129,6 +129,7 @@
             // 
             this.btnGenerateReport.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnGenerateReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // MNISTForm
             // 
