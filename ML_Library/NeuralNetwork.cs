@@ -59,6 +59,7 @@ namespace ML_Library
         {
             Structure = new List<FullyConnected>();
             InputCount = inputCount;
+            LossIterations = new List<LossPoint>();
         }
 
         public void SetLearningRate(double learningRate)
@@ -98,12 +99,9 @@ namespace ML_Library
             for (int i = 0; i < inputs.GetLength(0); i++)
             {
                 double[] prediction = Predict(inputs[i]);
-                for(int j = 0; j < inputs.GetLength(1); j++)
-                {
-                    accumulator += Math.Pow(expectedOutputs[i][j] - prediction[j], 2);
-                }
+                accumulator += expectedOutputs[i].ElementwiseSubtract(prediction).Select(o => Math.Pow(o, 2)).Sum();
             }
-            CurrentError = accumulator / 2;
+            CurrentError = accumulator / inputs.Length;
             LossIterations.Add(new LossPoint(CurrentError, TrainedCount));
             return CurrentError;
         }
@@ -125,45 +123,23 @@ namespace ML_Library
             return outputs;
         }
 
-        public void Train(double[][] inputs, double[][] expectedOutputs, IProgress<int> progress = null, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            IsTraining = true;
-            if(inputs.Length != expectedOutputs.Length)
-            {
-                throw new ArgumentException("The given arguements do not correspond to each other as input length and output length differ.");
-            }
-            for (int j = 0; j < inputs.GetLength(0); j++)
-            {
-                if(cancellationToken != null)
-                    if (cancellationToken.IsCancellationRequested)
-                        break;
-                
-                Train(inputs[j], expectedOutputs[j]);
-                if(progress != null)
-                    progress.Report(j);
-            }
-            IsTraining = false;
-        }
-
         /// <summary>Performs an iteration of backpropagation using the specified inputs and expected outputs.</summary>
         /// <param name="inputs">The inputs.</param>
         /// <param name="expectedOutputs">The expected outputs.</param>
         /// <exception cref="ArgumentException">The given arguements do not correspond to the network configuration.</exception>
         public void Train(double[] inputs, double[] expectedOutputs)
         {
-            IsTraining = true;
             if (inputs.Length != InputCount || expectedOutputs.Length != Structure.Last().NodeCount)
             {
                 throw new ArgumentException("The given arguements do not correspond to the network configuration.");
             }
             double[] actualOutput = Predict(inputs);
-            double[] errors = expectedOutputs.ElementwiseSubtract(actualOutput);
+            double[] errors = actualOutput.ElementwiseSubtract(expectedOutputs);
             for (int currentLayer = Structure.Count - 1; currentLayer > -1; currentLayer--)
             {
                 errors = Structure[currentLayer].Backpropagate(errors);
             }
             TrainedCount++;
-            IsTraining = false;
         }
 
         /// <summary>Saves this instance to the specified path.</summary>
@@ -210,6 +186,32 @@ namespace ML_Library
                 neuralNetwork.InputCount = config.InputCount;
             }
             return neuralNetwork;
+        }
+
+
+
+        public void Train(double[][] inputs, double[][] expectedOutputs, IProgress<int> progress = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            IsTraining = true;
+            if (inputs.Length != expectedOutputs.Length)
+            {
+                throw new ArgumentException("The given arguements do not correspond to each other as input length and output length differ.");
+            }
+            for (int j = 0; j < inputs.GetLength(0); j++)
+            {
+                if (cancellationToken != null)
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
+               
+                Train(inputs[j], expectedOutputs[j]);
+                
+                if (j % 100 == 0)
+                    LossIterations.Add(new LossPoint(CalculateLoss(inputs.Take(10).ToArray(), expectedOutputs.Take(10).ToArray()), TrainedCount));
+
+                if (progress != null)
+                    progress.Report(j);
+            }
+            IsTraining = false;
         }
     }
 }

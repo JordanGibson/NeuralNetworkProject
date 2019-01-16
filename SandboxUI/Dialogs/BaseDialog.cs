@@ -13,7 +13,7 @@ using Bunifu.Framework;
 using Bunifu;
 using BunifuAnimatorNS;
 
-namespace SandboxUI.Forms
+namespace SandboxUI.Dialogs
 {
     public partial class BaseDialog : Form
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ML_Library
 {
@@ -63,7 +64,7 @@ namespace ML_Library
                 switch (activationMethod)
                 {
                     case ActivationMethod.Sigmoid:
-                        return x * (1 - x);
+                        return ActivateValue(x, ActivationMethod.Sigmoid) * (1 - ActivateValue(x, ActivationMethod.Sigmoid));
                     case ActivationMethod.ReLU:
                         return x <= 0 ? 0 : 1;
                     case ActivationMethod.Tanh:

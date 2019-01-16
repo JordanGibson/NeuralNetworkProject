@@ -117,11 +117,6 @@
             // 
             this.pnlTrainingStatus.Location = new System.Drawing.Point(3, 520);
             this.pnlTrainingStatus.Size = new System.Drawing.Size(904, 40);
-            this.pnlTrainingStatus.Visible = true;
-            // 
-            // lblTrainingStatus
-            // 
-            this.lblTrainingStatus.Visible = true;
             // 
             // pgbTrainingProgress
             // 
@@ -134,6 +129,7 @@
             // 
             this.btnGenerateReport.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.btnGenerateReport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnGenerateReport.Click += new System.EventHandler(this.btnGenerateReport_Click);
             // 
             // MNISTForm
             // 

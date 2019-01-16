@@ -47,15 +47,6 @@
     <Compile Include="Activater.cs" />
     <Compile Include="ActivationMethod.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="ConvNet\ActivationLayer.cs" />
-    <Compile Include="ConvNet\ConvLayer.cs" />
-    <Compile Include="ConvNet\ConvolutionalNetwork.cs" />
-    <Compile Include="ConvNet\FlattenLayer.cs" />
-    <Compile Include="ConvNet\FullyConnected.cs" />
-    <Compile Include="ConvNet\LayerType.cs" />
-    <Compile Include="ConvNet\BaseLayer.cs" />
-    <Compile Include="ConvNet\Matrix3D.cs" />
-    <Compile Include="ConvNet\PoolingLayer.cs" />
     <Compile Include="FullyConnected.cs" />
     <Compile Include="LossPoint.cs" />
     <Compile Include="MathExtensions.cs" />

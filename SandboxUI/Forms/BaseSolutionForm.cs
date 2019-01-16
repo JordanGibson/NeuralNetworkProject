@@ -12,6 +12,10 @@ using SandboxUI.ProjectHelper;
 using System.Threading;
 using System.Diagnostics;
 using System.IO;
+using SandboxUI.Dialogs;
+using NHotkey.WindowsForms;
+using NHotkey;
+using System.Runtime.InteropServices;
 
 namespace SandboxUI.Forms
 {
@@ -22,7 +26,7 @@ namespace SandboxUI.Forms
         protected NeuralNetwork Network;
         protected Project Project;
         protected ProjectSettings projectSettings;
-
+        
         protected double[][] Inputs;
         protected double[][] ExpectedOutputs;
         protected int TrainedCount;
@@ -46,11 +50,31 @@ namespace SandboxUI.Forms
             cancellationTokenSource = new CancellationTokenSource();
             projectSettings = ProjectSettings.GetSettings(project);
             lblWindowTitle.Text = projectSettings.Name;
+            HotkeyManager.Current.AddOrReplace("Magnifier", Keys.Control, Form_ControlKeyPressed);
         }
 
-        public virtual double GetCurrentError()
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        private async void Form_ControlKeyPressed(object sender, HotkeyEventArgs e)
         {
-            throw new NotImplementedException();
+            if (Process.GetProcessesByName("magnify").Length != 0)
+            {
+                Process.GetProcessesByName("magnify").First().Kill();
+            }
+            else
+            {
+                Process p = new Process();
+                p.StartInfo = new ProcessStartInfo()
+                {
+                    FileName = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\Magnify.exe",
+                    UseShellExecute = true,
+                    Arguments = "/lens",
+                    Verb = "runas"
+                };
+                p.Start();
+            }
+            e.Handled = true;
         }
 
         private void btnCloseWindow_Click(object sender, EventArgs e)
@@ -123,10 +147,7 @@ namespace SandboxUI.Forms
                     lblLearningRate.Click += lblLearningRate_Click;
                 }
                 lblNetworkStructure.Text = "Structure: " + NetworkArchitectureToString;
-                if (Network.CurrentError == double.PositiveInfinity)
-                    lblCurrentError.Text = "Current Error: N/A";
-                else
-                    lblCurrentError.Text = "Current Error: " + Network.CurrentError;
+                lblCurrentError.Text = Network.CurrentError == double.PositiveInfinity ? "Current Error: N/A" : "Current Error: " + Network.CurrentError;
             }
             else
             {
@@ -136,6 +157,7 @@ namespace SandboxUI.Forms
                 lblCurrentError.Text = "Current Error: N/A";
                 lblTrainedCount.Text = "Trained Count: N/A";
                 lblLastTrainedCount.Text = "Last Trained Count: N/A";
+                pbxVisualRepresentation.Image = null;
             }
             AdditionalUIStatusUpdate();
         }
@@ -211,6 +233,10 @@ namespace SandboxUI.Forms
 
         protected virtual void Train(int iterations, CancellationToken cancellationToken)
         {
+            var indexList = Enumerable.Range(0, iterations).OrderBy(o => Utility.NextDouble()).ToList();
+            Inputs = indexList.Select(o => Inputs[o]).ToArray();
+            ExpectedOutputs = indexList.Select(o => ExpectedOutputs[o]).ToArray();
+
             ToggleNetworkTraining(true);
             Invoke(new Action(() => pgbTrainingProgress.Maximum = iterations));
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -238,7 +264,7 @@ namespace SandboxUI.Forms
             ToggleNetworkTraining(false);
         }
 
-        private void UpdateTrainingProgress(int progressCount, int totalCount, long ticks)
+        protected void UpdateTrainingProgress(int progressCount, int totalCount, long ticks)
         {
             lblTrainingStatus.Invoke(new Action(() => {
                 lblTrainingStatus.Text = string.Format("Progress: {0}/{1} ETA: {2}", progressCount, totalCount, TimeSpan.FromTicks(ticks).ToString(@"hh\:mm\:ss"));
@@ -248,7 +274,14 @@ namespace SandboxUI.Forms
 
         protected virtual void UpdateVisualRepresentation()
         {
-            
+            Invoke(new Action(() =>
+            {
+                chtCurrentStateLoss.Series[0].Points.Clear();
+                foreach (var point in Network.LossIterations)
+                {
+                    chtCurrentStateLoss.Series[0].Points.Add(point.Loss, point.TrainingIterations);
+                }
+            }));
         }
 
         private async void btnTrain2000_Click(object sender, EventArgs e)
@@ -281,18 +314,21 @@ namespace SandboxUI.Forms
 
         protected virtual async Task<string> GenerateReport()
         {
-            if (Inputs == null)
+            if (Inputs == null || ExpectedOutputs == null)
                 throw new Exception("Inputs and expeceted outputs must be defined before calling generate report");
             int correct = 0, incorrect = 0;
-            for(int i = 0; i < Inputs.Length; i++)
+            await Task.Run(() =>
             {
-                double[] prediction = Network.Predict(Inputs[i]);
-                if (ResultValidator.OutputsCorrect(Project, prediction, ExpectedOutputs[i]))
-                    correct++;
-                else
-                    incorrect++;
-            }
-            string report = string.Format("Correct: {0}\nIncorrect: {1}\nSuccess Rate:{2}%\nNetwork Architecture: {3}\nLearning Rates: {4}\nActivation Methods: {5}", correct, incorrect, (double)correct/incorrect, NetworkArchitectureToString, NetworkLearningRatesToString, NetworkActivationMethodsToString);
+                for (int i = 0; i < Inputs.Length; i++)
+                {
+                    double[] prediction = Network.Predict(Inputs[i]);
+                    if (ResultValidator.OutputsCorrect(Project, prediction, ExpectedOutputs[i]))
+                        correct++;
+                    else
+                        incorrect++;
+                }
+            });
+            string report = string.Format("Correct: {0}\nIncorrect: {1}\nSuccess Rate:{2}%\nNetwork Architecture: {3}\nLearning Rates: {4}\nActivation Methods: {5}", correct, incorrect, (double)correct / incorrect, NetworkArchitectureToString, NetworkLearningRatesToString, NetworkActivationMethodsToString);
             return report;
         }
 
@@ -304,7 +340,7 @@ namespace SandboxUI.Forms
             Network.SaveInstance(filePath);
         }
 
-        private async void btnGenerateReport_Click(object sender, EventArgs e)
+        protected async virtual void btnGenerateReport_Click(object sender, EventArgs e)
         {
             string report = await GenerateReport();
             string path = Misc.Utility.GetSaveFilePath("Text Document", "txt");
@@ -319,6 +355,12 @@ namespace SandboxUI.Forms
             {
                 cancellationTokenSource.Cancel();
             }
+        }
+
+        private void BaseSolutionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Process.GetProcessesByName("magnify").Length != 0)
+                Process.GetProcessesByName("magnify").First().Kill();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SandboxUI.Forms
+namespace SandboxUI.Dialogs
 {
     public partial class DarkMessageBoxYesNo : DarkMessageBox
     {

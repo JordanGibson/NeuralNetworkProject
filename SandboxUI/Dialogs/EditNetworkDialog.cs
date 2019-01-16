@@ -11,7 +11,7 @@ using ML_Library;
 using Newtonsoft.Json;
 using SandboxUI.ProjectHelper;
 
-namespace SandboxUI.Forms
+namespace SandboxUI.Dialogs
 {
     public partial class EditNetworkDialog : BaseNetworkConfigurationDialog
     {

@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SandboxUI.Forms
+namespace SandboxUI.Dialogs
 {
     partial class BaseDialog
     {

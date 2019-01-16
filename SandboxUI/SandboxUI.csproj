@@ -80,14 +80,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHotkey, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHotkey.1.2.1\lib\net20\NHotkey.dll</HintPath>
+    </Reference>
+    <Reference Include="NHotkey.WindowsForms, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHotkey.WindowsForms.1.2.1\lib\net20\NHotkey.WindowsForms.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>True</Private>
@@ -158,53 +161,53 @@
     <Compile Include="Forms\BaseSolutionForm.Designer.cs">
       <DependentUpon>BaseSolutionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\BaseDialog.cs">
+    <Compile Include="Dialogs\BaseDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BaseDialog.Designer.cs">
+    <Compile Include="Dialogs\BaseDialog.Designer.cs">
       <DependentUpon>BaseDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ConvolutionalDisplayDialog.cs">
+    <Compile Include="Dialogs\DarkMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ConvolutionalDisplayDialog.Designer.cs">
-      <DependentUpon>ConvolutionalDisplayDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\DarkMessageBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DarkMessageBox.Designer.cs">
+    <Compile Include="Dialogs\DarkMessageBox.Designer.cs">
       <DependentUpon>DarkMessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DarkMessageBoxYesNo.cs">
+    <Compile Include="Dialogs\DarkMessageBoxYesNo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DarkMessageBoxYesNo.Designer.cs">
+    <Compile Include="Dialogs\DarkMessageBoxYesNo.Designer.cs">
       <DependentUpon>DarkMessageBoxYesNo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GetComboBoxValueDialog.cs">
+    <Compile Include="Dialogs\GetComboBoxValueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\GetComboBoxValueDialog.Designer.cs">
+    <Compile Include="Dialogs\GetComboBoxValueDialog.Designer.cs">
       <DependentUpon>GetComboBoxValueDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GetNUDValueDialog.cs">
+    <Compile Include="Dialogs\GetNUDValueDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\GetNUDValueDialog.Designer.cs">
+    <Compile Include="Dialogs\GetNUDValueDialog.Designer.cs">
       <DependentUpon>GetNUDValueDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\EditNetworkDialog.cs">
+    <Compile Include="Dialogs\EditNetworkDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\EditNetworkDialog.Designer.cs">
+    <Compile Include="Dialogs\EditNetworkDialog.Designer.cs">
       <DependentUpon>EditNetworkDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\BaseNetworkConfigurationDialog.cs">
+    <Compile Include="Dialogs\BaseNetworkConfigurationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BaseNetworkConfigurationDialog.Designer.cs">
+    <Compile Include="Dialogs\BaseNetworkConfigurationDialog.Designer.cs">
       <DependentUpon>BaseNetworkConfigurationDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LaunchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LaunchForm.Designer.cs">
+      <DependentUpon>LaunchForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MNISTForm.cs">
       <SubType>Form</SubType>
@@ -212,16 +215,10 @@
     <Compile Include="Forms\MNISTForm.Designer.cs">
       <DependentUpon>MNISTForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MNISTFormConvolutional.cs">
+    <Compile Include="Dialogs\NewNetworkDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MNISTFormConvolutional.Designer.cs">
-      <DependentUpon>MNISTFormConvolutional.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\NewNetworkDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\NewNetworkDialog.Designer.cs">
+    <Compile Include="Dialogs\NewNetworkDialog.Designer.cs">
       <DependentUpon>NewNetworkDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Misc\MNISTLoader.cs" />
@@ -242,37 +239,31 @@
       <DependentUpon>BaseSolutionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\BaseDialog.resx">
+    <EmbeddedResource Include="Dialogs\BaseDialog.resx">
       <DependentUpon>BaseDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ConvolutionalDisplayDialog.resx">
-      <DependentUpon>ConvolutionalDisplayDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DarkMessageBox.resx">
+    <EmbeddedResource Include="Dialogs\DarkMessageBox.resx">
       <DependentUpon>DarkMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DarkMessageBoxYesNo.resx">
+    <EmbeddedResource Include="Dialogs\DarkMessageBoxYesNo.resx">
       <DependentUpon>DarkMessageBoxYesNo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\GetComboBoxValueDialog.resx">
+    <EmbeddedResource Include="Dialogs\GetComboBoxValueDialog.resx">
       <DependentUpon>GetComboBoxValueDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\GetNUDValueDialog.resx">
+    <EmbeddedResource Include="Dialogs\GetNUDValueDialog.resx">
       <DependentUpon>GetNUDValueDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\EditNetworkDialog.resx">
+    <EmbeddedResource Include="Dialogs\EditNetworkDialog.resx">
       <DependentUpon>EditNetworkDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\BaseNetworkConfigurationDialog.resx">
+    <EmbeddedResource Include="Dialogs\BaseNetworkConfigurationDialog.resx">
       <DependentUpon>BaseNetworkConfigurationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MNISTForm.resx">
       <DependentUpon>MNISTForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MNISTFormConvolutional.resx">
-      <DependentUpon>MNISTFormConvolutional.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NewNetworkDialog.resx">
+    <EmbeddedResource Include="Dialogs\NewNetworkDialog.resx">
       <DependentUpon>NewNetworkDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\XORForm.resx">
@@ -305,7 +296,11 @@
       <Name>ML_Library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Magnify.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
