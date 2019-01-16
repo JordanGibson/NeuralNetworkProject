@@ -23,7 +23,8 @@ namespace ML_Library
         [JsonProperty()]
         private Matrix Biases { get; set; }
 
-        private double[] Inputs { get; set; }
+        private Matrix Inputs { get; set; }
+        private Matrix WeightedSums { get; set; }
 
         private bool IsInitialized => Weights != null && Biases != null;
 
@@ -81,14 +82,16 @@ namespace ML_Library
         /// <returns>Result of the forward pass</returns>
         public double[] ForwardPass(double[] inputArr)
         {
-            Inputs = inputArr;
+            Inputs = Matrix.FromArray(inputArr);
 
             if (!IsInitialized)
             {
-                InitializeLayer(Inputs.Length);
+                InitializeLayer(inputArr.Length);
             }
 
-            Outputs = Weights.DotProduct(Matrix.FromArray(Inputs)).Add(Biases).Activate(ActivationMethod).ToArray();
+            WeightedSums = Weights.DotProduct(Inputs).Add(Biases);
+
+            Outputs = WeightedSums.Activate(ActivationMethod).ToArray();
 
             return Outputs;
         }
@@ -98,16 +101,15 @@ namespace ML_Library
         /// <returns></returns>
         public double[] Backpropagate(double[] errorsArr)
         {
-            Matrix errors = Matrix.FromArray(errorsArr);
+            Matrix errors = Matrix.FromArray(errorsArr).HardamardProduct(WeightedSums.Activate(ActivationMethod, true));
             double[] nextErrors = Weights.Transpose().DotProduct(errors).ToArray();
 
-            Matrix gradients = Matrix.FromArray(Outputs);
-            gradients = gradients.Activate(ActivationMethod, true).CrossMultiply(errors).ScalarMultiply(LearningRate);
+            Matrix weightDeltas = Matrix.FromArray(Outputs).Activate(ActivationMethod, true)
+                .HardamardProduct(errors)
+                .DotProduct(Inputs.Transpose());
 
-            Biases = Biases.Add(gradients);
 
-            Matrix weightDeltas = gradients.DotProduct(Matrix.FromArray(Inputs).Transpose());
-            Weights = Weights.Add(weightDeltas);
+            Weights = Weights.Subtract(weightDeltas.ScalarMultiply(LearningRate));
             return nextErrors;
         }
     }

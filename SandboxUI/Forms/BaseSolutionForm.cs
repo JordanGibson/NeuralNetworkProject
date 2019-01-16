@@ -147,10 +147,7 @@ namespace SandboxUI.Forms
                     lblLearningRate.Click += lblLearningRate_Click;
                 }
                 lblNetworkStructure.Text = "Structure: " + NetworkArchitectureToString;
-                if (Network.CurrentError == double.PositiveInfinity)
-                    lblCurrentError.Text = "Current Error: N/A";
-                else
-                    lblCurrentError.Text = "Current Error: " + Network.CurrentError;
+                lblCurrentError.Text = Network.CurrentError == double.PositiveInfinity ? "Current Error: N/A" : "Current Error: " + Network.CurrentError;
             }
             else
             {
@@ -160,6 +157,7 @@ namespace SandboxUI.Forms
                 lblCurrentError.Text = "Current Error: N/A";
                 lblTrainedCount.Text = "Trained Count: N/A";
                 lblLastTrainedCount.Text = "Last Trained Count: N/A";
+                pbxVisualRepresentation.Image = null;
             }
             AdditionalUIStatusUpdate();
         }
@@ -235,6 +233,10 @@ namespace SandboxUI.Forms
 
         protected virtual void Train(int iterations, CancellationToken cancellationToken)
         {
+            var indexList = Enumerable.Range(0, iterations).OrderBy(o => Utility.NextDouble()).ToList();
+            Inputs = indexList.Select(o => Inputs[o]).ToArray();
+            ExpectedOutputs = indexList.Select(o => ExpectedOutputs[o]).ToArray();
+
             ToggleNetworkTraining(true);
             Invoke(new Action(() => pgbTrainingProgress.Maximum = iterations));
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -262,7 +264,7 @@ namespace SandboxUI.Forms
             ToggleNetworkTraining(false);
         }
 
-        private void UpdateTrainingProgress(int progressCount, int totalCount, long ticks)
+        protected void UpdateTrainingProgress(int progressCount, int totalCount, long ticks)
         {
             lblTrainingStatus.Invoke(new Action(() => {
                 lblTrainingStatus.Text = string.Format("Progress: {0}/{1} ETA: {2}", progressCount, totalCount, TimeSpan.FromTicks(ticks).ToString(@"hh\:mm\:ss"));
@@ -312,7 +314,7 @@ namespace SandboxUI.Forms
 
         protected virtual async Task<string> GenerateReport()
         {
-            if (Inputs == null)
+            if (Inputs == null || ExpectedOutputs == null)
                 throw new Exception("Inputs and expeceted outputs must be defined before calling generate report");
             int correct = 0, incorrect = 0;
             await Task.Run(() =>
@@ -326,7 +328,7 @@ namespace SandboxUI.Forms
                         incorrect++;
                 }
             });
-            string report = string.Format("Correct: {0}\nIncorrect: {1}\nSuccess Rate:{2}%\nNetwork Architecture: {3}\nLearning Rates: {4}\nActivation Methods: {5}", correct, incorrect, (double)correct/incorrect, NetworkArchitectureToString, NetworkLearningRatesToString, NetworkActivationMethodsToString);
+            string report = string.Format("Correct: {0}\nIncorrect: {1}\nSuccess Rate:{2}%\nNetwork Architecture: {3}\nLearning Rates: {4}\nActivation Methods: {5}", correct, incorrect, (double)correct / incorrect, NetworkArchitectureToString, NetworkLearningRatesToString, NetworkActivationMethodsToString);
             return report;
         }
 
@@ -338,7 +340,7 @@ namespace SandboxUI.Forms
             Network.SaveInstance(filePath);
         }
 
-        private async void btnGenerateReport_Click(object sender, EventArgs e)
+        protected async virtual void btnGenerateReport_Click(object sender, EventArgs e)
         {
             string report = await GenerateReport();
             string path = Misc.Utility.GetSaveFilePath("Text Document", "txt");

@@ -21,8 +21,8 @@ namespace SandboxUI.Forms
     {
         private string trainImgPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-images.idx3-ubyte";
         private string trainLblPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-labels.idx1-ubyte";
-        private string testImgPath = @"";
-        private string testLblPath = @"";
+        private string testImgPath = @"C:\Users\Jordan\Desktop\t10k-images.idx3-ubyte";
+        private string testLblPath = @"C:\Users\Jordan\Desktop\t10k-labels.idx1-ubyte";
 
 
         public MNISTForm() : base(ProjectHelper.Project.MNIST)
@@ -34,8 +34,8 @@ namespace SandboxUI.Forms
 
         protected override async void Train(int iterations, CancellationToken cancellationToken)
         {
-            Inputs = await MNISTLoader.GetImagesAsync(trainImgPath, TrainedCount % 50000, iterations);
-            ExpectedOutputs = await MNISTLoader.GetLabelsAsync(trainLblPath, TrainedCount % 50000, iterations);
+            Inputs = await MNISTLoader.GetImagesAsync(trainImgPath, 0, iterations);
+            ExpectedOutputs = await MNISTLoader.GetLabelsAsync(trainLblPath, 0, iterations);
 
             base.Train(iterations, cancellationToken);
         }
@@ -53,6 +53,43 @@ namespace SandboxUI.Forms
                 }
             }
             return bmp;
+        }
+
+        protected override async void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            string filePath = Misc.Utility.GetSaveFilePath("Text Document", "txt");
+            if (filePath == "")
+                return;
+
+            ToggleNetworkTraining(true);
+
+            Inputs = await Misc.MNISTLoader.GetImagesAsync(testImgPath, 0, 10000);
+            ExpectedOutputs = await Misc.MNISTLoader.GetLabelsAsync(testLblPath, 0, 10000);
+
+            IProgress<double> progress = new Progress<double>(new Action<double>((i) => UpdateTrainingProgress((int)i, 10000, 0)));
+
+            int correct = 0, incorrect = 0;
+
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < Inputs.Length; i++)
+                {
+                    List<double> prediction = Network.Predict(Inputs[i]).ToList();
+                    if (prediction.IndexOf(prediction.Max()) == ExpectedOutputs[i].ToList().IndexOf(1))
+                    {
+                        correct++;
+                    }
+                    else
+                    {
+                        incorrect++;
+                    }
+                    progress.Report(i);
+                }
+            });
+            string report = string.Format("Correct: {0}\nIncorrect: {1}\nSuccess Rate:{2}%\nNetwork Architecture: {3}\nLearning Rates: {4}\nActivation Methods: {5}", correct, incorrect, (double)correct / (correct + incorrect), NetworkArchitectureToString, NetworkLearningRatesToString, NetworkActivationMethodsToString);
+
+            File.WriteAllText(filePath, report);
+            ToggleNetworkTraining(false);
         }
     }
 }

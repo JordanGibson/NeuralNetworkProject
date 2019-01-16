@@ -33,8 +33,6 @@ namespace SandboxUI.Forms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseSolutionForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnlWindowBar = new System.Windows.Forms.Panel();
@@ -59,7 +57,6 @@ namespace SandboxUI.Forms
             this.lblLastTrainedCount = new System.Windows.Forms.Label();
             this.lblTrainedCount = new System.Windows.Forms.Label();
             this.lblNetworkState = new System.Windows.Forms.Label();
-            this.chtLossOvertime = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pbxVisualRepresentation = new System.Windows.Forms.PictureBox();
             this.chtCurrentStateLoss = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlNetworkConfiguration = new System.Windows.Forms.Panel();
@@ -78,7 +75,6 @@ namespace SandboxUI.Forms
             this.pnlTrainingStatus.SuspendLayout();
             this.pnlNetworkTraining.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTrainX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chtLossOvertime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxVisualRepresentation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtCurrentStateLoss)).BeginInit();
             this.pnlNetworkConfiguration.SuspendLayout();
@@ -186,7 +182,6 @@ namespace SandboxUI.Forms
             this.pnlContent.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.pnlContent.Controls.Add(this.pnlTrainingStatus);
             this.pnlContent.Controls.Add(this.pnlNetworkTraining);
-            this.pnlContent.Controls.Add(this.chtLossOvertime);
             this.pnlContent.Controls.Add(this.pbxVisualRepresentation);
             this.pnlContent.Controls.Add(this.chtCurrentStateLoss);
             this.pnlContent.Controls.Add(this.pnlNetworkConfiguration);
@@ -277,7 +272,7 @@ namespace SandboxUI.Forms
             this.nudTrainX.ForeColor = System.Drawing.Color.White;
             this.nudTrainX.Location = new System.Drawing.Point(8, 177);
             this.nudTrainX.Maximum = new decimal(new int[] {
-            50000,
+            60000,
             0,
             0,
             0});
@@ -367,59 +362,10 @@ namespace SandboxUI.Forms
             this.lblNetworkState.TabIndex = 0;
             this.lblNetworkState.Text = "Network State";
             // 
-            // chtLossOvertime
-            // 
-            this.chtLossOvertime.BackColor = System.Drawing.SystemColors.WindowFrame;
-            chartArea1.AxisX.InterlacedColor = System.Drawing.Color.White;
-            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisX.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.InterlacedColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.MajorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.MinorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisX2.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.InterlacedColor = System.Drawing.Color.White;
-            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.InterlacedColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.MajorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.MajorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.MinorGrid.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.MinorTickMark.LineColor = System.Drawing.Color.White;
-            chartArea1.AxisY2.TitleForeColor = System.Drawing.Color.White;
-            chartArea1.BackColor = System.Drawing.SystemColors.WindowFrame;
-            chartArea1.BorderColor = System.Drawing.Color.White;
-            chartArea1.Name = "ChartArea1";
-            this.chtLossOvertime.ChartAreas.Add(chartArea1);
-            this.chtLossOvertime.Location = new System.Drawing.Point(299, 270);
-            this.chtLossOvertime.Name = "chtLossOvertime";
-            series1.BorderColor = System.Drawing.Color.Black;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            series1.Name = "Series1";
-            this.chtLossOvertime.Series.Add(series1);
-            this.chtLossOvertime.Size = new System.Drawing.Size(609, 258);
-            this.chtLossOvertime.TabIndex = 5;
-            // 
             // pbxVisualRepresentation
             // 
             this.pbxVisualRepresentation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pbxVisualRepresentation.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbxVisualRepresentation.Location = new System.Drawing.Point(3, 270);
             this.pbxVisualRepresentation.Name = "pbxVisualRepresentation";
             this.pbxVisualRepresentation.Size = new System.Drawing.Size(290, 290);
@@ -467,15 +413,17 @@ namespace SandboxUI.Forms
             chartArea2.BorderColor = System.Drawing.Color.White;
             chartArea2.Name = "ChartArea1";
             this.chtCurrentStateLoss.ChartAreas.Add(chartArea2);
-            this.chtCurrentStateLoss.Location = new System.Drawing.Point(579, 6);
+            this.chtCurrentStateLoss.Location = new System.Drawing.Point(273, 270);
             this.chtCurrentStateLoss.Name = "chtCurrentStateLoss";
+            this.chtCurrentStateLoss.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series2.BorderColor = System.Drawing.Color.Black;
+            series2.BorderWidth = 2;
             series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Color = System.Drawing.Color.Lime;
             series2.Name = "Series1";
             this.chtCurrentStateLoss.Series.Add(series2);
-            this.chtCurrentStateLoss.Size = new System.Drawing.Size(325, 258);
+            this.chtCurrentStateLoss.Size = new System.Drawing.Size(658, 293);
             this.chtCurrentStateLoss.TabIndex = 3;
             // 
             // pnlNetworkConfiguration
@@ -649,7 +597,6 @@ namespace SandboxUI.Forms
             this.pnlNetworkTraining.ResumeLayout(false);
             this.pnlNetworkTraining.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTrainX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chtLossOvertime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxVisualRepresentation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chtCurrentStateLoss)).EndInit();
             this.pnlNetworkConfiguration.ResumeLayout(false);
@@ -678,7 +625,6 @@ namespace SandboxUI.Forms
         public Label lblNetworkStructure;
         public Label lblNetworkConfig;
         private System.Windows.Forms.DataVisualization.Charting.Chart chtCurrentStateLoss;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chtLossOvertime;
         public Panel pnlNetworkTraining;
         public Button btnTrainX;
         public Button btnTrain2000;
