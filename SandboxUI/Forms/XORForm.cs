@@ -17,18 +17,20 @@ namespace SandboxUI.Forms
 {
     public partial class XORForm : BaseSolutionForm
     {
+        private double[][] inputs = new double[][] { new double[] { 0, 0 }, new double[] { 0, 1 }, new double[] { 1, 0 }, new double[] { 1, 1 } };
+        private double[][] expectedOutputs = new double[][] { new double[] { 0 }, new double[] { 1 }, new double[] { 1 }, new double[] { 0 } };
+
         public XORForm() : base(Project.XOR)
         {
             InitializeComponent();
         }
 
-        protected override async void Train(int iterations, CancellationToken cancellationToken)
+        protected override void Train(int iterations, CancellationToken cancellationToken)
         {
-            var trainingData = await Misc.XORLoader.GetTrainingDataAsync(iterations);
-            Inputs = trainingData.Item1;
-            ExpectedOutputs = trainingData.Item2;
+            Inputs = inputs;
+            ExpectedOutputs = expectedOutputs;
 
-            base.Train(iterations, cancellationToken);
+            base.TrainRandomOrder(iterations, cancellationToken);
         }
 
         protected override void UpdateVisualRepresentation()
@@ -49,9 +51,8 @@ namespace SandboxUI.Forms
 
         protected override async Task<string> GenerateReport()
         {
-            var trainingData = await Misc.XORLoader.GetTrainingDataAsync(1000);
-            Inputs = trainingData.Item1;
-            ExpectedOutputs = trainingData.Item2;
+            Inputs = inputs;
+            ExpectedOutputs = expectedOutputs;
             return await base.GenerateReport();
         }
     }

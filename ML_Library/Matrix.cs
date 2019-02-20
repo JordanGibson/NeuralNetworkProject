@@ -272,19 +272,6 @@ namespace ML_Library
             return result;
         }
 
-        public Matrix SubMatrix(int xCoord, int yCoord, int size)
-        {
-            Matrix subMatrix = new Matrix(size, size);
-            for (int x = xCoord; x < size + xCoord; x++)
-            {
-                for (int y = yCoord; y < size + yCoord; y++)
-                {
-                    subMatrix.Data[x - xCoord, y - yCoord] = Data[x, y];
-                }
-            }
-            return subMatrix;
-        }
-
         public double Max()
         {
             double max = 0;
@@ -297,26 +284,6 @@ namespace ML_Library
                 }
             }
             return max;
-        }
-
-        public Matrix Pad(int padCount, double padValue)
-        {
-            Matrix newMatrix = new Matrix(Rows + 2 * padCount, Cols + 2 * padCount);
-            for(int x = 0; x < newMatrix.Rows; x++)
-            {
-                for (int y = 0; y < newMatrix.Cols; y++)
-                {
-                    if(x < padCount || y < padCount || x > Rows + padCount - 1 || y > Cols + padCount - 1)
-                    {
-                        newMatrix[x, y] = padValue;
-                    }
-                    else
-                    {
-                        newMatrix[x, y] = Data[x - padCount, y - padCount];
-                    }
-                }
-            }
-            return newMatrix;
         }
 
         public void WriteMatrix()

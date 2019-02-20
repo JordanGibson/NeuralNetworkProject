@@ -31,44 +31,12 @@ namespace ML_Library
             return tempArr;
         }
 
-        public static double GetActivationMethodMaxValue(ActivationMethod activationMethod)
-        {
-            switch (activationMethod)
-            {
-                case ActivationMethod.Sigmoid:
-                case ActivationMethod.Tanh:
-                    return 1;
-                case ActivationMethod.Arctan:
-                case ActivationMethod.Gudermannian:
-                    return Math.PI / 2;
-                case ActivationMethod.ReLU:
-                    return double.PositiveInfinity;
-                default:
-                    throw new Exception("Invalid Activation Method!");
-            }
-        }
+        
 
-        public static double GetActivationMethodMinValue(ActivationMethod activationMethod)
+        public static double[] Zeros(int length)
         {
-            switch (activationMethod)
-            {
-                case ActivationMethod.Sigmoid:
-                case ActivationMethod.ReLU:
-                    return 0;
-                case ActivationMethod.Tanh:
-                    return -1;
-                case ActivationMethod.Arctan:
-                case ActivationMethod.Gudermannian:
-                    return -Math.PI / 2;
-                default:
-                    throw new Exception("Invalid Activation Method!");
-            }
-        }
-
-        public static double[] Zeros(int items)
-        {
-            double[] result = new double[items];
-            for (int i = 0; i < items; i++)
+            double[] result = new double[length];
+            for (int i = 0; i < length; i++)
             {
                 result[i] = 0;
             }

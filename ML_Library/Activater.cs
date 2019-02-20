@@ -128,6 +128,8 @@ namespace ML_Library
                     return Math.Log(y / (1 - y));
                 case ActivationMethod.Arctan:
                     return Math.Tan(y);
+                case ActivationMethod.ReLU:
+                    return y >= 0 ? y : throw new Exception("The value should not be below zero");
                 default:
                     throw new Exception(activationMethod.ToString() + " is not a valid activation for inverse");
             }

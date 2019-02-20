@@ -16,6 +16,8 @@ using SandboxUI.Dialogs;
 using NHotkey.WindowsForms;
 using NHotkey;
 using System.Runtime.InteropServices;
+using System.Reflection;
+using SandboxUI.Misc;
 
 namespace SandboxUI.Forms
 {
@@ -35,7 +37,7 @@ namespace SandboxUI.Forms
         protected string NetworkLearningRatesToString { get { return Network.Structure.All(o => o.LearningRate == Network.Structure[0].LearningRate) ? Network.Structure[0].LearningRate.ToString() : string.Join(" - ", Network.LearningRates); } }
         protected string NetworkActivationMethodsToString { get { return Network.Structure.All(o => o.ActivationMethod == Network.Structure[0].ActivationMethod) ? Network.Structure[0].ActivationMethod.ToString() : string.Join(" - ", Network.ActivationMethods); } }
 
-        public bool isTrainingDataLoaded { get { return Inputs != null && ExpectedOutputs != null; } }
+        protected bool IsTrainingDataLoaded => Inputs != null && ExpectedOutputs != null;
 
 
         public BaseSolutionForm()
@@ -52,10 +54,6 @@ namespace SandboxUI.Forms
             lblWindowTitle.Text = projectSettings.Name;
             HotkeyManager.Current.AddOrReplace("Magnifier", Keys.Control, Form_ControlKeyPressed);
         }
-
-        [DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
         private async void Form_ControlKeyPressed(object sender, HotkeyEventArgs e)
         {
             if (Process.GetProcessesByName("magnify").Length != 0)
@@ -157,7 +155,6 @@ namespace SandboxUI.Forms
                 lblCurrentError.Text = "Current Error: N/A";
                 lblTrainedCount.Text = "Trained Count: N/A";
                 lblLastTrainedCount.Text = "Last Trained Count: N/A";
-                pbxVisualRepresentation.Image = null;
             }
             AdditionalUIStatusUpdate();
         }
@@ -179,6 +176,17 @@ namespace SandboxUI.Forms
 
         private void btnNewNetwork_Click(object sender, EventArgs e)
         {
+            string methods = "";
+            foreach(var method in GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic))
+            {
+                if (typeof(Form).GetMethods().Contains(method))
+                    continue;
+                var parameters = method.GetParameters();
+                var parameterDescription = string.Join(", ", method.GetParameters().Select(x => x.Name).ToArray());
+
+                methods += string.Format("{0}({1}){2}", method.Name, parameterDescription, Environment.NewLine);
+            }
+            File.WriteAllText("methods.txt", methods);
             NewNetworkDialog newNetworkDialog = new NewNetworkDialog(projectSettings);
             Network = newNetworkDialog.ShowDialog();
             UpdateUIStatus();
@@ -194,6 +202,10 @@ namespace SandboxUI.Forms
         private void btnClearNetwork_Click(object sender, EventArgs e)
         {
             Network = null;
+            TrainedCount = 0;
+            LastTrainedCount = 0;
+            pbxVisualRepresentation.Image = null;
+            chtCurrentStateLoss.Series[0].Points.Clear();
             UpdateUIStatus();
         }
 
@@ -233,10 +245,6 @@ namespace SandboxUI.Forms
 
         protected virtual void Train(int iterations, CancellationToken cancellationToken)
         {
-            var indexList = Enumerable.Range(0, iterations).OrderBy(o => Utility.NextDouble()).ToList();
-            Inputs = indexList.Select(o => Inputs[o]).ToArray();
-            ExpectedOutputs = indexList.Select(o => ExpectedOutputs[o]).ToArray();
-
             ToggleNetworkTraining(true);
             Invoke(new Action(() => pgbTrainingProgress.Maximum = iterations));
             Stopwatch stopwatch = Stopwatch.StartNew();
@@ -250,6 +258,48 @@ namespace SandboxUI.Forms
             };
 
             Network.Train(Inputs, ExpectedOutputs, progress, cancellationToken);
+
+            Inputs = null; ExpectedOutputs = null;
+            LastTrainedCount = iterations;
+            TrainedCount += iterations;
+
+            UpdateVisualRepresentation();
+            Invoke(new Action(() =>
+            {
+                lblTrainedCount.Text = string.Format("Trained Count: {0}", TrainedCount);
+                lblLastTrainedCount.Text = string.Format("Last Trained Count: {0}", LastTrainedCount);
+            }));
+            ToggleNetworkTraining(false);
+        }
+
+        protected virtual void TrainRandomOrder(int iterations, CancellationToken cancellationToken)
+        {
+            ToggleNetworkTraining(true);
+            Invoke(new Action(() => pgbTrainingProgress.Maximum = iterations));
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            Progress<int> progress = new Progress<int>();
+            long ticks = 0;
+            progress.ProgressChanged += (sender, e) => {
+                if (e % 5 == 0)
+                    ticks = (long)((double)stopwatch.Elapsed.Ticks / e * (iterations - e));
+                UpdateTrainingProgress(e, iterations, ticks);
+            };
+
+            for(int i = 0; i < iterations; i++)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                int index = ML_Library.Utility.Next(0, Inputs.Length);
+
+                Network.Train(Inputs[index], ExpectedOutputs[index]);
+
+                if(i % 10 == 0)
+                    Network.LossIterations.Add(new LossPoint(Network.CalculateLoss(Inputs, ExpectedOutputs), TrainedCount));
+
+
+            }
 
             Inputs = null; ExpectedOutputs = null;
             LastTrainedCount = iterations;

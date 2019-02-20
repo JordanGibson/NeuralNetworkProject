@@ -36,15 +36,17 @@
             // btnClear
             // 
             this.btnClear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnClear.Location = new System.Drawing.Point(91, 308);
-            this.btnClear.Size = new System.Drawing.Size(69, 33);
+            this.btnClear.Location = new System.Drawing.Point(125, 385);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnClear.Size = new System.Drawing.Size(95, 41);
             // 
             // btnLoadConfig
             // 
             this.btnLoadConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLoadConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.btnLoadConfig.Location = new System.Drawing.Point(164, 308);
-            this.btnLoadConfig.Size = new System.Drawing.Size(100, 33);
+            this.btnLoadConfig.Location = new System.Drawing.Point(226, 385);
+            this.btnLoadConfig.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnLoadConfig.Size = new System.Drawing.Size(138, 41);
             // 
             // btnCancel
             // 
@@ -54,27 +56,33 @@
             // btnCreateNetwork
             // 
             this.btnCreateNetwork.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnCreateNetwork.Location = new System.Drawing.Point(372, 308);
+            this.btnCreateNetwork.Location = new System.Drawing.Point(512, 385);
+            this.btnCreateNetwork.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCreateNetwork.Text = "Set Network";
+            this.btnCreateNetwork.Click += new System.EventHandler(this.btnCreateNetwork_Click);
             // 
             // lblNodeCount
             // 
-            this.lblNodeCount.Location = new System.Drawing.Point(386, 12);
+            this.lblNodeCount.Location = new System.Drawing.Point(531, 15);
+            this.lblNodeCount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             // 
             // btnCloseWindow
             // 
             this.btnCloseWindow.FlatAppearance.BorderSize = 0;
             this.btnCloseWindow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Tomato;
-            this.btnCloseWindow.Location = new System.Drawing.Point(-6114, 3);
+            this.btnCloseWindow.Location = new System.Drawing.Point(-8680, 4);
+            this.btnCloseWindow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             // 
             // pnlWindowBar
             // 
-            this.pnlWindowBar.Size = new System.Drawing.Size(533, 45);
+            this.pnlWindowBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pnlWindowBar.Size = new System.Drawing.Size(733, 56);
             // 
             // pnlContent
             // 
             this.pnlContent.Controls.Add(this.btnSaveConfig);
-            this.pnlContent.Size = new System.Drawing.Size(522, 348);
+            this.pnlContent.Margin = new System.Windows.Forms.Padding(34, 26, 34, 26);
+            this.pnlContent.Size = new System.Drawing.Size(718, 435);
             this.pnlContent.Controls.SetChildIndex(this.btnCreateNetwork, 0);
             this.pnlContent.Controls.SetChildIndex(this.btnCancel, 0);
             this.pnlContent.Controls.SetChildIndex(this.btnLoadConfig, 0);
@@ -92,10 +100,10 @@
             this.btnSaveConfig.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.btnSaveConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.btnSaveConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveConfig.Location = new System.Drawing.Point(268, 308);
-            this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnSaveConfig.Location = new System.Drawing.Point(368, 385);
+            this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(101, 33);
+            this.btnSaveConfig.Size = new System.Drawing.Size(139, 41);
             this.btnSaveConfig.TabIndex = 11;
             this.btnSaveConfig.Text = "Save Configuration";
             this.btnSaveConfig.UseVisualStyleBackColor = false;
@@ -103,9 +111,10 @@
             // 
             // EditNetworkDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 405);
+            this.ClientSize = new System.Drawing.Size(733, 506);
+            this.Margin = new System.Windows.Forms.Padding(4, 8, 4, 8);
             this.Name = "EditNetworkDialog";
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();

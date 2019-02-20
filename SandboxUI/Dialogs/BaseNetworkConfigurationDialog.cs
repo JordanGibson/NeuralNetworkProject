@@ -17,11 +17,10 @@ namespace SandboxUI.Dialogs
     {
         protected NeuralNetwork Network;
         protected ProjectSettings projectSettings;
-
-        private Configuration previousConfiguration;
-        private int MaxDepth { get; set; } = 20;
-        private int OutputCount { get; set; } = -1;
-
+        protected int MaxDepth { get; set; } = 20;
+        
+        private Configuration currentConfiguration;
+        
         public BaseNetworkConfigurationDialog()
         {
             InitializeComponent();
@@ -34,7 +33,6 @@ namespace SandboxUI.Dialogs
             ((DataGridViewComboBoxColumn)dgvLayerConfiguration.Columns[1]).DataSource = Enum.GetNames(typeof(ActivationMethod));
             Network = Network == null ? new NeuralNetwork(projectSettings.InputCount) : network;
             this.projectSettings = projectSettings;
-            OutputCount = projectSettings.OutputCount;
 
             UpdateViewFromConfig();
         }
@@ -47,7 +45,6 @@ namespace SandboxUI.Dialogs
         
         private void btnLoadConfig_Click(object sender, EventArgs e)
         {
-            Configuration newConfiguration = GetConfigFromDgv();
             //if (previousConfiguration.Equals(newConfiguration) && !Configuration.IsBlank(previousConfiguration))
             //{
             //    DarkMessageBoxYesNo darkMessageBox = new DarkMessageBoxYesNo();
@@ -98,10 +95,10 @@ namespace SandboxUI.Dialogs
                 dgvLayerConfiguration.Rows.Add(i, config.ActivationMethods[i].ToString(), config.LearningRates[i], config.NodeCounts[i]);
             }
             RenumberLayers();
-            previousConfiguration = GetConfigFromDgv().Copy();
+            currentConfiguration = GetConfigFromDgv().Copy();
         }
 
-        private void btnCreateNetwork_Click(object sender, EventArgs e)
+        protected virtual void btnCreateNetwork_Click(object sender, EventArgs e)
         {
             Configuration config = GetConfigFromDgv();
             if(config.NodeCounts.Last() != projectSettings.OutputCount)

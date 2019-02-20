@@ -19,7 +19,7 @@ namespace ML_Library
         public double[] Outputs { get; set; }
 
         [JsonProperty()]
-        private Matrix Weights { get; set; }
+        public Matrix Weights { get; set; }
         [JsonProperty()]
         private Matrix Biases { get; set; }
 
@@ -92,6 +92,17 @@ namespace ML_Library
             WeightedSums = Weights.DotProduct(Inputs).Add(Biases);
 
             Outputs = WeightedSums.Activate(ActivationMethod).ToArray();
+
+            return Outputs;
+        }
+        
+        public double[] BackwardsPass(double[] inputArr)
+        {
+            Inputs = Matrix.FromArray(inputArr);
+
+            WeightedSums = Inputs.ActivateInverse(ActivationMethod);
+
+            Outputs = Weights.DotProduct(WeightedSums).ToArray();
 
             return Outputs;
         }

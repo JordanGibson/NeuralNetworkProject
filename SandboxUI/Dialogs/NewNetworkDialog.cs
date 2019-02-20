@@ -15,8 +15,6 @@ namespace SandboxUI.Dialogs
 {
     public partial class NewNetworkDialog : BaseNetworkConfigurationDialog
     {
-        private int MaxDepth { get; set; } = 20;
-        private int OutputCount { get; set; }
 
         public NewNetworkDialog(ProjectSettings projectSettings) : base("New Network Configuration", projectSettings)
         {
@@ -24,7 +22,6 @@ namespace SandboxUI.Dialogs
 
             ((DataGridViewComboBoxColumn)dgvLayerConfiguration.Columns[1]).DataSource = Enum.GetNames(typeof(ActivationMethod));
             Network = new NeuralNetwork(projectSettings.InputCount);
-            OutputCount = projectSettings.OutputCount;
 
             UpdateViewFromConfig();
         }

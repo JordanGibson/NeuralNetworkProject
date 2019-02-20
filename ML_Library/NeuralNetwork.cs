@@ -102,7 +102,6 @@ namespace ML_Library
                 accumulator += expectedOutputs[i].ElementwiseSubtract(prediction).Select(o => Math.Pow(o, 2)).Sum();
             }
             CurrentError = accumulator / inputs.Length;
-            LossIterations.Add(new LossPoint(CurrentError, TrainedCount));
             return CurrentError;
         }
 
@@ -119,6 +118,27 @@ namespace ML_Library
             foreach (FullyConnected layer in Structure)
             {
                 outputs = layer.ForwardPass(outputs);
+            }
+            return outputs;
+        }
+
+        public double[] BackwardsPass(double[] inputs)
+        {
+            if(inputs.Length != Structure.Last().NodeCount)
+            {
+                //throw new ArgumentException("The given arguements do not correspond to the network configuration.");
+            }
+            double[] outputs = inputs;
+            NeuralNetwork backNetwork = new NeuralNetwork(inputs.Length);
+            for(int i = 0; i < Structure.Count; i++)
+            {
+                var layer = Structure[Structure.Count - 1 - i];
+                var inputCount = layer.InputCount;
+                layer.InputCount = layer.NodeCount;
+                layer.NodeCount = inputCount;
+                layer.Weights = layer.Weights.Transpose();
+                backNetwork.Structure.Add(layer);
+                outputs = backNetwork.Structure[i].BackwardsPass(Utility.Clamp(outputs, layer.ActivationMethod == ActivationMethod.ReLU ? 0 : double.NegativeInfinity, layer.ActivationMethod == ActivationMethod.ReLU ? 1 : double.PositiveInfinity));
             }
             return outputs;
         }

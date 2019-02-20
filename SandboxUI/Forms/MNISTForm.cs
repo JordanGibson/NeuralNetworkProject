@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using ML_Library;
 using SandboxUI.Misc;
 using SandboxUI.Dialogs;
-
+using System.Drawing.Imaging;
 
 namespace SandboxUI.Forms
 {
@@ -57,6 +57,18 @@ namespace SandboxUI.Forms
 
         protected override async void btnGenerateReport_Click(object sender, EventArgs e)
         {
+            double[] inputs = new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+            var outputs = Network.BackwardsPass(inputs);
+            Bitmap bmp = new Bitmap(28, 28);
+            for (int x = 0; x < 28; x++)
+            {
+                for (int y = 0; y < 28; y++)
+                {
+                    var pixel = (int)ML_Library.Utility.Clamp(outputs[x + (y * 28)]*3000, 0, 255);
+                    var color = Color.FromArgb(pixel, pixel, pixel);
+                    bmp.SetPixel(x, y, color);
+                }
+            }
             string filePath = Misc.Utility.GetSaveFilePath("Text Document", "txt");
             if (filePath == "")
                 return;

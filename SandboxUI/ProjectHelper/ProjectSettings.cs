@@ -8,11 +8,11 @@ namespace SandboxUI.ProjectHelper
 {
     public class ProjectSettings
     {
-        public int InputCount { get; set; }
-        public int OutputCount { get; set; }
-        public string Name { get; set; }
+        public int InputCount { get; private set; }
+        public int OutputCount { get; private set; }
+        public string Name { get; private set; }
 
-        public ProjectSettings(int inputCount, int outputCount, string name)
+        private ProjectSettings(int inputCount, int outputCount, string name)
         {
             InputCount = inputCount;
             OutputCount = outputCount;

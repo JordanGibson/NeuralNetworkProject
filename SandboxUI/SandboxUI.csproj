@@ -223,7 +223,6 @@
     </Compile>
     <Compile Include="Misc\MNISTLoader.cs" />
     <Compile Include="Misc\Utility.cs" />
-    <Compile Include="Misc\XORLoader.cs" />
     <Compile Include="ProjectHelper\Project.cs" />
     <Compile Include="ProjectHelper\ProjectSettings.cs" />
     <Compile Include="Program.cs" />

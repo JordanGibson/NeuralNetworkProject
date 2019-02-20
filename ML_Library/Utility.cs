@@ -6,22 +6,19 @@ namespace ML_Library
     public static class Utility
     {
         private static Random rand { get; } = new Random();
-        private static readonly object randomSyncLock = new object();
-
+        
         /// <summary>Get's the next random number in the given range</summary>
         /// <param name="lower">The lower bound</param>
         /// <param name="upper">The upper bound</param>
         public static int Next(int lower, int upper)
         {
-            lock(randomSyncLock)
-                return rand.Next(lower, upper);
+            return rand.Next(lower, upper);
         }
 
         /// <summary>Get's the next random decimal value between 0 and 1</summary>
         public static double NextDouble()
         {
-            lock(randomSyncLock)
-                return rand.NextDouble();
+            return rand.NextDouble();
         }
 
         /// <summary>Maps a value from an initial given range to a new given range</summary>
@@ -33,22 +30,6 @@ namespace ML_Library
         public static double Map(double value, double valueStart, double valueEnd, double resultStart, double resultEnd)
         {
             return (resultEnd - resultStart) * (value - valueStart) / (valueEnd - valueStart) + resultStart;
-        }
-
-        /// <summary>Map values from an initial given range to a new given range</summary>
-        /// <param name="values">Values to map to new range</param>
-        /// <param name="valueStart">The lower bound of the initial values' range</param>
-        /// <param name="valueEnd">The upper bound of the initial values' range</param>
-        /// <param name="resultStart">The lower bound of the final values' range</param>
-        /// <param name="resultEnd">The upper bound of the final values' range</param>
-        public static double[] Map(double[] values, double valueStart, double valueEnd, double resultStart, double resultEnd)
-        {
-            double[] newValues = new double[values.Length];
-            for(int i = 0; i < values.Length; i++)
-            {
-                newValues[i] = (resultEnd - resultStart) * (values[i] - valueStart) / (valueEnd - valueStart) + resultStart;
-            }
-            return newValues;
         }
 
         /// <summary>Ensures a value does not go beyond a given range</summary>
@@ -69,6 +50,16 @@ namespace ML_Library
             {
                 return value;
             }
+        }
+
+        public static double[] Clamp(double[] values, double min, double max)
+        {
+            double[] newValues = new double[values.Length];
+            for (int i = 0; i < values.Length; i++)
+            {
+                newValues[i] = Clamp(values[i], min, max);
+            }
+            return newValues;
         }
     }
 }
