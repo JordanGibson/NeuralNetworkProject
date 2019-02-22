@@ -8,8 +8,6 @@ namespace ML_Library
     public class FullyConnected
     {
         [JsonProperty()]
-        public ActivationMethod ActivationMethod { get; set; }
-        [JsonProperty()]
         public double LearningRate { get; set; }
         [JsonProperty()]
         public int InputCount { get; set; }
@@ -24,17 +22,15 @@ namespace ML_Library
         private Matrix Biases { get; set; }
 
         private Matrix Inputs { get; set; }
-        private Matrix WeightedSums { get; set; }
 
         private bool IsInitialized => Weights != null && Biases != null;
 
         /// <summary>Initializes a new instance of the <see cref="FullyConnected"/> class.</summary>
         /// <param name="nodesInLayer">The number of nodes in the layer.</param>
         /// <param name="activationMethod">The activation method to use on this layer.</param>
-        public FullyConnected(int nodesInLayer, ActivationMethod activationMethod)
+        public FullyConnected(int nodesInLayer)
         {
             NodeCount = nodesInLayer;
-            ActivationMethod = activationMethod;
         }
 
         /// <summary>
@@ -89,39 +85,40 @@ namespace ML_Library
                 InitializeLayer(inputArr.Length);
             }
 
-            WeightedSums = Weights.DotProduct(Inputs).Add(Biases);
-
-            Outputs = WeightedSums.Activate(ActivationMethod).ToArray();
-
-            return Outputs;
-        }
-        
-        public double[] BackwardsPass(double[] inputArr)
-        {
-            Inputs = Matrix.FromArray(inputArr);
-
-            WeightedSums = Inputs.ActivateInverse(ActivationMethod);
-
-            Outputs = Weights.DotProduct(WeightedSums).ToArray();
+            Outputs = Weights.DotProduct(Inputs).Add(Biases).ToArray();
 
             return Outputs;
         }
 
-        /// <summary>  Performs one iteraiton of backpropagation using the specified errors array through this layer of the network.</summary>
-        /// <param name="errorsArr">The errors array.</param>
-        /// <returns></returns>
-        public double[] Backpropagate(double[] errorsArr)
+        internal FullyConnected Crossover(FullyConnected partner)
         {
-            Matrix errors = Matrix.FromArray(errorsArr).HardamardProduct(WeightedSums.Activate(ActivationMethod, true));
-            double[] nextErrors = Weights.Transpose().DotProduct(errors).ToArray();
+            FullyConnected newLayer = Utility<FullyConnected>.DeepClone(this);
+            for(int x = 0; x < Weights.Rows; x++)
+            {
+                for (int y = 0; y < Weights.Cols; y++)
+                {
+                    if (Utility.NextDouble() > 0.5)
+                        newLayer.Weights.Data[x, y] = partner.Weights.Data[x, y];
 
-            Matrix weightDeltas = Matrix.FromArray(Outputs).Activate(ActivationMethod, true)
-                .HardamardProduct(errors)
-                .DotProduct(Inputs.Transpose());
+                }
+                if (Utility.NextDouble() > 0.5)
+                    newLayer.Biases.Data[x, 0] = partner.Biases.Data[x, 0];
+            }
+            return newLayer;
+        }
 
-
-            Weights = Weights.Subtract(weightDeltas.ScalarMultiply(LearningRate));
-            return nextErrors;
+        internal FullyConnected Mutate(double mutationPercentage)
+        {
+            FullyConnected mutated = Utility<FullyConnected>.DeepClone(this);
+            for(int x = 0; x < Weights.Rows; x++)
+            {
+                for (int y = 0; y < Weights.Cols; y++)
+                {
+                    if (Utility.NextDouble() <= mutationPercentage)
+                        mutated.Weights.Data[x, y] = MathExtension.RandomGaussian(0, 1 / (double)InputCount);
+                }
+            }
+            return mutated;
         }
     }
 }

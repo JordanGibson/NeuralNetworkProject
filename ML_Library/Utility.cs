@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ML_Library
 {
@@ -60,6 +62,22 @@ namespace ML_Library
                 newValues[i] = Clamp(values[i], min, max);
             }
             return newValues;
+        }
+    }
+
+    public static class Utility<T>
+    {
+        //Found on stackoverflow, used for cloning objects
+        public static T DeepClone(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+
+                return (T)formatter.Deserialize(ms);
+            }
         }
     }
 }
