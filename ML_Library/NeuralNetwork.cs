@@ -58,7 +58,8 @@ namespace ML_Library
         {
             NeuralNetwork network = new NeuralNetwork(InputCount)
             {
-                Structure = Structure
+                Structure = Structure,
+                Fitness = Fitness
             };
             return network;
         }
