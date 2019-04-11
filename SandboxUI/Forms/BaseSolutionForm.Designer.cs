@@ -33,6 +33,8 @@ namespace SandboxUI.Forms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseSolutionForm));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.pnlWindowBar = new System.Windows.Forms.Panel();
@@ -44,6 +46,7 @@ namespace SandboxUI.Forms
             this.ellipseStyler = new Bunifu.Framework.UI.BunifuElipse(this.components);
             this.bdcLabelDragger = new Bunifu.Framework.UI.BunifuDragControl(this.components);
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.chtScore = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlTrainingStatus = new System.Windows.Forms.Panel();
             this.btnCancelTraining = new System.Windows.Forms.Button();
             this.lblTrainingStatus = new System.Windows.Forms.Label();
@@ -72,6 +75,7 @@ namespace SandboxUI.Forms
             this.lblNetworkConfig = new System.Windows.Forms.Label();
             this.pnlWindowBar.SuspendLayout();
             this.pnlContent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chtScore)).BeginInit();
             this.pnlTrainingStatus.SuspendLayout();
             this.pnlNetworkTraining.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTrainX)).BeginInit();
@@ -180,6 +184,7 @@ namespace SandboxUI.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlContent.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.pnlContent.Controls.Add(this.chtScore);
             this.pnlContent.Controls.Add(this.pnlTrainingStatus);
             this.pnlContent.Controls.Add(this.pnlNetworkTraining);
             this.pnlContent.Controls.Add(this.pbxVisualRepresentation);
@@ -189,6 +194,60 @@ namespace SandboxUI.Forms
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(912, 563);
             this.pnlContent.TabIndex = 1;
+            // 
+            // chtScore
+            // 
+            this.chtScore.BackColor = System.Drawing.SystemColors.WindowFrame;
+            chartArea1.AxisX.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX.Title = "Training Iterations";
+            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisX2.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY.Title = "Success Rate";
+            chartArea1.AxisY.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MajorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MajorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MinorGrid.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.MinorTickMark.LineColor = System.Drawing.Color.White;
+            chartArea1.AxisY2.TitleForeColor = System.Drawing.Color.White;
+            chartArea1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            chartArea1.BorderColor = System.Drawing.Color.White;
+            chartArea1.Name = "ChartArea1";
+            this.chtScore.ChartAreas.Add(chartArea1);
+            this.chtScore.Location = new System.Drawing.Point(595, 3);
+            this.chtScore.Name = "chtScore";
+            this.chtScore.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            series1.BorderColor = System.Drawing.Color.Black;
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Lime;
+            series1.Name = "Series1";
+            this.chtScore.Series.Add(series1);
+            this.chtScore.Size = new System.Drawing.Size(309, 261);
+            this.chtScore.TabIndex = 10;
             // 
             // pnlTrainingStatus
             // 
@@ -592,6 +651,7 @@ namespace SandboxUI.Forms
             this.pnlWindowBar.ResumeLayout(false);
             this.pnlWindowBar.PerformLayout();
             this.pnlContent.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chtScore)).EndInit();
             this.pnlTrainingStatus.ResumeLayout(false);
             this.pnlTrainingStatus.PerformLayout();
             this.pnlNetworkTraining.ResumeLayout(false);
@@ -625,21 +685,22 @@ namespace SandboxUI.Forms
         public Label lblNetworkStructure;
         public Label lblNetworkConfig;
         private System.Windows.Forms.DataVisualization.Charting.Chart chtCurrentStateLoss;
-        public Panel pnlNetworkTraining;
-        public Button btnTrainX;
-        public Button btnTrain2000;
-        public Button btnTrain500;
-        public Label lblLastTrainedCount;
-        public Label lblTrainedCount;
-        public Label lblNetworkState;
         public PictureBox pbxVisualRepresentation;
-        private NumericUpDown nudTrainX;
         public Button btnSaveNetwork;
         public Button btnLoadNetwork;
         public Button btnCancelTraining;
         public Panel pnlTrainingStatus;
         public Label lblTrainingStatus;
         public ProgressBar pgbTrainingProgress;
+        public Panel pnlNetworkTraining;
         public Button btnGenerateReport;
+        private NumericUpDown nudTrainX;
+        public Button btnTrainX;
+        public Button btnTrain2000;
+        public Button btnTrain500;
+        public Label lblLastTrainedCount;
+        public Label lblTrainedCount;
+        public Label lblNetworkState;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chtScore;
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SandboxUI
+namespace BlackjackUI
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace SandboxUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.MNISTForm());
+            Application.Run(new MainForm());
         }
     }
 }

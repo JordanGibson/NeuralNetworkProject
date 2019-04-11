@@ -21,10 +21,9 @@ namespace SandboxUI.Forms
     {
         private string trainImgPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-images.idx3-ubyte";
         private string trainLblPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-labels.idx1-ubyte";
-        private string testImgPath = @"C:\Users\Jordan\Desktop\t10k-images.idx3-ubyte";
-        private string testLblPath = @"C:\Users\Jordan\Desktop\t10k-labels.idx1-ubyte";
-
-
+        private string testImgPath = @"C:\Users\Jordan\Desktop\t10k-images - Copy.idx3-ubyte";
+        private string testLblPath = @"C:\Users\Jordan\Desktop\t10k-labels - Copy.idx1-ubyte";
+        
         public MNISTForm() : base(ProjectHelper.Project.MNIST)
         {
             InitializeComponent();

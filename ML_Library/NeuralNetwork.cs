@@ -33,8 +33,10 @@ namespace ML_Library
 
         public bool IsTraining { get; private set; }
 
+        [JsonProperty()]
         public List<LossPoint> LossIterations { get; private set; }
 
+        [JsonProperty()]
         public int TrainedCount { get; set; }
 
         public Configuration Configuration

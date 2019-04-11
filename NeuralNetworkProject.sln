@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XORTest", "XORTest\XORTest.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandboxUI", "SandboxUI\SandboxUI.csproj", "{B05E4309-3BBF-41C4-B6C6-D5137657F720}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackjackUI", "BlackjackUI\BlackjackUI.csproj", "{EB829CBA-151C-47F7-AAB4-A6303632CADF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{B05E4309-3BBF-41C4-B6C6-D5137657F720}.Release|x64.Build.0 = Release|x64
 		{B05E4309-3BBF-41C4-B6C6-D5137657F720}.Release|x86.ActiveCfg = Release|x86
 		{B05E4309-3BBF-41C4-B6C6-D5137657F720}.Release|x86.Build.0 = Release|x86
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Debug|x64.Build.0 = Debug|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Release|x64.ActiveCfg = Release|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Release|x64.Build.0 = Release|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Release|x86.ActiveCfg = Release|Any CPU
+		{EB829CBA-151C-47F7-AAB4-A6303632CADF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

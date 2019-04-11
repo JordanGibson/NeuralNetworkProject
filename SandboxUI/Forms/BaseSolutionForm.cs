@@ -158,6 +158,8 @@ namespace SandboxUI.Forms
                 lblTrainedCount.Text = "Trained Count: N/A";
                 lblLastTrainedCount.Text = "Last Trained Count: N/A";
                 pbxVisualRepresentation.Image = null;
+                chtCurrentStateLoss.Series[0].Points.Clear();
+
             }
             AdditionalUIStatusUpdate();
         }
@@ -195,6 +197,7 @@ namespace SandboxUI.Forms
         {
             Network = null;
             UpdateUIStatus();
+            chtCurrentStateLoss.Series[0].Points.Clear();
         }
 
         private void clickableLabels_MouseEnter(object sender, EventArgs e)
@@ -277,9 +280,11 @@ namespace SandboxUI.Forms
             Invoke(new Action(() =>
             {
                 chtCurrentStateLoss.Series[0].Points.Clear();
+                var maxLoss = Network.LossIterations.Max(o => o.Loss);
                 foreach (var point in Network.LossIterations)
                 {
                     chtCurrentStateLoss.Series[0].Points.Add(point.Loss, point.TrainingIterations);
+                    chtScore.Series[0].Points.Add(maxLoss - point.Loss, point.TrainingIterations);
                 }
             }));
         }
@@ -310,6 +315,15 @@ namespace SandboxUI.Forms
             }
             Network = NeuralNetwork.LoadFromFile(filePath);
             UpdateUIStatus();
+            if (Network.LossIterations.Count != 0)
+            {
+                var maxLoss = Network.LossIterations.Max(o => o.Loss);
+                foreach (var point in Network.LossIterations)
+                {
+                    chtCurrentStateLoss.Series[0].Points.Add(point.Loss, point.TrainingIterations);
+                    chtScore.Series[0].Points.Add(maxLoss - point.Loss, point.TrainingIterations);
+                }
+            }
         }
 
         protected virtual async Task<string> GenerateReport()
