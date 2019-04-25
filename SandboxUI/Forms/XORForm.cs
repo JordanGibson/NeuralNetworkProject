@@ -39,7 +39,7 @@ namespace SandboxUI.Forms
             {
                 for (int x = 0; x < resolution; x++)
                 {
-                    var tone = Convert.ToInt32(Utility.Clamp(Network.Feedforward(new double[] { x / resolution, y / resolution })[0] * 255, 0, 255));
+                    var tone = Convert.ToInt32(Utility.Clamp(Network.Predict(new double[] { x / resolution, y / resolution })[0] * 255, 0, 255));
                     bmp.SetPixel(x, y, Color.FromArgb(tone, tone, tone));
                 }
             }

@@ -29,7 +29,7 @@ namespace SandboxUI.Dialogs
             lblWindowTitle.Text = formTitle;
         }
 
-        public void btnCloseWindow_Click(object sender, EventArgs e)
+        private void btnCloseWindow_Click(object sender, EventArgs e)
         {
             Close();
         }

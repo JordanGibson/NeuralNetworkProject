@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        public System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        public void InitializeComponent()
+        private void InitializeComponent()
         {
             this.lblMessage = new System.Windows.Forms.Label();
             this.btnConfirm = new System.Windows.Forms.Button();
@@ -142,9 +142,9 @@
 
         #endregion
 
-        public System.Windows.Forms.Button btnCancel;
-        public System.Windows.Forms.Button btnConfirm;
-        public System.Windows.Forms.Label lblMessage;
-        public System.Windows.Forms.NumericUpDown nudValue;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.NumericUpDown nudValue;
     }
 }

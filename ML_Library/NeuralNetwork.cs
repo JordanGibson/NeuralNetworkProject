@@ -29,12 +29,12 @@ namespace ML_Library
         
         public ActivationMethod[] ActivationMethods { get { return Structure.Select(l => l.ActivationMethod).ToArray(); } }
 
-        public double CurrentError { get; set; } = double.PositiveInfinity;
+        public double CurrentError { get; private set; } = double.PositiveInfinity;
 
-        public bool IsTraining { get; set; }
+        public bool IsTraining { get; private set; }
 
         [JsonProperty()]
-        public List<LossPoint> LossIterations { get; set; }
+        public List<LossPoint> LossIterations { get; private set; }
 
         [JsonProperty()]
         public int TrainedCount { get; set; }
@@ -100,7 +100,7 @@ namespace ML_Library
             double accumulator = 0;
             for (int i = 0; i < inputs.GetLength(0); i++)
             {
-                double[] prediction = Feedforward(inputs[i]);
+                double[] prediction = Predict(inputs[i]);
                 accumulator += expectedOutputs[i].ElementwiseSubtract(prediction).Select(o => Math.Pow(o, 2)).Sum();
             }
             CurrentError = accumulator / inputs.Length;
@@ -111,7 +111,7 @@ namespace ML_Library
         /// <summary>Performs a forward pass with supplied inputs.</summary>
         /// <param name="inputs">The inputs supplied to the forward pass.</param>
         /// <exception cref="ArgumentException">The given arguements do not correspond to the network configuration.</exception>
-        public double[] Feedforward(double[] inputs)
+        public double[] Predict(double[] inputs)
         {
             if (inputs.Length != InputCount)
             {
@@ -135,7 +135,7 @@ namespace ML_Library
             {
                 throw new ArgumentException("The given arguements do not correspond to the network configuration.");
             }
-            double[] actualOutput = Feedforward(inputs);
+            double[] actualOutput = Predict(inputs);
             double[] errors = actualOutput.ElementwiseSubtract(expectedOutputs);
             for (int currentLayer = Structure.Count - 1; currentLayer > -1; currentLayer--)
             {

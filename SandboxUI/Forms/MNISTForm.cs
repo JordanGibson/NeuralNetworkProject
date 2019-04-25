@@ -19,10 +19,10 @@ namespace SandboxUI.Forms
 {
     public partial class MNISTForm : BaseSolutionForm
     {
-        public string trainImgPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-images.idx3-ubyte";
-        public string trainLblPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-labels.idx1-ubyte";
-        public string testImgPath = @"C:\Users\Jordan\Desktop\t10k-images - Copy.idx3-ubyte";
-        public string testLblPath = @"C:\Users\Jordan\Desktop\t10k-labels - Copy.idx1-ubyte";
+        private string trainImgPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-images.idx3-ubyte";
+        private string trainLblPath = @"C:\Users\Jordan\source\repos\JordanGibsonNEA\SandboxUI\Resources\train-labels.idx1-ubyte";
+        private string testImgPath = @"C:\Users\Jordan\Desktop\t10k-images - Copy.idx3-ubyte";
+        private string testLblPath = @"C:\Users\Jordan\Desktop\t10k-labels - Copy.idx1-ubyte";
         
         public MNISTForm() : base(ProjectHelper.Project.MNIST)
         {
@@ -39,7 +39,7 @@ namespace SandboxUI.Forms
             base.Train(iterations, cancellationToken);
         }
 
-        public Bitmap LoadMNISTImage(double[] image)
+        private Bitmap LoadMNISTImage(double[] image)
         {
             Bitmap bmp = new Bitmap(28, 28);
             for (int x = 0; x < 28; x++)
@@ -73,7 +73,7 @@ namespace SandboxUI.Forms
             {
                 for (int i = 0; i < Inputs.Length; i++)
                 {
-                    List<double> prediction = Network.Feedforward(Inputs[i]).ToList();
+                    List<double> prediction = Network.Predict(Inputs[i]).ToList();
                     if (prediction.IndexOf(prediction.Max()) == ExpectedOutputs[i].ToList().IndexOf(1))
                     {
                         correct++;

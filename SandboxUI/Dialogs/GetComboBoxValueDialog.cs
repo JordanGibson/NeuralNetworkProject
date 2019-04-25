@@ -25,12 +25,12 @@ namespace SandboxUI.Dialogs
             return cboValue.SelectedValue;
         }
 
-        public void btnConfirm_Click(object sender, EventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        public void btnCancel_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             cboValue.SelectedIndex = -1;
             Close();
