@@ -5,10 +5,6 @@ namespace SandboxUI.Forms
 {
     partial class BaseSolutionForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,7 +25,7 @@ namespace SandboxUI.Forms
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseSolutionForm));
@@ -106,7 +102,7 @@ namespace SandboxUI.Forms
             this.lblWindowTitle.Location = new System.Drawing.Point(11, 11);
             this.lblWindowTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblWindowTitle.Name = "lblWindowTitle";
-            this.lblWindowTitle.Size = new System.Drawing.Size(186, 25);
+            this.lblWindowTitle.Size = new System.Drawing.Size(155, 21);
             this.lblWindowTitle.TabIndex = 3;
             this.lblWindowTitle.Text = "bunifuCustomLabel1";
             // 
@@ -283,7 +279,7 @@ namespace SandboxUI.Forms
             this.lblTrainingStatus.AutoSize = true;
             this.lblTrainingStatus.Location = new System.Drawing.Point(3, 8);
             this.lblTrainingStatus.Name = "lblTrainingStatus";
-            this.lblTrainingStatus.Size = new System.Drawing.Size(63, 25);
+            this.lblTrainingStatus.Size = new System.Drawing.Size(52, 21);
             this.lblTrainingStatus.TabIndex = 12;
             this.lblTrainingStatus.Text = "label1";
             // 
@@ -341,7 +337,7 @@ namespace SandboxUI.Forms
             0,
             0});
             this.nudTrainX.Name = "nudTrainX";
-            this.nudTrainX.Size = new System.Drawing.Size(272, 33);
+            this.nudTrainX.Size = new System.Drawing.Size(272, 28);
             this.nudTrainX.TabIndex = 8;
             this.nudTrainX.Value = new decimal(new int[] {
             10,
@@ -399,7 +395,7 @@ namespace SandboxUI.Forms
             this.lblLastTrainedCount.AutoSize = true;
             this.lblLastTrainedCount.Location = new System.Drawing.Point(7, 56);
             this.lblLastTrainedCount.Name = "lblLastTrainedCount";
-            this.lblLastTrainedCount.Size = new System.Drawing.Size(177, 25);
+            this.lblLastTrainedCount.Size = new System.Drawing.Size(146, 21);
             this.lblLastTrainedCount.TabIndex = 3;
             this.lblLastTrainedCount.Text = "Last Trained Count: ";
             // 
@@ -408,7 +404,7 @@ namespace SandboxUI.Forms
             this.lblTrainedCount.AutoSize = true;
             this.lblTrainedCount.Location = new System.Drawing.Point(7, 29);
             this.lblTrainedCount.Name = "lblTrainedCount";
-            this.lblTrainedCount.Size = new System.Drawing.Size(172, 25);
+            this.lblTrainedCount.Size = new System.Drawing.Size(142, 21);
             this.lblTrainedCount.TabIndex = 1;
             this.lblTrainedCount.Text = "Trained Count: N/A";
             // 
@@ -417,7 +413,7 @@ namespace SandboxUI.Forms
             this.lblNetworkState.AutoSize = true;
             this.lblNetworkState.Location = new System.Drawing.Point(4, 3);
             this.lblNetworkState.Name = "lblNetworkState";
-            this.lblNetworkState.Size = new System.Drawing.Size(129, 25);
+            this.lblNetworkState.Size = new System.Drawing.Size(108, 21);
             this.lblNetworkState.TabIndex = 0;
             this.lblNetworkState.Text = "Network State";
             // 
@@ -585,7 +581,7 @@ namespace SandboxUI.Forms
             this.lblCurrentError.AutoSize = true;
             this.lblCurrentError.Location = new System.Drawing.Point(7, 100);
             this.lblCurrentError.Name = "lblCurrentError";
-            this.lblCurrentError.Size = new System.Drawing.Size(165, 25);
+            this.lblCurrentError.Size = new System.Drawing.Size(137, 21);
             this.lblCurrentError.TabIndex = 4;
             this.lblCurrentError.Text = "Current Error: N/A";
             // 
@@ -595,7 +591,7 @@ namespace SandboxUI.Forms
             this.lblActivationMethod.Enabled = false;
             this.lblActivationMethod.Location = new System.Drawing.Point(7, 76);
             this.lblActivationMethod.Name = "lblActivationMethod";
-            this.lblActivationMethod.Size = new System.Drawing.Size(226, 25);
+            this.lblActivationMethod.Size = new System.Drawing.Size(187, 21);
             this.lblActivationMethod.TabIndex = 3;
             this.lblActivationMethod.Text = "Show Activation Methods";
             this.lblActivationMethod.Click += new System.EventHandler(this.lblActivationMethod_Click);
@@ -608,7 +604,7 @@ namespace SandboxUI.Forms
             this.lblLearningRate.Enabled = false;
             this.lblLearningRate.Location = new System.Drawing.Point(7, 51);
             this.lblLearningRate.Name = "lblLearningRate";
-            this.lblLearningRate.Size = new System.Drawing.Size(187, 25);
+            this.lblLearningRate.Size = new System.Drawing.Size(156, 21);
             this.lblLearningRate.TabIndex = 2;
             this.lblLearningRate.Text = "Show Learning Rates";
             this.lblLearningRate.Click += new System.EventHandler(this.lblLearningRate_Click);
@@ -620,7 +616,7 @@ namespace SandboxUI.Forms
             this.lblNetworkStructure.AutoSize = true;
             this.lblNetworkStructure.Location = new System.Drawing.Point(7, 27);
             this.lblNetworkStructure.Name = "lblNetworkStructure";
-            this.lblNetworkStructure.Size = new System.Drawing.Size(130, 25);
+            this.lblNetworkStructure.Size = new System.Drawing.Size(108, 21);
             this.lblNetworkStructure.TabIndex = 1;
             this.lblNetworkStructure.Text = "Structure: N/A";
             // 
@@ -629,13 +625,13 @@ namespace SandboxUI.Forms
             this.lblNetworkConfig.AutoSize = true;
             this.lblNetworkConfig.Location = new System.Drawing.Point(4, 3);
             this.lblNetworkConfig.Name = "lblNetworkConfig";
-            this.lblNetworkConfig.Size = new System.Drawing.Size(205, 25);
+            this.lblNetworkConfig.Size = new System.Drawing.Size(170, 21);
             this.lblNetworkConfig.TabIndex = 0;
             this.lblNetworkConfig.Text = "Network Configuration";
             // 
             // BaseSolutionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(937, 622);
@@ -672,8 +668,8 @@ namespace SandboxUI.Forms
         protected System.Windows.Forms.Panel pnlWindowBar;
         protected Bunifu.Framework.UI.BunifuDragControl bdcWindowDragger;
         protected Bunifu.Framework.UI.BunifuCustomLabel lblWindowTitle;
-        private Bunifu.Framework.UI.BunifuElipse ellipseStyler;
-        private Bunifu.Framework.UI.BunifuDragControl bdcLabelDragger;
+        public Bunifu.Framework.UI.BunifuElipse ellipseStyler;
+        public Bunifu.Framework.UI.BunifuDragControl bdcLabelDragger;
         public Panel pnlContent;
         public Panel pnlNetworkConfiguration;
         public Button btnClearNetwork;
@@ -684,7 +680,7 @@ namespace SandboxUI.Forms
         public Label lblLearningRate;
         public Label lblNetworkStructure;
         public Label lblNetworkConfig;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chtCurrentStateLoss;
+        public System.Windows.Forms.DataVisualization.Charting.Chart chtCurrentStateLoss;
         public PictureBox pbxVisualRepresentation;
         public Button btnSaveNetwork;
         public Button btnLoadNetwork;
@@ -694,13 +690,14 @@ namespace SandboxUI.Forms
         public ProgressBar pgbTrainingProgress;
         public Panel pnlNetworkTraining;
         public Button btnGenerateReport;
-        private NumericUpDown nudTrainX;
+        public NumericUpDown nudTrainX;
         public Button btnTrainX;
         public Button btnTrain2000;
         public Button btnTrain500;
         public Label lblLastTrainedCount;
         public Label lblTrainedCount;
         public Label lblNetworkState;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chtScore;
+        public System.Windows.Forms.DataVisualization.Charting.Chart chtScore;
+        private System.ComponentModel.IContainer components;
     }
 }

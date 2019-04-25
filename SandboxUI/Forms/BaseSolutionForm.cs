@@ -16,6 +16,7 @@ using SandboxUI.Dialogs;
 using NHotkey.WindowsForms;
 using NHotkey;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace SandboxUI.Forms
 {
@@ -51,6 +52,7 @@ namespace SandboxUI.Forms
             projectSettings = ProjectSettings.GetSettings(project);
             lblWindowTitle.Text = projectSettings.Name;
             HotkeyManager.Current.AddOrReplace("Magnifier", Keys.Control, Form_ControlKeyPressed);
+            
         }
 
         [DllImport("user32.dll")]
@@ -335,7 +337,7 @@ namespace SandboxUI.Forms
             {
                 for (int i = 0; i < Inputs.Length; i++)
                 {
-                    double[] prediction = Network.Predict(Inputs[i]);
+                    double[] prediction = Network.Feedforward(Inputs[i]);
                     if (ResultValidator.OutputsCorrect(Project, prediction, ExpectedOutputs[i]))
                         correct++;
                     else

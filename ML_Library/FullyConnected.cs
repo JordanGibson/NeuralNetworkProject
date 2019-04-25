@@ -19,14 +19,14 @@ namespace ML_Library
         public double[] Outputs { get; set; }
 
         [JsonProperty()]
-        private Matrix Weights { get; set; }
+        public Matrix Weights { get; set; }
         [JsonProperty()]
-        private Matrix Biases { get; set; }
+        public Matrix Biases { get; set; }
 
-        private Matrix Inputs { get; set; }
-        private Matrix WeightedSums { get; set; }
+        public Matrix Inputs { get; set; }
+        public Matrix WeightedSums { get; set; }
 
-        private bool IsInitialized => Weights != null && Biases != null;
+        public bool IsInitialized => Weights != null && Biases != null;
 
         /// <summary>Initializes a new instance of the <see cref="FullyConnected"/> class.</summary>
         /// <param name="nodesInLayer">The number of nodes in the layer.</param>
@@ -41,7 +41,7 @@ namespace ML_Library
         /// Initializes the weights using Xavier Initialization.
         /// </summary>
         /// <param name="inputCount">The input count.</param>
-        private void InitializeWeights(int inputCount)
+        public void InitializeWeights(int inputCount)
         {
             InputCount = inputCount;
 
@@ -59,7 +59,7 @@ namespace ML_Library
         /// <summary>
         /// Initializes the biases to random values.
         /// </summary>
-        private void InitializeBiases()
+        public void InitializeBiases()
         {
             Biases = new Matrix(NodeCount, 1, true);
         }
@@ -69,7 +69,7 @@ namespace ML_Library
         /// Initializes the weights and biases to random values for this layer.
         /// </summary>
         /// <param name="inputCount">The input count.</param>
-        private void InitializeLayer(int inputCount)
+        public void InitializeLayer(int inputCount)
         {
             InitializeWeights(inputCount);
             InitializeBiases();

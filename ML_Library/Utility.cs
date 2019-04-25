@@ -5,8 +5,8 @@ namespace ML_Library
     /// <summary>A helper class for performing miscellaneous tasks</summary>
     public static class Utility
     {
-        private static Random rand { get; } = new Random();
-        private static readonly object randomSyncLock = new object();
+        public static Random rand { get; } = new Random();
+        public static readonly object randomSyncLock = new object();
 
         /// <summary>Get's the next random number in the given range</summary>
         /// <param name="lower">The lower bound</param>

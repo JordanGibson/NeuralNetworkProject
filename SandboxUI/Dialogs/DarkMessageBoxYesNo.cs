@@ -23,13 +23,13 @@ namespace SandboxUI.Dialogs
             return DialogResult;
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        public void btnOk_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Yes;
             Close();
         }
 
-        private void btnNo_Click(object sender, EventArgs e)
+        public void btnNo_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.No;
             Close();

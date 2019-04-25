@@ -6,10 +6,6 @@ namespace SandboxUI.Dialogs
 {
     partial class BaseDialog
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -30,7 +26,7 @@ namespace SandboxUI.Dialogs
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BaseDialog));
@@ -53,7 +49,7 @@ namespace SandboxUI.Dialogs
             this.pnlWindowBar.Location = new System.Drawing.Point(0, 0);
             this.pnlWindowBar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pnlWindowBar.Name = "pnlWindowBar";
-            this.pnlWindowBar.Size = new System.Drawing.Size(877, 40);
+            this.pnlWindowBar.Size = new System.Drawing.Size(646, 40);
             this.pnlWindowBar.TabIndex = 0;
             // 
             // btnCloseWindow
@@ -64,7 +60,7 @@ namespace SandboxUI.Dialogs
             this.btnCloseWindow.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Tomato;
             this.btnCloseWindow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseWindow.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseWindow.Image")));
-            this.btnCloseWindow.Location = new System.Drawing.Point(822, 0);
+            this.btnCloseWindow.Location = new System.Drawing.Point(591, 0);
             this.btnCloseWindow.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btnCloseWindow.Name = "btnCloseWindow";
             this.btnCloseWindow.Size = new System.Drawing.Size(55, 40);
@@ -98,7 +94,7 @@ namespace SandboxUI.Dialogs
             this.pnlContent.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.pnlContent.Location = new System.Drawing.Point(13, 47);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(852, 616);
+            this.pnlContent.Size = new System.Drawing.Size(621, 291);
             this.pnlContent.TabIndex = 1;
             // 
             // bdcLabelDragger
@@ -113,7 +109,7 @@ namespace SandboxUI.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(877, 675);
+            this.ClientSize = new System.Drawing.Size(646, 350);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlWindowBar);
             this.Font = new System.Drawing.Font("Segoe UI", 11.33333F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -187,6 +183,7 @@ namespace SandboxUI.Dialogs
         protected BunifuDragControl bdcWindowDragger;
         protected BunifuCustomLabel lblWindowTitle;
         protected Panel pnlContent;
-        private BunifuDragControl bdcLabelDragger;
+        public BunifuDragControl bdcLabelDragger;
+        private System.ComponentModel.IContainer components;
     }
 }

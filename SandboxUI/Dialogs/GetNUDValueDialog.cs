@@ -31,12 +31,12 @@ namespace SandboxUI.Dialogs
             return cancel ? throw new ApplicationException("User cancel was unhandled") : (double)nudValue.Value;
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        public void btnConfirm_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        public void btnCancel_Click(object sender, EventArgs e)
         {
             cancel = true;
             Close();

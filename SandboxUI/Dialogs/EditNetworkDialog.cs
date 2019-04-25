@@ -15,12 +15,12 @@ namespace SandboxUI.Dialogs
 {
     public partial class EditNetworkDialog : BaseNetworkConfigurationDialog
     {
-        private NeuralNetwork ExistingNetwork;
-        private int MaxDepth { get; set; } = 20;
-        private int InputCount { get { return Network.InputCount; } }
-        private int OutputCount { get; set; }
+        public NeuralNetwork ExistingNetwork;
+        public int MaxDepth { get; set; } = 20;
+        public int InputCount { get { return Network.InputCount; } }
+        public int OutputCount { get; set; }
 
-        public EditNetworkDialog(NeuralNetwork network, ProjectSettings projectSettings) : base("New Network Configuration", projectSettings, network)
+        public EditNetworkDialog(NeuralNetwork network, ProjectSettings projectSettings) : base("Edit Network Configuration", projectSettings, network)
         {
             InitializeComponent();
             ((DataGridViewComboBoxColumn)dgvLayerConfiguration.Columns[1]).DataSource = Enum.GetNames(typeof(ActivationMethod));
@@ -40,13 +40,13 @@ namespace SandboxUI.Dialogs
             return Network;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        public void btnCancel_Click(object sender, EventArgs e)
         {
             Network = ExistingNetwork;
             Close();
         }
 
-        private void btnSaveConfig_Click(object sender, EventArgs e)
+        public void btnSaveConfig_Click(object sender, EventArgs e)
         {
             string path = Misc.Utility.GetSaveFilePath("Network Configuration File", "ncf");
             Configuration configuration = NeuralNetwork.LoadFromConfiguration(GetConfigFromDgv()).Configuration;

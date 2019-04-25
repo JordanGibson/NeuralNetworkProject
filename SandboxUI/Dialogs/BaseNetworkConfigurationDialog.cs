@@ -18,9 +18,9 @@ namespace SandboxUI.Dialogs
         protected NeuralNetwork Network;
         protected ProjectSettings projectSettings;
 
-        private Configuration previousConfiguration;
-        private int MaxDepth { get; set; } = 20;
-        private int OutputCount { get; set; } = -1;
+        public Configuration previousConfiguration;
+        public int MaxDepth { get; set; } = 20;
+        public int OutputCount { get; set; } = -1;
 
         public BaseNetworkConfigurationDialog()
         {
@@ -45,7 +45,7 @@ namespace SandboxUI.Dialogs
             return Network;
         }
         
-        private void btnLoadConfig_Click(object sender, EventArgs e)
+        public void btnLoadConfig_Click(object sender, EventArgs e)
         {
             Configuration newConfiguration = GetConfigFromDgv();
             //if (previousConfiguration.Equals(newConfiguration) && !Configuration.IsBlank(previousConfiguration))
@@ -101,7 +101,7 @@ namespace SandboxUI.Dialogs
             previousConfiguration = GetConfigFromDgv().Copy();
         }
 
-        private void btnCreateNetwork_Click(object sender, EventArgs e)
+        public void btnCreateNetwork_Click(object sender, EventArgs e)
         {
             Configuration config = GetConfigFromDgv();
             if(config.NodeCounts.Last() != projectSettings.OutputCount)
@@ -122,7 +122,7 @@ namespace SandboxUI.Dialogs
             Close();
         }
         
-        private void FillColumnWithValue(string value, int columnIndex)
+        public void FillColumnWithValue(string value, int columnIndex)
         {
             dgvLayerConfiguration.ClearSelection();
             pnlContent.Focus();
@@ -132,7 +132,7 @@ namespace SandboxUI.Dialogs
             }
         }
 
-        private void lblActivationMethod_Click(object sender, EventArgs e)
+        public void lblActivationMethod_Click(object sender, EventArgs e)
         {
             GetComboBoxValueDialog cboDialog = new GetComboBoxValueDialog(typeof(ActivationMethod));
             object result = cboDialog.ShowDialog("Fill Activation Method");
@@ -141,7 +141,7 @@ namespace SandboxUI.Dialogs
             FillColumnWithValue(result.ToString(), 1);
         }
 
-        private void lblLearningRate_Click(object sender, EventArgs e)
+        public void lblLearningRate_Click(object sender, EventArgs e)
         {
             GetNUDValueDialog nudDialog = new GetNUDValueDialog(3);
             double result = -1;
@@ -151,13 +151,13 @@ namespace SandboxUI.Dialogs
             FillColumnWithValue(result.ToString(), 2);
         }
 
-        private void dgvLayerConfiguration_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        public void dgvLayerConfiguration_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             int layerCount = dgvLayerConfiguration.RowCount - 1;
             dgvLayerConfiguration.Rows[e.RowIndex].Cells[0].Value = layerCount;
         }
         
-        private void dgvLayerConfiguration_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        public void dgvLayerConfiguration_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= new KeyPressEventHandler(ValidateInputWithDecimal);
             e.Control.KeyPress -= new KeyPressEventHandler(ValidateInputNoDecimal);
@@ -190,7 +190,7 @@ namespace SandboxUI.Dialogs
             }
         }
 
-        private void dgvLayerConfiguration_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        public void dgvLayerConfiguration_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
             if (e.Cell == null || e.StateChanged != DataGridViewElementStates.Selected)
                 return;
@@ -211,7 +211,7 @@ namespace SandboxUI.Dialogs
             }
         }
 
-        private void lblLayerNumber_Click(object sender, EventArgs e)
+        public void lblLayerNumber_Click(object sender, EventArgs e)
         {
             int rowCount = dgvLayerConfiguration.Rows.Count;
             GetNUDValueDialog nudDialog = new GetNUDValueDialog(0, 1 - rowCount, MaxDepth - rowCount);

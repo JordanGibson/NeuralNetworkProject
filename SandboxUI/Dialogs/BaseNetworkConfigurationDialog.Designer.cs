@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        public System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -279,10 +279,10 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridViewTextBoxColumn LayerNumber;
-        private System.Windows.Forms.DataGridViewComboBoxColumn ActivationMethod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LearningRate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NodeCount;
+        public System.Windows.Forms.DataGridViewTextBoxColumn LayerNumber;
+        public System.Windows.Forms.DataGridViewComboBoxColumn ActivationMethod;
+        public System.Windows.Forms.DataGridViewTextBoxColumn LearningRate;
+        public System.Windows.Forms.DataGridViewTextBoxColumn NodeCount;
         public System.Windows.Forms.Button btnClear;
         public System.Windows.Forms.Button btnLoadConfig;
         public System.Windows.Forms.Button btnCancel;

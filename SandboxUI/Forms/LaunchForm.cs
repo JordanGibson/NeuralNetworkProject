@@ -14,12 +14,12 @@ namespace SandboxUI.Forms
 {
     public partial class LaunchForm : Dialogs.BaseDialog
     {
-        public LaunchForm()
+        public LaunchForm() : base("Neural Network Demonstration")
         {
             InitializeComponent();
         }
 
-        private void LaunchForm_Load(object sender, EventArgs e)
+        public void LaunchForm_Load(object sender, EventArgs e)
         {
             txtXor.SelectAll();
             txtXor.SelectionAlignment = HorizontalAlignment.Center;
@@ -30,7 +30,7 @@ namespace SandboxUI.Forms
             BringAllToFront();
         }
 
-        private void BringAllToFront()
+        public void BringAllToFront()
         {
             pbxMnist.BringToFront();
             pbxXor.BringToFront();
@@ -38,13 +38,13 @@ namespace SandboxUI.Forms
             txtXor.BringToFront();
         }
 
-        private void btnLaunchXOR_Click(object sender, EventArgs e)
+        public void btnLaunchXOR_Click(object sender, EventArgs e)
         {
             XORForm form = new XORForm();
             form.Show();
         }
 
-        private void btnMnistLaunch_Click(object sender, EventArgs e)
+        public void btnMnistLaunch_Click(object sender, EventArgs e)
         {
             MNISTForm form = new MNISTForm();
             form.Show();

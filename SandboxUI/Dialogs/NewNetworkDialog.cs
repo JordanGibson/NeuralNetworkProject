@@ -15,8 +15,8 @@ namespace SandboxUI.Dialogs
 {
     public partial class NewNetworkDialog : BaseNetworkConfigurationDialog
     {
-        private int MaxDepth { get; set; } = 20;
-        private int OutputCount { get; set; }
+        public int MaxDepth { get; set; } = 20;
+        public int OutputCount { get; set; }
 
         public NewNetworkDialog(ProjectSettings projectSettings) : base("New Network Configuration", projectSettings)
         {
@@ -29,13 +29,13 @@ namespace SandboxUI.Dialogs
             UpdateViewFromConfig();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        public void btnCancel_Click(object sender, EventArgs e)
         {
             Network = null;
             Close();
         }
 
-        private void btnCreateNetwork_Click(object sender, EventArgs e)
+        public void btnCreateNetwork_Click(object sender, EventArgs e)
         {
             Network = NeuralNetwork.LoadFromConfiguration(GetConfigFromDgv());
             Close();

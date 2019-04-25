@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        public System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LaunchForm));
             this.pnlXorProblem = new System.Windows.Forms.Panel();
@@ -192,15 +192,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlXorProblem;
-        private System.Windows.Forms.RichTextBox txtXor;
-        private System.Windows.Forms.PictureBox pbxXor;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel pnlMnistProblem;
-        private System.Windows.Forms.RichTextBox txtMnist;
-        private System.Windows.Forms.PictureBox pbxMnist;
-        private System.Windows.Forms.Panel panel3;
-        private DarkButton btnLaunchXOR;
-        private DarkButton btnMnistLaunch;
+        public System.Windows.Forms.Panel pnlXorProblem;
+        public System.Windows.Forms.RichTextBox txtXor;
+        public System.Windows.Forms.PictureBox pbxXor;
+        public System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.Panel pnlMnistProblem;
+        public System.Windows.Forms.RichTextBox txtMnist;
+        public System.Windows.Forms.PictureBox pbxMnist;
+        public System.Windows.Forms.Panel panel3;
+        public DarkButton btnLaunchXOR;
+        public DarkButton btnMnistLaunch;
     }
 }

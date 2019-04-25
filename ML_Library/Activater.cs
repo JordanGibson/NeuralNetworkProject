@@ -120,7 +120,7 @@ namespace ML_Library
         /// <param name="activationMethod">The activation method.</param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        private static double ActivateValueInverse(double y, ActivationMethod activationMethod)
+        public static double ActivateValueInverse(double y, ActivationMethod activationMethod)
         {
             switch (activationMethod)
             {

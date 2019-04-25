@@ -25,7 +25,7 @@ namespace SandboxUI.Dialogs
             ShowDialog();
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        public void btnOk_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        public System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.btnSaveConfig = new System.Windows.Forms.Button();
             this.pnlWindowBar.SuspendLayout();
@@ -116,6 +116,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnSaveConfig;
+        public System.Windows.Forms.Button btnSaveConfig;
     }
 }
