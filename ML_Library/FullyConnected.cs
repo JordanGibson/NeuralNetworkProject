@@ -101,11 +101,11 @@ namespace ML_Library
         /// <returns></returns>
         public double[] Backpropagate(double[] errorsArr)
         {
-            Matrix errors = Matrix.FromArray(errorsArr).HardamardProduct(WeightedSums.Activate(ActivationMethod, true));
+            Matrix errors = Matrix.FromArray(errorsArr).HadamardProduct(WeightedSums.Activate(ActivationMethod, true));
             double[] nextErrors = Weights.Transpose().DotProduct(errors).ToArray();
 
             Matrix weightDeltas = Matrix.FromArray(Outputs).Activate(ActivationMethod, true)
-                .HardamardProduct(errors)
+                .HadamardProduct(errors)
                 .DotProduct(Inputs.Transpose());
 
 

@@ -181,7 +181,7 @@ namespace ML_Library
         /// Multiplies this matrix by x elementwise.
         /// </summary>
         /// <param name="x">The x.</param>
-        public Matrix HardamardProduct(Matrix x)
+        public Matrix HadamardProduct(Matrix x)
         {
             if (x.Rows != Rows || x.Cols != Cols)
             {
