@@ -34,10 +34,15 @@ After only 500 iterations, it's obvious that the algorithm performed better over
 When testing on the MNIST problem, this was the result achieved by the network.
 
 Correct: 9582
+
 Incorrect: 418
+
 Success Rate:95.82%
+
 Network Architecture: 784 - 800 - 10
+
 Learning Rates: 0.01 - 0.1
+
 Activation Methods: ReLU – Arctan
 
 If the network was randomly guessing - it would have produced a result of ~10% accuracy. My implementation of the neural network produced a success rate of 95.82%. A greater accuracy could have been achieved through more rigorous training - however I'm limited with my testing capacity on my local machine.
