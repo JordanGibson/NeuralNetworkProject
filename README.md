@@ -26,11 +26,6 @@ If not, continue to train the network until there is. This can occur because the
 
 # Testing Results
 
-When testing the XOR problem, there was a significant decrease in the loss function, as shown below, showing that learning is occurring.
-
-![ image](https://drive.google.com/uc?export=view&id=1_eTtAxZcWk_wTubd7VLoBccsWLrZ5sL5)
-
-After only 500 iterations, it's obvious that the algorithm performed better over time.
 When testing on the MNIST problem, this was the result achieved by the network.
 
 Correct: 9582
